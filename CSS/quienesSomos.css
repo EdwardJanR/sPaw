@@ -81,6 +81,121 @@
     text-align: center;
 }
 
+/* Comienzan estilos Nuestro equipo */
+
+.h1.fredoka-semi-bold, .subtittle {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 60px;
+    color: #2AB7AE;
+}
+
+.subtittle {
+    font-weight: 500;
+    font-size: 30px;
+    color:#1E2A2A;
+}
+
+.p-text {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #1E2A2A;
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    max-width: 350px;
+    height: 350px;
+    perspective: 1000px;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    border:0.01px dotted #2AB7AE;
+    box-shadow: 2px 4px 8px 0 rgba(42, 183, 174, 0.5);
+    border-radius: 20px;
+}
+
+.flip-card:hover {
+    transform: scale(1.2);
+    z-index: 20;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.flip-card-front {
+    background-color: #d8fffc;
+    color: #333;
+}
+
+.flip-card-back {
+    background-color: #2AB7AE;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.flip-card:hover .flip-card-front {
+    background: rgba(224, 243, 242, 0.7);
+    border: 1px solid rgba(240, 142, 58, 0.3);
+    box-shadow: 0 8px 32px rgba(240, 142, 58, 0.15);
+}
+
+.flip-card:hover .flip-card-back {
+    background: rgba(42, 183, 174, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #2AB7AE;
+}
+
+.social-icons {
+    margin-top: 20px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #f08E3A;
+}
+
+/* Aqui terminan estilos Nuestro equipo */
 
 
 
