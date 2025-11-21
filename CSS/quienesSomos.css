@@ -81,87 +81,6 @@
     text-align: center;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .list-style {
     width: 15px; 
     padding-bottom: 5px;
@@ -172,5 +91,71 @@
     list-style: none;
 }
 
+.footer-custom {
+    background: linear-gradient(48deg, rgba(230, 250, 249, 1) 0%, rgba(42, 183, 174, 1) 100%);
+    color: #1E2A2A;/
+}
 
 
+
+.footer-logo {
+    width: 140px;
+}
+
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.info-icon {
+    font-size: 22px;
+    color: #1E2A2A;
+}
+
+
+.info-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: #1E2A2A;
+}
+
+
+.info-text {
+    margin: 0;
+    font-size: 14px;
+    color: #1E2A2A;
+}
+
+
+.footer-copy {
+    background-color: #1E2A2A;
+    color: #fff;
+    font-size: 14px;
+}
+
+.icon-grid {
+     position: absolute;          
+    right: 120px;                                    
+    transform: translateY(-105%);
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+      
+
+
+@media (max-width: 576px) {
+    .info-item {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .footer-logo {
+        margin-bottom: 20px;
+    }
+}
