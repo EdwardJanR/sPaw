@@ -110,3 +110,130 @@
         margin-bottom: 20px;
     }
 }
+
+
+/* --- Estilos generales --- */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+}
+
+/* Contenedor principal */
+.container {
+    width: 90%;
+    margin: auto;
+}
+
+.mt-5 {
+    margin-top: 40px;
+}
+
+/* Título principal */
+.contenedor-titulo {
+    background-color: #ff5c00;    
+    padding: 20px;                
+    border-radius: 8px;          
+    text-align: center;           
+    margin-bottom: 20px;          
+}
+.titulo {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: white;                               
+    margin: 0;                    
+}
+
+/* --- Diseño de columnas --- */
+.cont-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.col-conct {
+    flex: 1;
+    min-width: 300px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* --- Información de contacto --- */
+.contacto p {
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+/* --- Formulario --- */
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input {
+    width: 95%;
+    padding: 10px 10px;
+    margin-top: 5px;
+    margin-right: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Botón de formulario */
+.btn-contact {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #ff5c00;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-contact:hover {
+    background-color: #2c2c28;
+}
+
+.imagen-contacto{
+    border-radius: 15px;
+    width: 100%;
+    padding: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 10px 0;
+    font-size: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    font-size: 28px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    text-decoration: none;
+}
+
+.whatsapp-btn:hover {
+    transform: scale(1.1);
+    background: #20ba57;
+}
