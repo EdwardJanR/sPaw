@@ -96,13 +96,13 @@
 .h1.fredoka-semi-bold, .subtittle {
     font-family: 'Fredoka', sans-serif;
     font-weight: 600;
-    font-size: 60px;
+    font-size: 40px;
     color: #2AB7AE;
 }
 
 .subtittle {
     font-weight: 500;
-    font-size: 30px;
+    font-size: 20px;
     color:#1E2A2A;
 }
 
@@ -136,7 +136,7 @@
 }
 
 .flip-card:hover {
-    transform: scale(1.2);
+    transform: scale(1.0);
     z-index: 20;
 }
 
