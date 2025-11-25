@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Contáctenos</title>
 </head>
 
@@ -49,6 +50,60 @@
         </nav>
     </header>
     <main>
+
+    <section class="contacto">
+        <div class="container  mt-5">
+            <h2 class="text-center mb-5 section-title" id="Contacto">Contáctanos</h2>
+        </div>
+        <div class="container mt-5 contacto">
+            <div class="row cont-row">          
+                <div class="col-md-6 col-sm-12">
+                    <!-- Formulario de ayuda-->
+                    <h3 class="subtitulo">¿Necesitas ayuda?</h3>
+                    
+                    <form class="row g-3 validacion" novalidate>
+                        <div class="col-md-4">
+                            <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                            <label for="nombre" class="form-label">Nombre</label>
+                        </div>  
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating mb-3">
+                            <input type="apellido" class="form-control" id="apellido" name="apellido" placeholder="Tu apellido" required>
+                            <label for="apellido" class="form-label">Apellido</label>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating mb-3">
+                            <div class="form-floating mb-3">
+                            <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Tu teléfono" required>
+                           <label for="telefono" class="form-label">Teléfono</label>                         
+                        </div>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating mb-">                           
+                            <input type="email" class="form-control" id="e-mail" name="e-mail" placeholder="Tu e-mail" required>
+                            <label for="e-mail" class="form-label">e-mail</label>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating mb-3">
+                            <textarea class="form-control" name="mensaje" placeholder="Tu mensaje" required></textarea>    
+                            <label for="mensaje" class="form-label">Mensaje</label>                                                 
+                        </div>  
+                        </div>
+                    <div>
+                        <button type="submit" class="btn-contact">Enviar</button>
+                    </div>  
+                    <div class="imagen-contacto">
+                        <img src="../IMG/spaw10.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     </main>
     <footer class="footer-custom py-5">
