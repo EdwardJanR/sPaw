@@ -247,7 +247,7 @@
 }
 
 .icon-grid {
-     position: absolute;          
+    position: absolute;          
     right: 120px;                                    
     transform: translateY(-105%);
     display: flex;
