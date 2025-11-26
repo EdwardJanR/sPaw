@@ -1,271 +1,294 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .menu {
-    background: linear-gradient(48deg, rgba(230, 250, 249, 1) 0%, rgba(42, 183, 174, 1) 100%);
-    padding: 0.5rem 2rem;
+  background: linear-gradient(
+    48deg,
+    rgba(230, 250, 249, 1) 0%,
+    rgba(42, 183, 174, 1) 100%
+  );
+  padding: 0.5rem 2rem;
 }
 
 .logo {
-    width: 125px;
+  width: 125px;
 }
 
 .nav-link {
-    font-family: "Fredoka", sans-serif;
-    font-weight: 700 !important;
-    color: #1E2A2A !important;
-    font-size: 1.5rem;
-    padding: 10px 18px !important;
-    border-radius: 10px;
-    transition: 0.3s;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 700 !important;
+  color: #1e2a2a !important;
+  font-size: 1.5rem;
+  padding: 10px 18px !important;
+  border-radius: 10px;
+  transition: 0.3s;
 }
 
 .nav-link:hover {
-    background: #e6faf94d;
+  background: #e6faf94d;
 }
 
 .nav-link.active {
-    background: white !important;
-    color: #2AB7AE !important;
-    border-radius: 10px;
+  background: white !important;
+  color: #2ab7ae !important;
+  border-radius: 10px;
 }
 
 .boton-login {
-    background: #F08E3A;
-    color: #1E2A2A;
-    font-weight: 700;
-    padding: 10px 25px;
-    border-radius: 40px;
-    font-size: 1.1rem;
-    transition: 0.3s;
-    border: none;
+  background: #f08e3a;
+  color: #1e2a2a;
+  font-weight: 700;
+  padding: 10px 25px;
+  border-radius: 40px;
+  font-size: 1.1rem;
+  transition: 0.3s;
+  border: none;
 }
 
 .boton-login:hover {
-    background: #e97502;
-    color: white;
+  background: #e97502;
+  color: white;
 }
 
 /* Estilos para misión y visión */
 .titulo {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 60px;
-    font-weight: 600;
-    color: #2AB7AE;
-    text-align: center;
-    margin-top: 30px;
+  font-family: "Fredoka", sans-serif;
+  font-size: 60px;
+  font-weight: 600;
+  color: #2ab7ae;
+  text-align: center;
+  margin-top: 30px;
 }
 
 #principal {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .parrafo {
-    font-family: 'Nunito', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    color: #1E2A2A;
-    text-align: center;
-    margin-top: 30px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #1e2a2a;
+  text-align: center;
+  margin-top: 30px;
 }
 
 .subtitulo {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 40px;
-    font-weight: 500;    
-    color: #2AB7AE;
-    text-align: center;
+  font-family: "Fredoka", sans-serif;
+  font-size: 40px;
+  font-weight: 500;
+  color: #2ab7ae;
+  text-align: center;
 }
 
+.imagen {
+  text-align: center;
+}
 
+#valor {
+  margin-top: 0;
+}
 
 .list-style {
-    width: 15px; 
-    padding-bottom: 5px;
-    padding-right: 2px
+  width: 15px;
+  padding-bottom: 5px;
+  padding-right: 2px;
 }
 
 .lista-valores {
-    list-style: none;
+  list-style: none;
 }
 
 /* Comienzan estilos Nuestro equipo */
 
-.h1.fredoka-semi-bold, .subtittle {
-    font-family: 'Fredoka', sans-serif;
-    font-weight: 600;
-    font-size: 40px;
-    color: #2AB7AE;
+.h1.fredoka-semi-bold,
+.subtittle {
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  font-size: 60px;
+  color: #2ab7ae;
 }
 
 .subtittle {
-    font-weight: 500;
-    font-size: 20px;
-    color:#1E2A2A;
+  font-weight: 500;
+  font-size: 30px;
+  color: #1e2a2a;
 }
 
 .p-text {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    color: #1E2A2A;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #1e2a2a;
 }
 
 .flip-card {
-    background-color: transparent;
-    width: 100%;
-    max-width: 350px;
-    height: 350px;
-    perspective: 1000px;
-    margin: 0 auto;
-    transition: transform 0.3s ease;
+  background-color: transparent;
+  width: 100%;
+  max-width: 350px;
+  height: 350px;
+  perspective: 1000px;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
 }
 
 .flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 1s;
-    transform-style: preserve-3d;
-    border:0.01px dotted #2AB7AE;
-    box-shadow: 2px 4px 8px 0 rgba(42, 183, 174, 0.5);
-    border-radius: 20px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  border: 0.01px dotted #2ab7ae;
+  box-shadow: 2px 4px 8px 0 rgba(42, 183, 174, 0.5);
+  border-radius: 20px;
 }
 
 .flip-card:hover {
-    transform: scale(1.0);
-    z-index: 20;
+  transform: scale(1.2);
+  z-index: 20;
 }
 
 .flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
-.flip-card-front, .flip-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 .flip-card-front {
-    background-color: #d8fffc;
-    color: #333;
+  background-color: #d8fffc;
+  color: #333;
 }
 
 .flip-card-back {
-    background-color: #2AB7AE;
-    color: white;
-    transform: rotateY(180deg);
+  background-color: #2ab7ae;
+  color: white;
+  transform: rotateY(180deg);
 }
 
 .flip-card:hover .flip-card-front {
-    background: rgba(224, 243, 242, 0.7);
-    border: 1px solid rgba(240, 142, 58, 0.3);
-    box-shadow: 0 8px 32px rgba(240, 142, 58, 0.15);
+  background: rgba(224, 243, 242, 0.7);
+  border: 1px solid rgba(240, 142, 58, 0.3);
+  box-shadow: 0 8px 32px rgba(240, 142, 58, 0.15);
 }
 
 .flip-card:hover .flip-card-back {
-    background: rgba(42, 183, 174, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+  background: rgba(42, 183, 174, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
 }
 
 .profile-img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 15px;
-    border: 3px solid #2AB7AE;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 3px solid #2ab7ae;
 }
 
 .social-icons {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .social-icons a {
-    color: white;
-    font-size: 1.5rem;
-    margin: 0 10px;
-    transition: color 0.3s;
+  color: white;
+  font-size: 1.5rem;
+  margin: 0 10px;
+  transition: color 0.3s;
 }
 
 .social-icons a:hover {
-    color: #f08E3A;
+  color: #f08e3a;
 }
 
 /* Aqui terminan estilos Nuestro equipo */
 
 .footer-custom {
-    background: linear-gradient(48deg, rgba(230, 250, 249, 1) 0%, rgba(42, 183, 174, 1) 100%);
-    color: #1E2A2A;/
+  background: linear-gradient(
+    48deg,
+    rgba(230, 250, 249, 1) 0%,
+    rgba(42, 183, 174, 1) 100%
+  );
+  color: #1e2a2a;
 }
 
 .footer-logo {
-    width: 140px;
+  width: 140px;
 }
 
 .info-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .info-icon {
-    font-size: 22px;
-    color: #1E2A2A;
+  font-size: 22px;
+  color: #1e2a2a;
 }
 
 .info-title {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 2px;
-    color: #1E2A2A;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: #1e2a2a;
 }
 
 .info-text {
-    margin: 0;
-    font-size: 14px;
-    color: #1E2A2A;
+  margin: 0;
+  font-size: 14px;
+  color: #1e2a2a;
 }
 
 .footer-copy {
-    background-color: #1E2A2A;
-    color: #fff;
-    font-size: 14px;
+  background-color: #1e2a2a;
+  color: #fff;
+  font-size: 14px;
 }
 
-.icon-grid {
-     position: absolute;          
-    right: 120px;                                    
-    transform: translateY(-105%);
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
+.social-icons {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  text-decoration: none;
+  color: #1e2a2a;
+  margin-top: 0;
+  cursor: pointer;
 }
-
 
 @media (max-width: 576px) {
-    .info-item {
-        justify-content: center;
-        text-align: center;
-    }
+  .info-item {
+    justify-content: center;
+    text-align: center;
+  }
+  .footer-logo {
+    margin-bottom: 20px;
+  }
+}
 
-    .footer-logo {
-        margin-bottom: 20px;
-    }
+@media (max-width: 767px) {
+    .social-icons {
+    flex-direction: row;
+    gap: 16px;
+  }
 }
