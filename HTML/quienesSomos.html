@@ -53,38 +53,38 @@
             <div class="container md-5">
                 <h1 class="titulo">¿Quiénes somos?</h1>
             </div>
-            <div class="container md-5 parrafo">
+            <div class="container md-5 parrafo" id="principal">
                 Un grupo de profesionales que cree en el equilibrio y la armonía entre todos los seres vivos,
                 enfocándonos en el cuidado y bienestar de nuestras mascotas.
             </div>
             <div class="container mt-5">
-                <div class="row">
-                    <div class="col-md-4 col-sm-6 col-12">
+                <div class="row mx-auto">
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
                         <!-- Content para información de la misión -->
                         <h3 class="subtitulo">Misión</h3>
                         <p class="parrafo">Brindar una solución tecnológica innovadora y confiable que mejore la
                             experiencia de las reservas y optimice los tiempos de gestión para negocios y clientes.</p>
                     </div>
-                    <div class="col-md-4 col-sm-6 col-12 imagen">
+                    <div class="col-12 col-md-6 col-lg-4 imagen my-2">
                         <!-- Content para imagen corporativa -->
-                        <img src="../IMG/logo-03.png" width="300" height="300">
+                        <img src="../IMG/spaw14.png" width="250" height="250">
                     </div>
-                    <div class="col-md-4 col-sm-12 col-12">
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
                         <!-- Content para información de la visión-->
                         <h3 class="subtitulo">Visión</h3>
                         <p class="parrafo">Optimizar la gestión de reservas con soluciones tecnológicas intuitivas y
                             eficientes, mejorando su productividad y rentabilidad.</p>
                     </div>
-                    <div class="col-md-4 col-sm-6 col-12 imagen">
+                    <div class="col-12 col-md-6 col-lg-4 imagen my-2">
                         <!-- Content para imagen corporativa -->
-                        <img src="../IMG/spaw7.png" width="300" height="300">
+                        <img src="../IMG/spaw7.png" width="250" height="250">
                     </div>
-                    <div class="col-md-4 col-sm-12 col-12">
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
                         <!-- Content para información de valores -->
                         <div class="valores text-center">
                             <h3 class="subtitulo">Valores</h3>
                             <p class="parrafo">Creemos en el respeto por todo y por todos.</p>
-                            <p class="parrafo">Los valores que nos orientan:</p>
+                            <p class="parrafo" id="valor">Los valores que nos orientan:</p>
                             <ul class="lista-valores p-0">
                                 <li><img src="/IMG/spaw0.png" class="list-style" alt=""> Honestidad</li>
                                 <li><img src="/IMG/spaw0.png" class="list-style" alt=""> Responsabilidad</li>
@@ -95,9 +95,9 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 col-12 imagen">
+                    <div class="col-12 col-md-6 col-lg-4 imagen my-2">
                         <!-- Content para imagen corporativa -->
-                        <img src="/IMG/spaw8.png" width="300" height="300">
+                        <img src="/IMG/spaw8.png" width="250" height="250">
                     </div>
                 </div>
             </div>
@@ -218,31 +218,19 @@
                 <div class="col-md-4 d-flex justify-content-center justify-content-md-start mb-4 mb-md-0">
                     <img src="../IMG/logo-03.png" class="footer-logo" alt="Logo sPaw">
                 </div>
-                <!-- Información -->
+                <!-- Información  -->
                 <div class="col-md-8">
-                    <div class="row g-4">
+                    <div class="row g-4 align-items-start">
                         <!-- Correo -->
-                        <div class="col-12 col-md-6">
-                            <div class="info-item d-flex gap-3">
+                        <div class="col-12 col-md-5">
+                            <div class="info-item d-flex gap-3 mb-3">
                                 <i class="bi bi-envelope-fill info-icon"></i>
                                 <div>
                                     <h6 class="info-title">Correo</h6>
                                     <p class="info-text mb-0">sPaw@gmail.com</p>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Horarios -->
-                        <div class="col-12 col-md-6">
-                            <div class="info-item d-flex gap-3">
-                                <i class="bi bi-clock-fill info-icon"></i>
-                                <div>
-                                    <h6 class="info-title">Horarios</h6>
-                                    <p class="info-text mb-0">Lun–Dom: 9:30AM – 6:30PM</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Teléfono -->
-                        <div class="col-12 col-md-6">
+                            <!-- Teléfono -->
                             <div class="info-item d-flex gap-3">
                                 <i class="bi bi-telephone-fill info-icon"></i>
                                 <div>
@@ -251,8 +239,16 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Dirección -->
-                        <div class="col-12 col-md-6">
+                        <!-- Horarios -->
+                        <div class="col-12 col-md-5">
+                            <div class="info-item d-flex gap-3 mb-3">
+                                <i class="bi bi-clock-fill info-icon"></i>
+                                <div>
+                                    <h6 class="info-title">Horarios</h6>
+                                    <p class="info-text mb-0">Lun-Dom: 9:30AM - 6:30PM</p>
+                                </div>
+                            </div>
+                            <!-- Dirección -->
                             <div class="info-item d-flex gap-3">
                                 <i class="bi bi-geo-alt-fill info-icon"></i>
                                 <div>
@@ -261,17 +257,17 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!-- Redes -->
+                        <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-end">
+                            <div class="social-icons d-flex gap-3">
+                                <i class="bi bi-whatsapp"></i>
+                                <i class="bi bi-instagram"></i>
+                                <i class="bi bi-facebook"></i>
+                                <i class="bi bi-envelope-fill"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-6 d-flex justify-content-center">
-            <div class="icon-grid">
-                <i class="bi bi-whatsapp"></i>
-                <i class="bi bi-instagram"></i>
-                <i class="bi bi-facebook"></i>
-                <i class="bi bi-envelope-fill"></i>
             </div>
         </div>
     </footer>
