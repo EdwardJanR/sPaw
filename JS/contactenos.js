@@ -10,12 +10,12 @@ function validaciones() {
 
 
     if (nombre.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
-        mostrarVal('nombre','El nombre debe ser álfabetico y mínimo de 2 caracteres');
+        mostrarVal('nombre','El nombre debe ser alfabético y mínimo dos caracteres');
         return false;
     }
 
     if (apellido.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(apellido)) {
-        mostrarVal('apellido','El nombre debe ser álfabetico y mínimo de 2 caracteres');
+        mostrarVal('apellido','El nombre debe ser alfabético y mínimo dos caracteres');
         return false;
     }
 
