@@ -36,8 +36,11 @@ function validaciones() {
         return false;
     }
 
+
     alert('Formulario enviado correctamente');
+    document.querySelector('form').submit();
     return true;
+
 }
 
 function mostrarVal(f, m) {
