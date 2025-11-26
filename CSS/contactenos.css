@@ -91,7 +91,7 @@
 }
 
 .icon-grid {
-     position: absolute;          
+    position: absolute;          
     right: 120px;                                    
     transform: translateY(-105%);
     display: flex;
@@ -110,3 +110,29 @@
         margin-bottom: 20px;
     }
 }
+
+/* estilos formulario-edward */
+
+.contacto{
+    box-shadow: 2px 2px 20px rgba(240, 148, 58, 0.3);
+}
+
+.form-floating .btn{
+    background-color:#F08E3A;
+}
+
+.img-contacto {
+    border-radius: 10px;
+    height: 100%;
+    object-fit: contain;
+}
+
+.form-floating#mensaje-form > .form-control {
+    height: 150px !important;
+    min-height: 150px !important;
+}
+
+.w-md-45 {
+    width: 45% !important;
+}
+
