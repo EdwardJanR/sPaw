@@ -58,7 +58,7 @@
                 <div class="container d-flex mt-3 justify-content-around flex-column flex-md-row">
                     <div class="d-flex flex-column w-100 w-md-50 p-md-3 justify-content-around gap-1 order-2 order-md-1">
                         <h3 class="subtitulo text-center">¿Necesitas ayuda?</h3>
-                        <form class="container-form w-100 d-flex flex-column justify-content-between gap-3" novalidate action="https://formspree.io/f/xpwebqvb" method="POST">
+                        <form class="container-form w-100 d-flex flex-column justify-content-between gap-3" novalidate action="https://formspree.io/f/xpwebqvb" method="POST" id="formContactenos">
                             <div class="form-floating" id="nombre-form">
                                 <input type="text" class="form-control" id="nombre" name="nombre" placeholder="ej: Natalia">
                                 <label for="nombre">Nombre</label>
@@ -83,6 +83,8 @@
                                 <button type="button" onclick="validaciones()" class="btn btn-lg rounded-pill">Enviar</button>
                             </div>
                         </form>
+                        <!-- Contenedor para alertas -->
+                        <div id="alertContainer"></div>
                     </div>
                     <div class="imagen-contacto w-100 w-md-50 p-md-3 order-1">
                         <img class="img-contacto w-100" src="../IMG/spaw10.png" alt="">

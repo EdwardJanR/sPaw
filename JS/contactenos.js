@@ -37,8 +37,16 @@ function validaciones() {
     }
 
 
-    alert('Formulario enviado correctamente');
-    document.querySelector('form').submit();
+    //alert('Formulario enviado correctamente');
+    // Si todas las validaciones pasan
+    mostrarAlerta('success', '<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...');
+            
+    // Enviar el formulario después de 1.5 segundos
+    setTimeout(() => {
+        document.getElementById('formContactenos').submit();
+    }, 1500);    
+    
+    //document.querySelector('form').submit();
     return true;
 
 }
@@ -60,4 +68,25 @@ function limpiarVal() {
 
     document.querySelectorAll('.error-message').forEach(error => error.remove());
     document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
+}
+
+function mostrarAlerta(tipo, mensaje) {
+    const alertContainer = document.getElementById('alertContainer');
+            
+    const alerta = document.createElement('div');
+    alerta.className = `alert alert-${tipo} alert-dismissible fade show`;
+    alerta.role = 'alert';
+    alerta.innerHTML = `
+        ${mensaje}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+            
+    alertContainer.innerHTML = '';
+    alertContainer.appendChild(alerta);
+            
+    // Auto-cerrar después de 5 segundos
+    setTimeout(() => {
+        alerta.classList.remove('show');
+        setTimeout(() => alerta.remove(), 150);
+    }, 5000);
 }
