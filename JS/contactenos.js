@@ -9,13 +9,13 @@ function validaciones() {
     const mensaje = document.getElementById('mensaje').value.trim();
 
 
-    if (nombre.length < 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
-        mostrarVal('nombre','El nombre debe tener al menos 2 caracteres y sin numeros');
+    if (nombre.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
+        mostrarVal('nombre','El nombre debe ser álfabetico y mínimo de 2 caracteres');
         return false;
     }
 
-    if (apellido.length < 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(apellido)) {
-        mostrarVal('apellido','El apellido debe tener al menos 2 caracteres sin numeros');
+    if (apellido.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(apellido)) {
+        mostrarVal('apellido','El nombre debe ser álfabetico y mínimo de 2 caracteres');
         return false;
     }
 
@@ -27,7 +27,7 @@ function validaciones() {
     }
 
     if (telefono.length < 10 || isNaN(telefono)) {
-        mostrarVal('telefono','El teléfono debe tener al menos 10 dígitos');
+        mostrarVal('telefono','El teléfono debe contener 10 dígitos');
         return false;
     }
 
