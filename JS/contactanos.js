@@ -26,8 +26,8 @@ function validaciones() {
         return false;
     }
 
-    if (telefono.length < 7 || isNaN(telefono)) {
-        mostrarVal('telefono','El teléfono debe tener al menos 7 dígitos');
+    if (telefono.length < 10 || isNaN(telefono)) {
+        mostrarVal('telefono','El teléfono debe tener al menos 10 dígitos');
         return false;
     }
 
