@@ -37,18 +37,15 @@ function validaciones() {
     }
 
 
-    //alert('Formulario enviado correctamente');
     // Si todas las validaciones pasan
     mostrarAlerta('success', '<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...');
             
     // Enviar el formulario después de 1.5 segundos
     setTimeout(() => {
         document.getElementById('formContactenos').submit();
-    }, 1500);    
-    
-    //document.querySelector('form').submit();
-    return true;
+    }, 1500);        
 
+    return true;
 }
 
 function mostrarVal(f, m) {
