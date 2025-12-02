@@ -284,6 +284,10 @@
   .footer-logo {
     margin-bottom: 20px;
   }
+
+  .titulo {
+    font-size: 50px;
+  }
 }
 
 @media (max-width: 767px) {
