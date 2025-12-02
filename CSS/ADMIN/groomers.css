@@ -55,6 +55,11 @@
   color: white;
 }
 
+.contacto{
+    box-shadow: 2px 2px 20px rgba(240, 148, 58, 0.3);
+    background-color: #E6FAF9;
+}
+
 .titulo {
   font-family: "Fredoka", sans-serif;
   font-size: 60px;
@@ -79,6 +84,7 @@
   color: #2AB7AE !important;
 }
 
+
 .subtitulo {
   font-family: "Fredoka", sans-serif;
   font-size: 40px;
@@ -87,6 +93,9 @@
   text-align: center;
 }
 
+.entrada {
+    background-color: #2AB7AE !important;
+}
 
 .footer-custom {
   background: linear-gradient(
