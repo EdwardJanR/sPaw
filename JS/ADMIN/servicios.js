@@ -19,5 +19,33 @@ function guardarInformacion() {
         duracionGrande: duracionGrande
     };
 
-    console.log(JSON.stringify(infoServicios));
+    let listaServicios = JSON.parse(localStorage.getItem("listaServicios")) || [];
+    listaServicios.push(infoServicios);
+    localStorage.setItem("listaServicios", JSON.stringify(listaServicios));
+
+    actualizarServicios();
 }
+
+function actualizarServicios() {
+    const servicios = JSON.parse(localStorage.getItem("listaServicios")) || [];
+    const contenedor = document.getElementById("servicios");
+
+    contenedor.innerHTML = "";
+
+    servicios.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "card p-2";
+        div.style.width = "250px";
+        div.innerHTML = `
+            <h3>${p.nombre}</h3>
+            <h4>${p.descripcion}</h4>
+            <h5>Precios</h5>
+            <p>Pequeño $${p.precioPequeno}</p>
+            <p>Mediano $${p.precioMediano}</p>
+            <p>Grande $${p.precioGrande}</p>
+        `;
+        contenedor.appendChild(div);
+    });
+}
+
+actualizarServicios();
