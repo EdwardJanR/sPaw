@@ -55,6 +55,77 @@
   color: white;
 }
 
+.footer-custom {
+  background: linear-gradient(
+    48deg,
+    rgba(230, 250, 249, 1) 0%,
+    rgba(42, 183, 174, 1) 100%
+  );
+  color: #1e2a2a;
+}
+
+.footer-logo {
+  width: 140px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-icon {
+  font-size: 22px;
+  color: #1e2a2a;
+}
+
+.info-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: #1e2a2a;
+}
+
+.info-text {
+  margin: 0;
+  font-size: 14px;
+  color: #1e2a2a;
+}
+
+.footer-copy {
+  background-color: #1e2a2a;
+  color: #fff;
+  font-size: 14px;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  text-decoration: none;
+  color: #1e2a2a;
+  margin-top: 0;
+  cursor: pointer;
+}
+
+@media (max-width: 576px) {
+  .info-item {
+    justify-content: center;
+    text-align: center;
+  }
+  .footer-logo {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+    .social-icons {
+    flex-direction: row;
+    gap: 16px;
+  }
+}
+
 .btn-servicios{
   background: #f08e3a;
   color: #1e2a2a;
@@ -149,75 +220,4 @@
   height: 15px;
   padding-bottom: 5px;
   padding-right: 2px;
-}
-
-.footer-custom {
-  background: linear-gradient(
-    48deg,
-    rgba(230, 250, 249, 1) 0%,
-    rgba(42, 183, 174, 1) 100%
-  );
-  color: #1e2a2a;
-}
-
-.footer-logo {
-  width: 140px;
-}
-
-.info-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.info-icon {
-  font-size: 22px;
-  color: #1e2a2a;
-}
-
-.info-title {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 2px;
-  color: #1e2a2a;
-}
-
-.info-text {
-  margin: 0;
-  font-size: 14px;
-  color: #1e2a2a;
-}
-
-.footer-copy {
-  background-color: #1e2a2a;
-  color: #fff;
-  font-size: 14px;
-}
-
-.social-icons {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 12px;
-  text-decoration: none;
-  color: #1e2a2a;
-  margin-top: 0;
-  cursor: pointer;
-}
-
-@media (max-width: 576px) {
-  .info-item {
-    justify-content: center;
-    text-align: center;
-  }
-  .footer-logo {
-    margin-bottom: 20px;
-  }
-}
-
-@media (max-width: 767px) {
-    .social-icons {
-    flex-direction: row;
-    gap: 16px;
-  }
 }
