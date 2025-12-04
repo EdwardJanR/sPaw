@@ -1,6 +1,7 @@
 function guardarInformacion() {
     let nombreServicio = document.getElementById("nombreServicio").value;
     let descripcionServicio = document.getElementById("descripcionServicio").value;
+    let imgServicio = "../../IMG/SERVICIOS/servicio_basico3.png"
     let precioPequeno = document.getElementById("precioPequeno").value;
     let precioMediano = document.getElementById("precioMediano").value;
     let precioGrande = document.getElementById("precioGrande").value;
@@ -28,21 +29,30 @@ function guardarInformacion() {
 
 function actualizarServicios() {
     const servicios = JSON.parse(localStorage.getItem("listaServicios")) || [];
-    const contenedor = document.getElementById("servicios");
+    const contenedor = document.getElementById("servicios_Basicos");
 
     contenedor.innerHTML = "";
 
     servicios.forEach(p => {
         const div = document.createElement("div");
-        div.className = "card p-2";
-        div.style.width = "250px";
+        div.className = "card-servicio-basico col-12 col-xl-5 d-flex rounded-5 justify-content-center my-3 p-4";
         div.innerHTML = `
-            <h3>${p.nombre}</h3>
-            <h4>${p.descripcion}</h4>
-            <h5>Precios</h5>
-            <p>Pequeño $${p.precioPequeno}</p>
-            <p>Mediano $${p.precioMediano}</p>
-            <p>Grande $${p.precioGrande}</p>
+
+                    <div class="d-flex flex-column">
+                        <h3 class="subtittle mb-2">${p.nombre}</h3>
+                        <p>${p.descripcion}</p>
+                        <ul class="lista-valores p-0">
+                            Precio:
+                            <li><img src="/IMG/spaw0.png" class="list-style" alt="">${p.precioPequeno}</li>
+                            <li><img src="/IMG/spaw0.png" class="list-style" alt="">${p.precioMediano}</li>
+                            <li><img src="/IMG/spaw0.png" class="list-style" alt="">${p.precioGrande}</li>
+                        </ul>
+                    </div>
+                    <div class="d-flex flex-column  align-items-center justify-content-evenly">
+                        <button class="btn-servicios">¡Agenda ahora!</button>
+                        <img src="../IMG/SERVICIOS/servicio_basico.png" class="img-básicos" alt="Imagen perro">
+                    </div>
+
         `;
         contenedor.appendChild(div);
     });
