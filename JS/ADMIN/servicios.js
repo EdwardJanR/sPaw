@@ -24,6 +24,14 @@ function guardarInformacion() {
     listaServicios.push(infoServicios);
     localStorage.setItem("listaServicios", JSON.stringify(listaServicios));
 
+    //Aleta para el usuario
+    mostrarAlerta('success', '<strong>¡Éxito!</strong> La información del servicio ha sido ingresada');
+            
+    // Enviar el formulario después de 1.5 segundos
+    setTimeout(() => {
+        document.getElementById('formServicios').submit();
+    }, 1500);        
+
     actualizarServicios();
 }
 
@@ -56,6 +64,27 @@ function actualizarServicios() {
         `;
         contenedor.appendChild(div);
     });
+}
+
+function mostrarAlerta(tipo, mensaje) {
+    const alertContainer = document.getElementById('alertContainer');
+            
+    const alerta = document.createElement('div');
+    alerta.className = `alert alert-${tipo} alert-dismissible fade show`;
+    alerta.role = 'alert';
+    alerta.innerHTML = `
+        ${mensaje}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+            
+    alertContainer.innerHTML = '';
+    alertContainer.appendChild(alerta);
+            
+    // Auto-cerrar después de 5 segundos
+    setTimeout(() => {
+        alerta.classList.remove('show');
+        setTimeout(() => alerta.remove(), 150);
+    }, 5000);
 }
 
 actualizarServicios();
