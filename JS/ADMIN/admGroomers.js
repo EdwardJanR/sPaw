@@ -1,38 +1,29 @@
 function guardarInformacion() {
-    let nombreServicio = document.getElementById("nombreServicio").value;
-    let descripcionServicio = document.getElementById("descripcionServicio").value;
-    let imgServicio = "../../IMG/SERVICIOS/servicio_basico3.png"
-    let precioPequeno = document.getElementById("precioPequeno").value;
-    let precioMediano = document.getElementById("precioMediano").value;
-    let precioGrande = document.getElementById("precioGrande").value;
-    let duracionPequeno = document.getElementById("duracionPequeno").value;
-    let duracionMediano = document.getElementById("duracionMediano").value;
-    let duracionGrande = document.getElementById("duracionGrande").value;
-
-    const infoServicios = {
-        nombre: nombreServicio,
-        descripcion: descripcionServicio,
-        precioPequeno: precioPequeno,
-        duracionPequeno: duracionPequeno,
-        precioMediano: precioMediano,
-        duracionMediano: duracionMediano,
-        precioGrande: precioGrande,
-        duracionGrande: duracionGrande
+    let nombreGroomer = document.getElementById("nombreGroomer").value;
+    let telefonoGroomer = document.getElementById("telefonoGroomer").value;
+    let correoGroomer = document.getElementById("correoGroomer").value;
+    
+    const infoGroomers = {
+        nombre: nombreGroomer,
+        telefono: telefonoGroomer,
+        correo: correoGroomer
     };
 
-    let listaServicios = JSON.parse(localStorage.getItem("listaServicios")) || [];
-    listaServicios.push(infoServicios);
-    localStorage.setItem("listaServicios", JSON.stringify(listaServicios));
+    //console.log(JSON.stringify(infoGroomer));
+
+    let listalistaGroomers = JSON.parse(localStorage.getItem("listaGroomers")) || [];
+    listaGroomers.push(infoGroomers);
+    localStorage.setItem("listaGroomers", JSON.stringify(listaGroomers));
 
     //Aleta para el usuario
     mostrarAlerta('Información enviada correctamente.', 'success');
             
-    actualizarServicios();
+    //actualizarGroomers();
 }
 
-function actualizarServicios() {
-    const servicios = JSON.parse(localStorage.getItem("listaServicios")) || [];
-    const contenedor = document.getElementById("servicios_Basicos");
+function actualizarGroomers() {
+    const groomers = JSON.parse(localStorage.getItem("listaGroomers")) || [];
+    const contenedor = document.getElementById("infoGroomers");
 
     contenedor.innerHTML = "";
 
@@ -82,5 +73,3 @@ function mostrarAlerta(mensaje, tipo = 'success') {
         setTimeout(() => alerta.remove(), 150);
     }, 5000);
 }
-
-actualizarServicios();
