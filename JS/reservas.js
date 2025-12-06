@@ -1,160 +1,12 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+flatpickr("#fecha", {
+    locale: "es",          
+    minDate: "today",      
+     maxDate: new Date().fp_incr(90),
+    dateFormat: "d-m-Y",  
+    altInput: true,       
+    altFormat: "F j, Y",  
+    allowInput: true
+});
 
 
 
@@ -203,7 +55,7 @@ function agendar() {
 
     contenedor.innerHTML = "";
 
-    reservas.forEach(p => {
+    reservas.items.forEach(p => {
         const div = document.createElement("div");
         div.className = "agendar d-flex rounded-5 justify-content-center m-3 p-4";
         div.innerHTML = `
@@ -222,3 +74,4 @@ function agendar() {
 }
 
 agendar();
+
