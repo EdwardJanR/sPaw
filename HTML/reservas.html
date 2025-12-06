@@ -55,8 +55,7 @@
                     <h2 class="text-center mb-2 section-title titulo" id="Contacto">Reserva ahora</h2>
                 </div>
                 <div class="container d-flex justify-content-around flex-column flex-md-row">
-                    <div
-                        class="d-flex flex-column w-100 w-md-50 p-md-3 justify-content-around gap-1 order-2 order-md-1">
+                    <div class="d-flex flex-column w-100 w-md-50 p-md-3 justify-content-around gap-1 order-2 order-md-1">
                         <h3 class="subtitulo text-center mt-3 mb-3">Vamos a reservar ahora la cita para tu mascota</h3>
 
                         <form class="form-reserva" action="/procesar-reserva" method="POST">
@@ -68,8 +67,9 @@
                             <br>
                             <div class="form-floating">
                                 <select class="form-select form-select-lg entrada" name="servicio" id="servicio"
-                                    required>
-                                    <option selected>Perro pequeño</option>
+                                    required placeholder="ej: Max">
+                                    <option selected></option>
+                                    <option>Perro mediano</option>
                                     <option>Perro mediano</option>
                                     <option>Perro grande</option>
                                 </select>
@@ -79,7 +79,8 @@
                             <div class="form-floating">
                                 <select class="form-select form-select-lg entrada" id="floating-select" name="servicio"
                                     id="servicio" required>
-                                    <option selected>Manuel Miranda</option>
+                                    <option selected></option>
+                                    <option>Manuel Miranda</option>
                                     <option>Jorge González</option>
                                     <option>Sergio Rincón</option>
                                     <option>Sandra López</option>
@@ -139,7 +140,9 @@
                 </div>
             </div>
         </section>
-        <div id="servicio-reservado"></div>
+        <div id="servicio-reservado" class="container row-cols-2 text-center">
+
+        </div>
     </main>
     <footer class="footer-custom py-5">
         <div class="container">

@@ -1,53 +1,12 @@
 flatpickr("#fecha", {
     locale: "es",          
     minDate: "today",      
-     maxDate: new Date().fp_incr(90),
+    maxDate: new Date().fp_incr(90),
     dateFormat: "d-m-Y",  
     altInput: true,       
     altFormat: "F j, Y",  
     allowInput: true
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function agendar() {
     const reservas = JSON.parse(localStorage.getItem("listaReservas")) || [];
@@ -57,9 +16,9 @@ function agendar() {
 
     reservas.items.forEach(p => {
         const div = document.createElement("div");
-        div.className = "agendar d-flex rounded-5 justify-content-center m-3 p-4";
+        div.className = "agendar col-12 col-lg rounded-4 justify-content-center m-3 p-5";
         div.innerHTML = `
-            <div class="d-flex flex-column">
+            <div class="">
                 <h2 class="subtitulo mb-2">${p.nombreServicio}</h2>
                 <p><b>Nombre de la mascota: </b>${p.nombreMascota}</p>
                 <p><b>Tamaño: </b>${p.tamanoMascota}</p>
