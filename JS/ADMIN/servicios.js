@@ -83,4 +83,8 @@ function mostrarAlerta(mensaje, tipo = 'success') {
     }, 5000);
 }
 
+<<<<<<< HEAD
 actualizarServicios();
+=======
+actualizarServicios();
+>>>>>>> victoria-localstorage
