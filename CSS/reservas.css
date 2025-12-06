@@ -6,6 +6,52 @@
   box-sizing: border-box;
 }
 
+.contacto{
+    box-shadow: 2px 2px 20px rgba(240, 148, 58, 0.3);
+    background-color: #E6FAF9;
+}
+
+.form-floating .boton-enviar{
+    background: #F08E3A;
+    color: #1E2A2A;
+    font-weight: 700;
+    padding: 10px 25px;
+    border-radius: 40px;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    border: none;
+}
+
+.form-floating .boton-enviar:hover {
+    background: #e97502;
+    color: white;
+}
+
+.img-contacto {
+    border-radius: 20px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover; 
+    display: block;
+}
+
+.form-floating#mensaje-form > .form-control {
+    height: 150px !important;
+    min-height: 150px !important;
+}
+
+.titulo {
+  margin-top: 20px;
+}
+
+.entrada {
+    background-color: #2AB7AE !important;
+}
+
+label, select, option {
+    color: white !important;
+}
+
 #servicio-reservado {
     display: flex;
     justify-content: center;
@@ -14,7 +60,7 @@
 
 .agendar {
     background-color: #E6FAF9;
-    width: 500px;
+    width: 600px;
 }
 
 .agendar a {

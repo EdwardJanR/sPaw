@@ -43,7 +43,7 @@
             </div>
         </nav>
     </header>   
-    <main class="d-flex align-items-center justify-content-center flex-grow-1">
+    <main class="d-flex flex-column align-items-center justify-content-center flex-grow-1">
         <section class="container justify-content-center flex-grow-1">
             <div class="contacto d-flex flex-column align-items-center my-3 p-3 rounded-2">
                 <div class="container">
@@ -59,16 +59,17 @@
                                 <input type="text" class="form-control entrada" id="mascota" name="mascota"
                                     placeholder="ej: Max">
                                     <label for="nombre">Escribe el nombre de tu mascota</label>
+                            </div>
                                     <br>
-                                    <select name="servicio" id="servicio" required>
-                                        <option value="" disabled selected>-- Selecciona el tamaño de tu mascota --</option>
+                                    <select class="form-select form-select-lg entrada" name="servicio" id="servicio" required>
+                                        <option disabled selected>-- Selecciona el tamaño de tu mascota --</option>
                                         <option>Perro pequeño</option>
                                         <option>Perro mediano</option>
                                         <option>Perro grande</option>
                                     </select>
-                                    <br><br>
-                                    <select name="servicio" id="servicio" required>
-                                        <option value="" disabled selected>-- Selecciona tu groomer favorito --</option>
+                                    <br>
+                                    <select class="form-select form-select-lg entrada" name="servicio" id="servicio" required>
+                                        <option disabled selected>-- Selecciona tu groomer favorito --</option>
                                         <option>Manuel Miranda</option>
                                         <option>Jorge González</option>
                                         <option>Sergio Rincón</option>
@@ -76,9 +77,9 @@
                                         <option>Adriana Ramírez</option>
                                         <option>Diana Ortega</option>
                                     </select>
-                                    <br><br>
-                                    <select name="servicio" id="servicio" required>
-                                        <option value="" disabled selected>-- Selecciona un servicio --</option>
+                                    <br>
+                                    <select class="form-select form-select-lg entrada" name="servicio" id="servicio" required>
+                                        <option disabled selected>-- Selecciona un servicio --</option>
                                         <option>Combo baño básico</option>
                                         <option>Combo grooming completo</option>
                                         <option>Combo antipulgas total</option>
@@ -90,29 +91,28 @@
                                         <option>Premium Combo cachorro (Primer Spaw)</option>
                                         <option>Premium Combo Spaw Día de relajación</option>
                                     </select>   
-                                    <br><br>
-                                    <select name="hora" id="hora">
-                                        <option value="" disabled selected>-- Selecciona una fecha --</option>
+                                    <br>
+                                    <select class="form-select form-select-lg entrada" name="hora" id="hora">
+                                        <option disabled selected>-- Selecciona una fecha --</option>
                                         <option>08/dic/2025</option>
                                         <option>09/dic/2025</option>
                                         <option>10/dic/2025</option>
                                         <option>11/dic/2025</option>
                                         <option>12/dic/2025</option>
                                     </select>
-                                    <br><br>
-                                    <select name="hora" id="hora">
-                                        <option value="" disabled selected>-- Selecciona una hora --</option>
+                                    <br>
+                                    <select class="form-select form-select-lg entrada" name="hora" id="hora">
+                                        <option disabled selected>-- Selecciona una hora --</option>
                                         <option>08:00 AM</option>
                                         <option>10:00 AM</option>
                                         <option>12:00 PM</option>
                                         <option>02:00 PM</option>
                                         <option>04:00 PM</option>
                                     </select>
-                                    <br><br>
-                            </div>
+                                    <br>
 
                             <div class="form-floating d-flex justify-content-center">
-                                <button type="button" onclick="validaciones()" class="boton-reservar">Reservar</button>
+                                <button type="button" onclick="agendar()" class="boton-login">Reservar</button>
                             </div>
                         </form>
                         <!-- Contenedor para alertas -->

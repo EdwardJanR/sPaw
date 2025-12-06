@@ -48,6 +48,10 @@
 .entrada {
     background-color: #2AB7AE !important;
 }
+
+label {
+    color: white !important;
+}
 /* Termina estilos formulario */
 
 
