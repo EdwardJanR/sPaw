@@ -48,34 +48,39 @@
                 </div>
             </div>
         </nav>
-    </header>   
+    </header>
     <main class="d-flex flex-column align-items-center justify-content-center flex-grow-1">
-        <section class="container justify-content-center flex-grow-1">
+        <section class="reservas container justify-content-center flex-grow-1">
             <div class="contacto d-flex flex-column align-items-center my-3 p-3 rounded-2">
                 <div class="container">
                     <h2 class="text-center mb-2 section-title titulo" id="Contacto">Reserva ahora</h2>
                 </div>
                 <div class="container d-flex justify-content-around flex-column flex-md-row">
-                    <div
-                        class="d-flex flex-column w-100 w-md-50 p-md-3 justify-content-around gap-1 order-2 order-md-1">
+                    <div class="d-flex flex-column w-100 w-md-50 p-md-3 justify-content-around gap-1 order-2 order-md-1">
                         <h3 class="subtitulo text-center mt-3 mb-3">Vamos a reservar ahora la cita para tu mascota</h3>
 
-                        <form action="/procesar-reserva" method="POST">
-                            <div class="form-floating" id="nombre-form">
+                        <form class="form-reserva" action="/procesar-reserva" method="POST">
+                            <div class="form-floating" id="nombreMascota">
                                 <input type="text" class="form-control entrada" id="nombreMascota" name="mascota"
                                     placeholder="ej: Max">
-                                <label for="nombre">Escribe el nombre de tu mascota</label>
+                                <label for="nombreMascota">Escribe el nombre de tu mascota</label>
                             </div>
-                                <br>
-                                <select class="form-select form-select-lg entrada" name="servicio" id="tamanoMascota" required>
-                                    <option value="" disabled selected>-- Selecciona el tamaño de tu mascota --</option>
-                                    <option>Perro pequeño</option>
+                            <br>
+                            <div class="form-floating">
+                                <select class="form-select form-select-lg entrada" name="servicio" id="tamanoMascota"
+                                    required placeholder="ej: Max">
+                                    <option selected></option>
+                                    <option>Perro mediano</option>
                                     <option>Perro mediano</option>
                                     <option>Perro grande</option>
                                 </select>
-                                <br>
-                                <select class="form-select form-select-lg entrada" name="servicio" id="nombreGroomer" required>
-                                    <option value="" disabled selected>-- Selecciona tu groomer favorito --</option>
+                                <label for="tamanoMascota">Selecciona el tamaño de tu mascota</label>
+                            </div>
+                            <br>
+                            <div class="form-floating">
+                                <select class="form-select form-select-lg entrada" id="nombreGroomer" name="servicio"
+                                    id="servicio" required>
+                                    <option selected></option>
                                     <option>Manuel Miranda</option>
                                     <option>Jorge González</option>
                                     <option>Sergio Rincón</option>
@@ -83,9 +88,13 @@
                                     <option>Adriana Ramírez</option>
                                     <option>Diana Ortega</option>
                                 </select>
-                                <br>
-                                <select class="form-select form-select-lg entrada" name="servicio" id="nombreServicio" required>
-                                    <option value="" disabled selected>-- Selecciona un servicio --</option>
+                                <label for="nombreGroomer">Selecciona tu groomer favorito</label>
+                            </div>
+                            <br>
+                            <div class="form-floating">
+                                <select class="form-select form-select-lg entrada" name="servicio" id="nombreServicio"
+                                    required>
+                                    <option value="" disabled selected></option>
                                     <option>Combo baño básico</option>
                                     <option>Combo grooming completo</option>
                                     <option>Combo antipulgas total</option>
@@ -97,23 +106,28 @@
                                     <option>Premium Combo cachorro (Primer Spaw)</option>
                                     <option>Premium Combo Spaw Día de relajación</option>
                                 </select>
-                                <br>
-                                <!-- Fecha -->
-                                <div class="form-floating">
-                                    <input type="text" id="fechaReserva" class="form-control entrada"
-                                        placeholder="Click para elegir fecha" required>
-                                    <label for="fechaReserva" class="form-label">Selecciona una fecha</label>
-                                </div>
-                                <br>
+                                <label for="nombreServicio">Selecciona un servicio</label>
+                            </div>
+                            <br>
+                            <!-- Fecha -->
+                            <div class="form-floating">
+                                <input type="text" id="fechaReserva" class="form-control entrada"
+                                    placeholder="Click para elegir fecha" required>
+                                <label for="fechaReserva" class="form-label">Selecciona una fecha</label>
+                            </div>
+                            <br>
+                            <div class=" form-floating">
                                 <select class="form-select form-select-lg entrada" name="hora" id="horaReserva">
-                                    <option value="" disabled selected>-- Selecciona una hora --</option>
+                                    <option value="" disabled selected></option>
                                     <option>08:00 AM</option>
                                     <option>10:00 AM</option>
                                     <option>12:00 PM</option>
                                     <option>02:00 PM</option>
                                     <option>04:00 PM</option>
                                 </select>
-                                <br>
+                                <label for="horaReserva">Selecciona una hora</label>
+                            </div>
+                            <br>
                             <div class="form-floating d-flex justify-content-center">
                                 <button type="button" onclick="guardarInformacion()" class="boton-login">Reservar</button>
                             </div>
@@ -127,7 +141,9 @@
                 </div>
             </div>
         </section>
-        <div id="servicio-reservado"></div>
+        <div id="servicio-reservado" class="container row-cols-2 text-center">
+
+        </div>
     </main>
     <footer class="footer-custom py-5">
         <div class="container">
@@ -193,8 +209,18 @@
         ©2025 sPaw. Todos los derechos reservados
     </div>
 
+<<<<<<< HEAD
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
     <script src="../JS/reservas.js"></script>
+=======
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+
+    <script src="/JS/reservas.js"></script>
+
+>>>>>>> edward-cardServicios
 </body>
 </html>
