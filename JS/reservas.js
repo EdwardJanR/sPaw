@@ -1,12 +1,86 @@
-let fecha = flatpickr("#fechaReserva", {
+let picker = flatpickr("#fechaReserva", {
     locale: "es",
     minDate: "today",
     maxDate: new Date().fp_incr(90),
     dateFormat: "d-m-Y",
-    altInput: true,
-    altFormat: "F j, Y",
-    allowInput: true
+    altInput: false,
+    allowInput: false,
+    disableMobile: false,
+
+
+    onChange: function (selectedDates, dateStr, instance) {
+
+        document.getElementById('fechaReserva').dispatchEvent(new Event('input'));
+        document.getElementById('fechaReserva').dispatchEvent(new Event('change'));
+    }
 });
+
+
+function validarInfoReserva() {
+
+    limpiarVal();
+    const nombreMascota = document.getElementById('nombreMascota').value.trim();
+    const tamanoMascota = document.getElementById('tamanoMascota').value.trim();
+    const nombreGroomer = document.getElementById('nombreGroomer').value.trim();
+    const nombreServicio = document.getElementById('nombreServicio').value.trim();
+    const fechaReserva = document.getElementById('fechaReserva').value.trim();
+    const horaReserva = document.getElementById('horaReserva').value.trim();
+
+    if (nombreMascota.length < 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombreMascota)) {
+        mostrarVal('nombreMascota', 'El nombre de la mascota debe ser alfabético y mínimo dos caracteres');
+        return false;
+    }
+    if (tamanoMascota === "") {
+        mostrarVal('tamanoMascota', 'Por favor selecciona el tamaño de la mascota');
+        return false;
+    }
+    if (nombreGroomer === "") {
+        mostrarVal('nombreGroomer', 'Por favor selecciona un groomer');
+        return false;
+    }
+    if (nombreServicio === "") {
+        mostrarVal('nombreServicio', 'Por favor selecciona un servicio');
+        return false;
+    }
+    if (fechaReserva === "") {
+        mostrarVal('fechaReserva', 'Por favor selecciona una fecha para la reserva');
+        return false;
+    }
+
+    if (horaReserva < "08:00" || horaReserva > "18:00" || horaReserva === "") {
+        mostrarVal('horaReserva', 'Debe seleccionar una hora entre 08:00 AM y 06:00 PM');
+        return false;
+    }
+
+    mostrarAlerta('success', '<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...');
+            
+    setTimeout(() => {
+        document.getElementById('formContactenos').submit();
+    }, 1500); 
+
+    guardarInformacion();
+    return true;
+}
+
+function mostrarVal(id, mensaje) {
+    const field = document.getElementById(id);
+    const formFloating = field.closest('.form-floating');
+
+    const errorElement = document.createElement('div');
+    errorElement.className = 'error-message text-danger mt-1 small';
+    errorElement.textContent = mensaje;
+
+    formFloating.appendChild(errorElement);
+
+    field.classList.add('is-invalid');
+}
+
+function limpiarVal() {
+
+    document.querySelectorAll('.error-message').forEach(error => error.remove());
+    document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
+}
+
 
 //let idCounter = localStorage.getItem('nextId') || 1
 function guardarInformacion() {
@@ -43,6 +117,7 @@ function guardarInformacion() {
 
     //Aleta para el usuario
     mostrarAlerta('Reserva registrada.', 'success');
+    limpiarFormulario();
     mostrarReservas();
 }
 
@@ -88,7 +163,7 @@ function mostrarReservas() {
 
     reservas.items.forEach(p => {
         const div = document.createElement("div");
-        div.className = "agendar col-12 col-lg rounded-4 justify-content-center m-3 p-5";
+        div.className = "agendar col-12 col-xl-5 rounded-4 justify-content-center m-2 py-5";
         div.innerHTML = `
             <div class="">
                 <h2 class="subtitulo mb-2">${p.nombreServicio}</h2>
@@ -103,18 +178,10 @@ function mostrarReservas() {
         `;
         contenedor.appendChild(div);
     });
-
-    limpiarFormulario();
 }
 
 function limpiarFormulario() {
-    document.getElementById("nombreServicio").value = "";
-    document.getElementById("nombreMascota").value = "";
-    document.getElementById("tamanoMascota").value = "";
-    document.getElementById("nombreGroomer").value = "";
-    document.getElementById("fechaReserva").value = "";
-    fecha.clear();
-    document.getElementById("horaReserva").value = "";
+    document.getElementById("formReserva").reset();
 }
 
 mostrarReservas();
