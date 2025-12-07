@@ -46,9 +46,67 @@
 
 .entrada {
     background-color: #2AB7AE !important;
+    height: 70px !important;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.form-floating > input[type="date"] {
+    padding-top: 1.625rem !important;
+    padding-bottom: 0.625rem !important;
+    min-height: calc(3.5rem + 2px) !important;
+}
+
+.form-floating > .form-select {
+    padding-top: 1.625rem !important;
+    padding-bottom: 0.625rem !important;
+    min-height: calc(3.5rem + 2px) !important;
+}
+
+.form-floating > input[type="date"] ~ label,
+.form-floating > .form-select ~ label {
+    padding-top: 1.625rem !important;
+}
+
+.form-floating > input[type="date"]:required:invalid ~ label,
+.form-floating > .form-select:required:invalid ~ label {
+    transform: none !important;
+}
+
+.form-floating > input[type="date"]:focus ~ label,
+.form-floating > input[type="date"]:valid ~ label,
+.form-floating > input[type="date"]:not(:invalid) ~ label,
+.form-floating > .form-select:focus ~ label,
+.form-floating > .form-select:valid ~ label,
+.form-floating > .form-select:not(:invalid) ~ label {
+    transform: scale(.85) translateY(-0.7rem) translateX(0.15rem) !important;
+    opacity: 1 !important;
+    color: #FFF !important;
+    padding-top: 0.5rem !important;
+}
+
+input[type="date"] {
+    position: relative;
+}
+
+input[type="date"].flatpickr-input {
+    background-color: white !important;
+    color: #212529 !important;
+}
+
+.form-floating > input[type="date"].has-value ~ label,
+.form-floating > input[type="date"]:valid ~ label {
+    transform: scale(.85) translateY(-0.7rem) translateX(0.15rem) !important;
+    opacity: 1 !important;
+}
+
+.form-reserva .form-floating > label {
+    padding: 1.5rem 1rem; 
 }
 
 label,
+input,
 select,
 option {
     color: white !important;
