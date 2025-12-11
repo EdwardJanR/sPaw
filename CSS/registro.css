@@ -1,0 +1,17 @@
+.container-registro{
+    border: 0.5px dotted #9CECE6;
+    box-shadow: 2px 2px 20px rgba(240, 148, 58, 0.3);
+    background-color: #E6FAF9;
+}
+
+.form-floating {
+    margin-bottom: 35px;
+}
+
+.entrada {
+    background-color: #2AB7AE !important;
+}
+
+label {
+    color: white !important;
+}
