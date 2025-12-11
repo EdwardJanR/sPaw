@@ -1,3 +1,24 @@
+
+/* Ocultar el ojo que trae el navegador */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+input[type="password"]::-webkit-textfield-decoration-container {
+    display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button {
+    display: none;
+}
+
+input[type="password"] {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+
 .container-registro{
     border: 0.5px dotted #9CECE6;
     box-shadow: 2px 2px 20px rgba(240, 148, 58, 0.3);
