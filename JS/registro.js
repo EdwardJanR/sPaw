@@ -1,8 +1,8 @@
 function validaciones() {
 
-    limpiarVal();
+    limpiarValidaciones();
 
-    let nombreUsuario = document.getElementById("nombreUsuario").value.trim();
+    const nombreUsuario = document.getElementById("nombreUsuario").value.trim();
     let apellidosUsuario = document.getElementById("apellidosUsuario").value.trim();
     let correoUsuario = document.getElementById("correoUsuario").value.trim();
     let contrasenaUsuario = document.getElementById("contrasenaUsuario").value.trim();
@@ -13,94 +13,77 @@ function validaciones() {
     let mascota3Usuario = document.getElementById("mascota3Usuario").value.trim();
     let mascota4Usuario = document.getElementById("mascota4Usuario").value.trim();
 
-    let mensaje = document.getElementById("mensaje");
-
-    const infoUsuario = {
-        nombre: nombreUsuario,
-        apellidos: apellidosUsuario,
-        correo: correoUsuario,
-        contrasena: contrasenaUsuario,
-        confirmarContrasena: confirmarContraUsuario,
-        telefono: telefonoUsuario,
-        mascota1: mascota1Usuario,
-        mascota2: mascota2Usuario,
-        mascota3: mascota3Usuario,
-        mascota4: mascota4Usuario
-    }
-
-    if (nombreUsuario === "" || apellidosUsuario === "" || correoUsuario === "" || contrasenaUsuario === "" || confirmarContraUsuario === "" || telefonoUsuario === "" || mascota1Usuario === "") {
-        mensaje.innerText = "Todos los campos deben ser diligenciados.";
-        return;
-    }
-
     if (nombreUsuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombreUsuario)) {
-        mostrarVal('nombreUsuario','El nombre debe ser alfabético y mínimo de dos caracteres.');
+        mostrarValidaciones('nombreUsuario','El nombre debe ser alfabético y mínimo de dos caracteres.');
         return false;
     }
 
     if (apellidosUsuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(apellidosUsuario)) {
-        mostrarVal('apellidosUsuario','Los apellidos deben ser alfabéticos y mínimo de dos caracteres.');
+        mostrarValidaciones('apellidosUsuario','Los apellidos deben ser alfabéticos y mínimo de dos caracteres.');
+        return false;
+    }
+
+    if (!/^\d{10}$/.test(telefonoUsuario)) {
+        mostrarValidaciones('telefonoUsuario','El teléfono debe contener 10 dígitos.');
         return false;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(correoUsuario)) {
-        mostrarVal('correoUsuario','Por favor ingresa un email válido.');
+        mostrarValidaciones('correoUsuario','Por favor ingresa un email válido.');
         return false;
     }
 
-    if (!/^\d{10}$/.test(telefonoUsuario)) {
-        mostrarVal('telefonoUsuario','El teléfono debe contener 10 dígitos.');
-        return false;
-    }
-
-    if (contrasenaUsuario.length < 8) {
-        mostrarVal('contrasenaUsuario','La contraseña debe tener al menos 8 caracteres.');
+    const regexContrasena = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+    if (!regexContrasena.test(contrasenaUsuario)) {
+        mostrarValidaciones(
+            'contrasenaUsuario', 'La contraseña debe tener mínimo 8 caracteres, incluir mayúscula, minúscula, número y caracter especial.');
         return false;
     }
 
     if (contrasenaUsuario !== confirmarContraUsuario) {
-        mostrarVal('confirmarContraUsuario','Las contraseñas no coinciden.');
+        mostrarValidaciones('confirmarContraUsuario','Las contraseñas no coinciden.');
         return false;
     }
 
-    mostrarAlerta('success', '<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...');
+    if (mascota1Usuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(mascota1Usuario)) {
+        mostrarValidaciones('mascota1Usuario','El nombre debe ser alfabético y mínimo de dos caracteres.');
+        return false;
+    }
+
+    mostrarAlerta('<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...','success');
             
-    localStorage.setItem("usuarioRegistrado", JSON.stringify(infoUsuario));
-    
+    registroUsuario();
+
     setTimeout(() => {
         document.getElementById('formRegistro').submit();
     }, 1500);        
 
-    mensaje.innerText = "Usuario registrado correctamente.";
-    mensaje.style.color = "green";
-
-    document.getElementById("formRegistro").reset();
-
+    limpiarFormulario();
     return true;
 
 }
 
-function mostrarVal(f, m) {
-    const field = document.getElementById(f);
+function mostrarValidaciones(id, mensaje) {
+    const field = document.getElementById(id);
     const formFloating = field.closest('.form-floating');
     
     const errorElement = document.createElement('div');
     errorElement.className = 'error-message text-danger mt-1 small';
-    errorElement.textContent = m;
+    errorElement.textContent = mensaje;
     
     formFloating.appendChild(errorElement);
     
     field.classList.add('is-invalid');
 }
 
-function limpiarVal() {
+function limpiarValidaciones() {
 
     document.querySelectorAll('.error-message').forEach(error => error.remove());
     document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
 }
 
-function mostrarAlerta(tipo, mensaje) {
+function mostrarAlerta(mensaje, tipo) {
     const alertContainer = document.getElementById('alertContainer');
             
     const alerta = document.createElement('div');
@@ -118,4 +101,43 @@ function mostrarAlerta(tipo, mensaje) {
         alerta.classList.remove('show');
         setTimeout(() => alerta.remove(), 150);
     }, 5000);
+}
+
+
+function registroUsuario() {
+    let nombreUsuario = document.getElementById("nombreUsuario").value;
+    let apellidosUsuario = document.getElementById("apellidosUsuario").value;
+    let correoUsuario = document.getElementById("correoUsuario").value;
+    let contrasenaUsuario = document.getElementById("contrasenaUsuario").value;
+    let confirmarContraUsuario = document.getElementById("confirmarContraUsuario").value;
+    let telefonoUsuario = document.getElementById("telefonoUsuario").value;
+    let mascota1Usuario = document.getElementById("mascota1Usuario").value;
+    let mascota2Usuario = document.getElementById("mascota2Usuario").value;
+    let mascota3Usuario = document.getElementById("mascota3Usuario").value;
+    let mascota4Usuario = document.getElementById("mascota4Usuario").value;
+    
+    const infoUsuario = {
+        nombre: nombreUsuario,
+        apellidos: apellidosUsuario,
+        correo: correoUsuario,
+        contrasena: contrasenaUsuario,
+        confirmarContraseña: confirmarContraUsuario,
+        telefono: telefonoUsuario,
+        mascotas: [
+            mascota1Usuario,
+            mascota2Usuario,
+            mascota3Usuario,
+            mascota4Usuario
+        ]
+    }
+
+    let infoRegistro = JSON.parse(localStorage.getItem("infoRegistro")) || [];
+    infoRegistro.push(infoUsuario);
+    localStorage.setItem("infoRegistro", JSON.stringify(infoRegistro));
+
+
+}
+
+function limpiarFormulario() {
+    document.getElementById("formRegistro").reset();
 }

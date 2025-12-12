@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -44,69 +44,84 @@
     </header>
     <main>
         <section class="registro">
-            <div class="container-registro container w-75 my-5 rounded-4">
-                <form id="formRegistro" class="formulario-registro my-4">
+            <div class="container-registro container w-100 w-lg-50 my-5 rounded-4">
+                <!-- formulario de registro -->
+                <form class="form-registro my-4" id="formRegistro">
                     <p class="titulo text-center mb-3">Registro de Usuario</p>
-                    <div class="d-flex justify-content-around">
-                        <div class="column-form d-flex flex-column w-50 m-3">
-                            <div class="form-floating ">
+                    <div class="column-form d-flex flex-column mx-auto m-3">
+                        <!--Div campos nombre y apellido-->
+                        <div class="d-flex flex-column flex-md-row w-100 w-lg-75 align-items-center px-3 my-lg-1">
+                            <div class="form-floating w-100 w-md-50 m-3">
                                 <input type="text" class="form-control entrada" id="nombreUsuario" placeholder="">
-                                <label for="nombreUsuario">Ingrese nombre</label>
+                                <label for="nombreUsuario">Ingresa tu nombre</label>
                             </div>
-                            <div class="form-floating ">
-                                <input type="text" class="form-control entrada" id="telefonoUsuario" placeholder="">
-                                <label for="telefonoUsuario">Ingrese teléfono</label>
-                            </div>
-                            <div class="form-floating ">
-                                <input type="password" class="form-control entrada" id="contrasenaUsuario" 
-                                placeholder="">
-                                <label for="contrasenaUsuario">Ingrese contraseña</label>
-                            </div>
-                            <div class="form-floating ">
-                                <input type="text" class="form-control entrada" id="mascota1Usuario" 
-                                placeholder="">
-                                <label for="mascota1Usuario">Ingrese nombre de mascota</label>
-                            </div>
-                            <div class="form-floating ">
-                                <input type="text" class="form-control entrada" id="mascota3Usuario"
-                                placeholder="">
-                                <label for="mascota3Usuario">Ingrese nombre de mascota</label>
+                            <div class=" form-floating w-100 w-md-50 m-3">
+                                <input type="text" class="form-control entrada" id="apellidosUsuario" placeholder="">
+                                <label for="apellidosUsuario">Ingresa tu Apellido</label>
                             </div>
                         </div>
-                        <div class="column-form d-flex flex-column w-50 m-3">
-                            <div class=" form-floating">
-                                <input type="text" class="form-control entrada" id="apellidosUsuario"
-                                placeholder="">
-                                <label for="apellidosUsuario">Ingrese Apellidos</label>
+                        <!--Div campos telefono y correo-->
+                        <div
+                            class="d-flex flex-column flex-md-row w-100 w-lg-75 align-items-center justify-content-center px-3 my-lg-1">
+                            <div class="form-floating w-100 w-md-50 m-3">
+                                <input type="tel" class="form-control entrada" id="telefonoUsuario" placeholder="">
+                                <label for="telefonoUsuario">Ingresa tu teléfono</label>
                             </div>
-                            <div class=" form-floating">
-                                <input type="email" class="form-control entrada" id="correoUsuario" 
-                                placeholder="">
-                                <label for="correoUsuario">Ingrese correo</label>
+                            <div class="form-floating w-100 w-md-50 m-3">
+                                <input type="email" class="form-control entrada" id="correoUsuario" placeholder="">
+                                <label for="correoUsuario">Ingresa tu correo</label>
                             </div>
-                            <div class=" form-floating">
+                        </div>
+                        <!--Div compos contraseña y confirmar-->
+                        <div
+                            class="d-flex flex-column flex-md-row w-100 w-lg-75 align-items-center justify-content-center px-3 my-lg-1">
+                            <div class="form-floating w-100 w-md-50 m-3">
+                                <input type="password" class="form-control entrada" id="contrasenaUsuario"
+                                    placeholder="">
+                                <label for="contrasenaUsuario">Ingresa tu contraseña</label>
+                            </div>
+                            <div class=" form-floating w-100 w-md-50 m-3">
                                 <input type="password" class="form-control entrada" id="confirmarContraUsuario"
-                                placeholder="">
-                                <label for="confirmarContraUsuario">Confirmar contraseña</label>
-                            </div>
-                            <div class=" form-floating">
-                                <input type="text" class="form-control entrada" id="mascota2Usuario"
-                                placeholder="">
-                                <label for="mascota2Usuario">Ingrese nombre de mascota</label>
-                            </div>
-                            <div class=" form-floating">
-                                <input type="text" class="form-control entrada" id="mascota4Usuario"
-                                placeholder="">
-                                <label for="mascota4Usuario">Ingrese nombre de mascota</label>
+                                    placeholder="">
+                                <label for="confirmarContraUsuario">Confirma tu contraseña</label>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-floating d-flex justify-content-center">
-                        <button type="button" onclick="validaciones()" class="boton-login">Enviar</button>
-                    </div>
+                        <!--Div campos mascota 1 y 2-->
+                        <div
+                            class="d-flex flex-column flex-md-row w-100 w-lg-75 align-items-center justify-content-center px-3 my-lg-1">
+                            <div class="form-floating w-100 w-md-50 m-3">
+                                <input type="text" class="form-control entrada" id="mascota1Usuario" placeholder="">
+                                <label for="mascota1Usuario">Ingresa el nombre de tu mascota</label>
+                            </div>
+                            <div class=" form-floating w-100 w-md-50 m-3">
+                                <input type="text" class="form-control entrada" id="mascota2Usuario" placeholder="">
+                                <label for="mascota2Usuario">Ingresa el nombre de tu mascota</label>
+                            </div>
+                        </div>
+                        <!--Div campos mascota 3 y 4-->
+                        <div class="d-flex flex-column flex-md-row w-100 w-lg-75 align-items-center px-3 my-lg-1">
 
+                            <div class="form-floating w-100 w-md-50 m-3">
+                                <input type="text" class="form-control entrada" id="mascota3Usuario" placeholder="">
+                                <label for="mascota3Usuario">Ingresa el nombre de tu mascota</label>
+                            </div>
+                            <div class=" form-floating w-100 w-md-50 m-3">
+                                <input type="text" class="form-control entrada" id="mascota4Usuario" placeholder="">
+                                <label for="mascota4Usuario">Ingresa el nombre de tu mascota</label>
+                            </div>
+
+                        </div>
+                        <!-- Div Boton de registro-->
+                        <div class="form-floating d-flex justify-content-center">
+                            <button type="button" onclick="validaciones()" class="boton-login mt-2">Regístrame</button>
+                        </div>
+                        <!--Menasaje de registro-->
+                        <div class="form-floating d-flex justify-content-center">
+                            <p>Si ya tienes cuenta registrada, inica sesión <a href="">aquí</a></p>
+                        </div>
+                    </div>
                 </form>
-            </div>
+                <div id="alertContainer"></div>
         </section>
         <footer class="footer-custom py-5">
             <div class="container">
