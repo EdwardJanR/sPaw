@@ -1,43 +1,28 @@
 
-const passwordInput1 = document.getElementById("contrasenaUsuario");
-const togglePassword1 = document.getElementById("togglePassword1");
+function activarTogglePassword(inputId, toggleId) {
+    const input = document.getElementById(inputId);
+    const toggle = document.getElementById(toggleId);
 
-togglePassword1.classList.add("bi-eye");
-togglePassword1.classList.remove("bi-eye-slash");
+    toggle.classList.add("bi-eye");
+    toggle.classList.remove("bi-eye-slash");
 
-togglePassword1.addEventListener("click", () => {
-    const showing = passwordInput1.type === "text";
+    toggle.addEventListener("click", () => {
+        const mostrando = input.type === "text";
 
-    if (showing) {
-        passwordInput1.type = "password";
-        togglePassword1.classList.remove("bi-eye-slash");
-        togglePassword1.classList.add("bi-eye");
-    } else {
-        passwordInput1.type = "text";
-        togglePassword1.classList.remove("bi-eye");
-        togglePassword1.classList.add("bi-eye-slash");
-    }
-});
+        if (mostrando) {
+            input.type = "password";
+            toggle.classList.remove("bi-eye-slash");
+            toggle.classList.add("bi-eye");
+        } else {
+            input.type = "text";
+            toggle.classList.remove("bi-eye");
+            toggle.classList.add("bi-eye-slash");
+        }
+    });
+}
 
-const passwordInput2 = document.getElementById("confirmarContraUsuario");
-const togglePassword2 = document.getElementById("togglePassword2");
-
-togglePassword2.classList.add("bi-eye");
-togglePassword2.classList.remove("bi-eye-slash");
-
-togglePassword2.addEventListener("click", () => {
-    const showing = passwordInput2.type === "text";
-
-    if (showing) {
-        passwordInput2.type = "password";
-        togglePassword2.classList.remove("bi-eye-slash");
-        togglePassword2.classList.add("bi-eye");
-    } else {
-        passwordInput2.type = "text";
-        togglePassword2.classList.remove("bi-eye");
-        togglePassword2.classList.add("bi-eye-slash");
-    }
-});
+activarTogglePassword("contrasenaUsuario", "togglePassword1");
+activarTogglePassword("confirmarContraUsuario", "togglePassword2");
 
 function validaciones() {
 
