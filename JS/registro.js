@@ -1,3 +1,29 @@
+
+function activarTogglePassword(inputId, toggleId) {
+    const input = document.getElementById(inputId);
+    const toggle = document.getElementById(toggleId);
+
+    toggle.classList.add("bi-eye");
+    toggle.classList.remove("bi-eye-slash");
+
+    toggle.addEventListener("click", () => {
+        const mostrando = input.type === "text";
+
+        if (mostrando) {
+            input.type = "password";
+            toggle.classList.remove("bi-eye-slash");
+            toggle.classList.add("bi-eye");
+        } else {
+            input.type = "text";
+            toggle.classList.remove("bi-eye");
+            toggle.classList.add("bi-eye-slash");
+        }
+    });
+}
+
+activarTogglePassword("contrasenaUsuario", "togglePassword1");
+activarTogglePassword("confirmarContraUsuario", "togglePassword2");
+ñ
 function validaciones() {
 
     limpiarValidaciones();
