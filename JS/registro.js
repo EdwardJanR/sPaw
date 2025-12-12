@@ -23,7 +23,7 @@ function activarTogglePassword(inputId, toggleId) {
 
 activarTogglePassword("contrasenaUsuario", "togglePassword1");
 activarTogglePassword("confirmarContraUsuario", "togglePassword2");
-ñ
+
 function validaciones() {
 
     limpiarValidaciones();
