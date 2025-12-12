@@ -6,6 +6,8 @@
   box-sizing: border-box;
 }
 
+/* menu */
+
 .menu {
   background: linear-gradient(
     48deg,
@@ -54,6 +56,8 @@
   color: white;
 }
 
+/* textos */
+
 .titulo {
   font-family: "Fredoka", sans-serif;
   font-size: 60px;
@@ -77,6 +81,23 @@
   color: #1e2a2a;
   text-align: center;
 }
+
+/* formularios */
+
+.contacto{
+    box-shadow: 2px 2px 20px rgba(240, 148, 58, 0.3);
+    background-color: #E6FAF9;
+}
+
+.entrada {
+    background-color: #2AB7AE !important;
+}
+
+label {
+    color: white !important;
+}
+
+/* footer */
 
 .footer-custom {
   background: linear-gradient(

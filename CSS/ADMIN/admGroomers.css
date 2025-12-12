@@ -6,10 +6,6 @@
   box-sizing: border-box;
 }
 
-.contacto{
-    box-shadow: 2px 2px 20px rgba(240, 148, 58, 0.3);
-    background-color: #E6FAF9;
-}
 
 .custom-tab {
   color: #1e2a2a !important;
@@ -24,8 +20,4 @@
   border: 1px solid #dee2e6 !important;
   border-bottom: 1px solid white !important;
   color: #2AB7AE !important;
-}
-
-.entrada {
-    background-color: #2AB7AE !important;
 }

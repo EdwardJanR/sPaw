@@ -6,10 +6,6 @@
     box-sizing: border-box;
 }
 
-.contacto {
-    box-shadow: 2px 2px 20px rgba(240, 148, 58, 0.3);
-    background-color: #E6FAF9;
-}
 
 .form-floating .boton-enviar {
     background: #F08E3A;
