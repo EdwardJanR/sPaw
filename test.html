@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../CSS/navFooter.css">
+    <link rel="stylesheet" href="../CSS/reservas.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+    <section id="reservado" class="row row-cols-1 row-cols-lg-2 g-2 justify-content-between">    
+        <div class="agendar col me-lg-1 py-3">
+            <h2 class="subtitulo mb-2">${p.nombreServicio}</h2>
+            <p><b>Nombre de la mascota: </b>${p.nombreMascota}</p>
+            <p><b>Tamaño: </b>${p.tamanoMascota}</p>
+            <p><b>Groomer escogido: </b>${p.nombreGroomer}</p>
+            <p><b>Fecha: </b>${p.fechaReserva}</p>
+            <p><b>Hora: </b>${p.horaReserva}</p>
+            <p><i class="bi bi-trash fs-1" onclick="eliminarReserva(${p.idReserva})"></i></p>
+            <a class="boton-login" href="../HTML/servicios.html">Volver a servicios</a>
+        </div>
+
+        <div class="agendar col ms-lg-1 py-3">
+            <h2 class="subtitulo mb-2">${p.nombreServicio}</h2>
+            <p><b>Nombre de la mascota: </b>${p.nombreMascota}</p>
+            <p><b>Tamaño: </b>${p.tamanoMascota}</p>
+            <p><b>Groomer escogido: </b>${p.nombreGroomer}</p>
+            <p><b>Fecha: </b>${p.fechaReserva}</p>
+            <p><b>Hora: </b>${p.horaReserva}</p>
+            <p><i class="bi bi-trash fs-1" onclick="eliminarReserva(${p.idReserva})"></i></p>
+            <a class="boton-login" href="../HTML/servicios.html">Volver a servicios</a>
+        </div>
+
+        <div class="agendar col me-lg-1 py-3">
+            <h2 class="subtitulo mb-2">${p.nombreServicio}</h2>
+            <p><b>Nombre de la mascota: </b>${p.nombreMascota}</p>
+            <p><b>Tamaño: </b>${p.tamanoMascota}</p>
+            <p><b>Groomer escogido: </b>${p.nombreGroomer}</p>
+            <p><b>Fecha: </b>${p.fechaReserva}</p>
+            <p><b>Hora: </b>${p.horaReserva}</p>
+            <p><i class="bi bi-trash fs-1" onclick="eliminarReserva(${p.idReserva})"></i></p>
+            <a class="boton-login" href="../HTML/servicios.html">Volver a servicios</a>
+        </div>
+
+        <div class="agendar col ms-lg-1 py-3">
+            <h2 class="subtitulo mb-2">${p.nombreServicio}</h2>
+            <p><b>Nombre de la mascota: </b>${p.nombreMascota}</p>
+            <p><b>Tamaño: </b>${p.tamanoMascota}</p>
+            <p><b>Groomer escogido: </b>${p.nombreGroomer}</p>
+            <p><b>Fecha: </b>${p.fechaReserva}</p>
+            <p><b>Hora: </b>${p.horaReserva}</p>
+            <p><i class="bi bi-trash text-bg-danger fs-1" onclick="eliminarReserva(${p.idReserva})"></i></p>
+            <a class="boton-login" href="../HTML/servicios.html">Volver a servicios</a>
+        </div>
+    </section>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="../JS/reservas.js"></script>
+</body>
+
+</html>

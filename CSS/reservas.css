@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+.form-floating .boton-enviar {
+    background: #F08E3A;
+    color: #1E2A2A;
+    font-weight: 700;
+    padding: 10px 25px;
+    border-radius: 40px;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    border: none;
+}
+
+.form-floating .boton-enviar:hover {
+    background: #e97502;
+    color: white;
+}
+
+.img-contacto {
+    border-radius: 20px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.form-floating#mensaje-form>.form-control {
+    height: 150px !important;
+    min-height: 150px !important;
+}
+
+.titulo {
+    margin-top: 20px;
+}
+
+.entrada {
+    background-color: #2AB7AE !important;
+    height: 70px !important;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.form-floating > input[type="date"] {
+    padding-top: 1.625rem !important;
+    padding-bottom: 0.625rem !important;
+    min-height: calc(3.5rem + 2px) !important;
+}
+
+.form-floating > .form-select {
+    padding-top: 1.625rem !important;
+    padding-bottom: 0.625rem !important;
+    min-height: calc(3.5rem + 2px) !important;
+}
+
+.form-floating > input[type="date"] ~ label,
+.form-floating > .form-select ~ label {
+    padding-top: 1.625rem !important;
+}
+
+.form-floating > input[type="date"]:required:invalid ~ label,
+.form-floating > .form-select:required:invalid ~ label {
+    transform: none !important;
+}
+
+.form-floating > input[type="date"]:focus ~ label,
+.form-floating > input[type="date"]:valid ~ label,
+.form-floating > input[type="date"]:not(:invalid) ~ label,
+.form-floating > .form-select:focus ~ label,
+.form-floating > .form-select:valid ~ label,
+.form-floating > .form-select:not(:invalid) ~ label {
+    transform: scale(.85) translateY(-0.7rem) translateX(0.15rem) !important;
+    opacity: 1 !important;
+    color: #FFF !important;
+    padding-top: 0.5rem !important;
+}
+
+input[type="date"] {
+    position: relative;
+}
+
+input[type="date"].flatpickr-input {
+    background-color: white !important;
+    color: #212529 !important;
+}
+
+.form-floating > input[type="date"].has-value ~ label,
+.form-floating > input[type="date"]:valid ~ label {
+    transform: scale(.85) translateY(-0.7rem) translateX(0.15rem) !important;
+    opacity: 1 !important;
+}
+
+.form-reserva .form-floating > label {
+    padding: 1.5rem 1rem; 
+}
+
+label,
+input,
+select,
+option {
+    color: white !important;
+}
+
+#servicio-reservado {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+}
+
+.agendar {
+    background-color: #E6FAF9;
+
+}
+
+
+
+
+.agendar a {
+    text-align: center;
+    text-decoration: none;
+
+}
