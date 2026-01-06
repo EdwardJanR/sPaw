@@ -1,14 +1,14 @@
-document.getElementById('mostrarPass').addEventListener('click', function() {
-    const pass = document.getElementById('password');
-    const eyeIcon = document.getElementById('eyeIcon');
-    
-    // cambia tipa de input
-    const type = pass.getAttribute('type') === 'password' ? 'text' : 'password';
-    pass.setAttribute('type', type);
-    
-    // cambia el icono del ojo
-    eyeIcon.classList.toggle('bi-eye');
-    eyeIcon.classList.toggle('bi-eye-slash');
+document.getElementById("mostrarPass").addEventListener("click", function () {
+  const pass = document.getElementById("password");
+  const eyeIcon = document.getElementById("eyeIcon");
+
+  // cambia tipa de input
+  const type = pass.getAttribute("type") === "password" ? "text" : "password";
+  pass.setAttribute("type", type);
+
+  // cambia el icono del ojo
+  eyeIcon.classList.toggle("bi-eye");
+  eyeIcon.classList.toggle("bi-eye-slash");
 });
 
 function validaciones() {
@@ -78,11 +78,35 @@ function verificarUsuario() {
 
     localStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
 
-    alert("¡Inicio de sesión exitoso!");
-    window.location.href = "../indexSesion.html";
+    mostrarAlerta("<strong>¡Inicio de sesión exitoso!</strong> Redirigiendo...", "success");
+
+    setTimeout(() => {
+      window.location.href = "../HTML/indexSesion.html";
+    }, 5000);
+    
   } else {
-    alert("Usuario o contraseña incorrectos.");
+    mostrarAlerta("<strong>Usuario o contraseña incorrecto</strong>", "danger");
   }
+}
+
+function mostrarAlerta(mensaje, tipo) {
+  const alertContainer = document.getElementById("alertContainer");
+
+  const alerta = document.createElement("div");
+  alerta.className = `alert alert-${tipo} alert-dismissible fade show`;
+  alerta.role = "alert";
+  alerta.innerHTML = `
+        ${mensaje}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+
+  alertContainer.innerHTML = "";
+  alertContainer.appendChild(alerta);
+
+  setTimeout(() => {
+    alerta.classList.remove("show");
+    setTimeout(() => alerta.remove(), 150);
+  }, 5000);
 }
 
 function limpiarFormulario() {
