@@ -4,6 +4,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
 }
 
 /* Empiezan estilos slide */
@@ -96,7 +97,14 @@
   margin-bottom: 0;
 }
 
-.btn-servicios{
+.boton-login a {
+  text-decoration: none;
+  color: #ffffff;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+}
+
+/*.btn-servicios{
   background: #f08e3a;
   color: #1e2a2a;
   font-weight: 700;
@@ -113,7 +121,7 @@
 .btn-servicios:hover{
   color: white;
 }
-
+*/
 .servicios{
   color: #f08e3a;
   font-family: "Fredoka", sans-serif;
