@@ -23,7 +23,7 @@ function validaciones() {
     return false;
   }
 
-  if (contrasena.length <= 8) {
+  if (contrasena.length < 8) {
     mostrarValidaciones(
       "password",
       "La contraseña debe tener mínimo 8 caracteres"
