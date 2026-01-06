@@ -23,7 +23,7 @@ function validaciones() {
     return false;
   }
 
-  if (contrasena.length <= 8) {
+  if (contrasena.length < 8) {
     mostrarValidaciones(
       "password",
       "La contraseña debe tener mínimo 8 caracteres"
@@ -79,7 +79,7 @@ function verificarUsuario() {
     localStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
 
     alert("¡Inicio de sesión exitoso!");
-    window.location.href = "../index.html";
+    window.location.href = "../indexSesion.html";
   } else {
     alert("Usuario o contraseña incorrectos.");
   }
