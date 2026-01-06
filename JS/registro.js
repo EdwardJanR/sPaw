@@ -125,8 +125,8 @@ function mostrarAlerta(mensaje, tipo) {
             
     setTimeout(() => {
         alerta.classList.remove('show');
-        setTimeout(() => alerta.remove(), 150);
-    }, 5000);
+        setTimeout(() => alerta.remove(), 500000);
+    }, 500000);
 }
 
 
