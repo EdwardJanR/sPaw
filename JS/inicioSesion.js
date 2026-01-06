@@ -81,7 +81,7 @@ function verificarUsuario() {
     mostrarAlerta("<strong>¡Inicio de sesión exitoso!</strong> Redirigiendo...", "success");
 
     setTimeout(() => {
-      window.location.href = "../HTML/indexSesion.html";
+      window.location.href = "../index.html";
     }, 5000);
     
   } else {

@@ -14,11 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     btnLogin.href = "#";
 
-    btnLogin.addEventListener("click", (e) => {
+    /*btnLogin.addEventListener("click", (e) => {
       e.preventDefault();
       localStorage.removeItem("usuarioActivo");
       location.reload();
-    });
+    });*/
   }
 });
 
