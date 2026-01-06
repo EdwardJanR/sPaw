@@ -1,138 +1,198 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
-/* Ajustes para reducir el espacio de la sección testimonios */
+/* Estilos para la sección de testimonios */
+
 .testimonios-section {
-  max-height: none; /* Removido el límite de altura */
-  padding-bottom: 1rem; /* Reducido espacio antes del footer */
-  margin-bottom: 0; /* Sin margen inferior */
+  padding: 20px 0 40px 0; 
+  max-height: none; 
 }
 
-.testimonios-section .container-fluid {
-  padding-top: 2rem; /* Reducido padding superior */
-  padding-bottom: 1rem; /* Reducido padding inferior */
+.testimonios-section .container {
+  max-width: 1000px;
 }
 
-.carousel-container {
-  padding: 0; /* Eliminado todo el padding */
+.section-heading {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#carouselTestimonios {
+  padding-bottom: 40px;
+  position: relative;
+  max-height: 200px; 
+}
+
+.section-heading h2 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 35px;
+  font-weight: 600;
+  color: #2ab7ae;
   margin-bottom: 0;
-  max-height: 350px; /* Limitado la altura máxima */
 }
 
-#carouselCards {
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-bottom: 0;
-}
-
-/* Reducir margen inferior de las cards */
-.testimonios-section .col-lg-4 {
-  margin-bottom: 0.5rem !important;
-}
-
-/* Reducir altura del carousel-inner */
-.testimonios-section .carousel-inner {
-  max-height: 220px; /* Reducido de 280px a 220px */
-  overflow: visible;
-}
-
-/* Reducir altura de las cards con tamaño uniforme */
-.testimonios-section .card {
-  min-width: calc((100% - 40px) / 3);
-  width: 375px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  height: 200px; /* Reducido de 260px a 200px */
-}
-
-.testimonios-section .card-body {
-  padding: 12px; /* Reducido de 15px a 12px */
+.testimonio-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 15px; 
+  box-shadow: 0 4px 15px rgba(42, 183, 174, 0.2);
+  height: 100%;
+  min-height: 160px; 
   display: flex;
   flex-direction: column;
-  background-color: #9CECE6;
-  height: 100%; /* Ocupa toda la altura de la card */
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Ocultar los botones de navegación */
-.testimonios-section .carousel-control-prev,
-.testimonios-section .carousel-control-next {
-  display: none;
+.carousel-item .row {
+  display: flex;
+  align-items: stretch;
 }
 
-/* Estilo mejorado para los indicadores en forma de barras */
-.testimonios-section .carousel-indicators {
-  position: relative;
-  margin-top: 0.5rem; /* Reducido aún más */
+.carousel-item .row > div {
+  display: flex;
+}
+
+.testimonio-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(42, 183, 174, 0.3);
+}
+
+.testimonio-text {
+  font-family: "Nunito", sans-serif;
+  font-size: 16px; 
+  color: #1e2a2a;
+  line-height: 1.3; 
+  margin-bottom: 10px; 
+}
+
+.cliente-nombre {
+  font-family: "Fredoka", sans-serif;
+  font-size: 16px; 
+  font-weight: 600;
+  color: #2ab7ae;
   margin-bottom: 0;
-  bottom: auto;
+  text-align: right;
 }
 
-.testimonios-section .carousel-indicators button {
-  width: 40px; /* Ancho de la barra */
-  height: 4px; /* Altura de la barra */
-  border-radius: 2px; /* Bordes ligeramente redondeados */
+/* Controles del carrusel de testimonios */
+#carouselTestimonios .carousel-control-prev,
+#carouselTestimonios .carousel-control-next {
+  width: 45px;
+  height: 45px;
+  background-color: #f08e3a;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
+  margin-top: -10px;
+  position: absolute;
+}
+
+#carouselTestimonios .carousel-control-prev {
+  left: calc(50% - 45px);
+}
+
+#carouselTestimonios .carousel-control-next {
+  right: calc(50% - 45px);
+}
+
+#carouselTestimonios .carousel-control-prev:hover,
+#carouselTestimonios .carousel-control-next:hover {
+  background-color: #e97502;
+}
+
+#carouselTestimonios .carousel-control-prev-icon,
+#carouselTestimonios .carousel-control-next-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Indicadores del carrusel en forma de barras horizontales */
+#carouselTestimonios .carousel-indicators {
+  bottom: -35px; 
+  position: absolute;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+#carouselTestimonios .carousel-indicators button {
+  width: 40px; 
+  height: 4px; 
+  border-radius: 2px; 
   background-color: #2ab7ae;
   opacity: 0.5;
-  transition: all 0.3s ease;
   border: none;
-  margin: 0 6px;
+  margin: 0;
+  transition: all 0.3s ease;
 }
 
-.testimonios-section .carousel-indicators button.active {
-  background-color: #F08E3A;
+#carouselTestimonios .carousel-indicators button.active {
   opacity: 1;
-  width: 50px; /* La barra activa es más ancha */
+  background-color: #f08e3a;
+  width: 50px; 
 }
 
-/* Ajuste de altura de las cards */
-.card {
-  min-width: calc((100% - 40px) / 3);
-  width: 375px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  height: auto; /* Altura automática */
-  margin-bottom: 1rem; /* Margen controlado */
-}
+/* Responsive */
+@media (max-width: 991px) {
+  #carouselTestimonios .carousel-control-prev {
+    left: -30px;
+  }
 
-.card-body {
-  padding: 20px; /* Reducido el padding */
-  display: flex;
-  flex-direction: column;
-  background-color: #9CECE6;
-  height: auto; /* Altura automática en lugar de fija */
-  min-height: 180px; /* Altura mínima */
-}
+  #carouselTestimonios .carousel-control-next {
+    right: -30px;
+  }
 
-/* Ajuste del título de la sección */
-.h1.fredoka-semi-bold {
-  font-family: "Fredoka", sans-serif;
-  font-weight: 600;
-  font-size: 60px;
-  color: #2ab7ae;
-  margin-bottom: 1.5rem; /* Reducido margen inferior */
-  margin-top: 0; /* Sin margen superior */
-}
+  .section-heading h2 {
+    font-size: 40px;
+  }
 
-/* Responsivo */
-@media (max-width: 992px) {
-  .card {
-    height: auto;
-    min-height: 350px;
+  .testimonio-card {
+    margin-bottom: 20px;
   }
 }
 
-@media (max-width: 768px) {
-  .carousel-container {
-    padding: 0 20px;
-    max-height: none; /* Removido el límite */
+@media (max-width: 767px) {
+  #carouselTestimonios .carousel-control-prev,
+  #carouselTestimonios .carousel-control-next {
+    width: 40px;
+    height: 40px;
   }
-  
-  .card {
-    margin: 0 5px 1rem 5px;
-    height: auto;
-    min-height: 380px;
+
+  #carouselTestimonios .carousel-control-prev {
+    left: -20px;
   }
-  
+
+  #carouselTestimonios .carousel-control-next {
+    right: -20px;
+  }
+
+  .section-heading h2 {
+    font-size: 35px;
+  }
+
+  .testimonio-text {
+    font-size: 13px;
+  }
+
+  .cliente-nombre {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
   .testimonios-section {
-    padding-bottom: 1rem;
+    padding: 40px 0;
+  }
+
+  #carouselTestimonios .carousel-control-prev,
+  #carouselTestimonios .carousel-control-next {
+    display: none;
+  }
+
+  .section-heading h2 {
+    font-size: 30px;
   }
 }
