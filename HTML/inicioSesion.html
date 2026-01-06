@@ -52,11 +52,10 @@
                     <div
                         class="d-flex flex-column w-100 w-md-50 p-md-3 justify-content-around gap-1 order-2 order-md-1">
                         <!-- Formulario de contacto -->
-                        <form class="container-form w-100 d-flex flex-column justify-content-between gap-5" novalidate
-                            action="https://formspree.io/f/xpwebqvb" method="POST" id="formInicioSesion">
+                        <form class="container-form w-100 d-flex flex-column justify-content-between gap-5"id="formInicioSesion">
                             <!-- Titulo de formulario -->
                             <div class="container">
-                                <p class="text-center mb-1 section-title titulo" id="Contacto">Inicio de Sesión</-->
+                                <p class="text-center mb-1 section-title titulo" id="Contacto">Inicio de Sesión</p>
                             </div>
                             <!--Email-->
                             <div class="form-floating" id="email-form">
@@ -79,12 +78,11 @@
                             </div>
                             <!--Botón enviar-->
                             <div class="form-floating d-flex justify-content-center">
-                                <button type="button" onclick="" class="boton-login">Enviar</button>
+                                <button type="button" onclick="validaciones()" class="boton-login">Enviar</button>
                             </div>
                             <!-- Mensaje de registro-->
                             <div class="justify-content-center">
-                                <p class="text-center">No tienes cuenta? <a href="./registro.html">Regístrate aquí</a>
-                                </p>
+                                <p class="text-center">¿No tienes cuenta? <a href="./registro.html">Regístrate aquí</a></p>
                             </div>
                         </form>
                         <!-- Contenedor para alertas -->
