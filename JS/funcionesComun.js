@@ -28,4 +28,4 @@ export function limpiarValidaciones() {
 export function limpiarFormulario(formulario) {
     document.getElementById(formulario).reset();
 }
-}
+
