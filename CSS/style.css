@@ -41,6 +41,61 @@
 /* Termina estilos slide */
 
 /* Empiezan estilos servicios destacados */
+.inicio {
+  padding: 40px 20px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inicio .container {
+  max-width: 900px; /* Controla el ancho máximo del contenedor */
+  width: 100%;
+}
+
+.textoInicio {
+  font-family: "Nunito", sans-serif;
+  font-size: 18px; 
+  color: #1e2a2a;
+  text-align: justify;
+  font-weight: 600;
+  line-height: 1.6; /* Mejora la legibilidad */
+  margin: 0 auto; /* Centra el texto */
+}
+
+.titulo {
+  font-family: "Fredoka", sans-serif;
+  font-size: 38px;
+  font-weight: 600;
+  color: #2ab7ae;
+  margin-bottom: 0;
+  padding: 20px;
+}
+
+.subTitulo {
+  font-family: "Fredoka", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  color: #2ab7ae;
+  margin-bottom: 0;
+}
+
+.subtituloServicios {
+  font-family: "Fredoka", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0;
+}
+
+.textoServicios {
+  font-family: "Fredoka", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  margin-bottom: 0;
+}
+
 .btn-servicios{
   background: #f08e3a;
   color: #1e2a2a;
@@ -54,18 +109,18 @@
   justify-content: center;
   text-align: center;
 }
+
 .btn-servicios:hover{
   color: white;
 }
-.Básicos{
 
-  color: #1e2a2a;
-
-}
-.Premium{
+.servicios{
   color: #f08e3a;
+  font-family: "Fredoka", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  margin-bottom: 0;  
 }
-
 
 .card-servicio-basico{ 
   background-color: #2ab7ae; 
@@ -92,3 +147,15 @@
 }
 
 /* Terminan estilos servicios destacados */
+
+/* Para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .inicio .container {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+  
+  .textoInicio {
+    font-size: 16px;
+  }
+}
