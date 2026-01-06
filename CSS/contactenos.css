@@ -8,21 +8,6 @@
 
 /* Empiezan estilos formulario */
 
-.form-floating .boton-enviar{
-    background: #F08E3A;
-    color: #1E2A2A;
-    font-weight: 700;
-    padding: 10px 25px;
-    border-radius: 40px;
-    font-size: 1.1rem;
-    transition: 0.3s;
-    border: none;
-}
-
-.form-floating .boton-enviar:hover {
-    background: #e97502;
-    color: white;
-}
 
 .img-contacto {
     border-radius: 20px;
