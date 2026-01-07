@@ -156,22 +156,22 @@ function eliminarReserva(idAEliminar) {
 }
 
 function mostrarReservas() {
-    const reservas = JSON.parse(localStorage.getItem("listaReservas")) || [];
+    const data = JSON.parse(localStorage.getItem("listaReservas")) || { contador: 0, items: [] };
     const contenedor = document.getElementById("servicio-reservado");
 
     contenedor.innerHTML = "";
 
-    reservas.items.forEach(p => {
+    data.items.forEach(p => {
         const div = document.createElement("div");
         div.className = "agendar col-12 col-xl-5 rounded-4 justify-content-center m-2 py-5";
         div.innerHTML = `
-            <div class="">
+            <div>
                 <h2 class="subtitulo mb-2">${p.nombreServicio}</h2>
-                <p><b>Nombre de la mascota: </b>${p.nombreMascota}</p>
-                <p><b>Tamaño: </b>${p.tamanoMascota}</p>
-                <p><b>Groomer escogido: </b>${p.nombreGroomer}</p>
-                <p><b>Fecha: </b>${p.fechaReserva}</p>
-                <p><b>Hora: </b>${p.horaReserva}</p>
+                <p><b>Nombre de la mascota:</b> ${p.nombreMascota}</p>
+                <p><b>Tamaño:</b> ${p.tamanoMascota}</p>
+                <p><b>Groomer escogido:</b> ${p.nombreGroomer}</p>
+                <p><b>Fecha:</b> ${p.fechaReserva}</p>
+                <p><b>Hora:</b> ${p.horaReserva}</p>
                 <p><i class="bi bi-trash" onclick="eliminarReserva(${p.idReserva})"></i></p>
                 <a class="boton-login" href="../HTML/servicios.html">Volver a servicios</a>
             </div>
@@ -179,6 +179,7 @@ function mostrarReservas() {
         contenedor.appendChild(div);
     });
 }
+
 
 function limpiarFormulario() {
     document.getElementById("formReserva").reset();

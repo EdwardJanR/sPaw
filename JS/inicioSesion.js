@@ -81,7 +81,7 @@ function verificarUsuario() {
     mostrarAlerta("<strong>¡Inicio de sesión exitoso!</strong> Redirigiendo...", "success");
 
     setTimeout(() => {
-      window.location.href = "../HTML/indexSesion.html";
+      window.location.href = "../index.html";
     }, 5000);
     
   } else {
@@ -106,7 +106,7 @@ function mostrarAlerta(mensaje, tipo) {
   setTimeout(() => {
     alerta.classList.remove("show");
     setTimeout(() => alerta.remove(), 150);
-  }, 5000);
+  }, 3000);
 }
 
 function limpiarFormulario() {

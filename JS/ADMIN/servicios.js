@@ -52,7 +52,7 @@ function actualizarServicios() {
                         </ul>
                     </div>
                     <div class="d-flex flex-column  align-items-center justify-content-evenly">
-                        <a href="../HTML/reservas.html"><button class="btn-servicios" onclick="agendar()">¡Agenda ahora!</button></a>
+                        <button class="btn-servicios btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
                         <img src="../IMG/SERVICIOS/servicio_basico.png" class="img-básicos" alt="Imagen perro">
                     </div>
 
