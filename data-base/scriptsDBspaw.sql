@@ -35,6 +35,15 @@ CREATE TABLE servicio(
 
 CREATE TABLE reserva(
     idReserva INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    
+    idGroomer INT NOT NULL,
+    idServicio INT NOT NULL,
+    idMascota INT NOT NULL, 
+    fecha DATE NOT NULL,
+    horaInicio TIME NOT NULL,
+    horaFinal TIME NOT NULL,
+    FOREIGN KEY(idGroomer) REFERENCES groomer(idGroomer),
+    FOREIGN KEY(idServicio) REFERENCES servicio(idServicio),
+    FOREIGN KEY(idMascota) REFERENCES mascota(idMascota)
 ) ENGINE=INNODB;
+
 
