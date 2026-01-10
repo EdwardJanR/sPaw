@@ -6,34 +6,14 @@
   box-sizing: border-box;
 }
 
-.btn-servicios {
-  background: #f08e3a;
-  color: #1e2a2a;
-  font-weight: 700;
-  padding: 10px 10px;
-  border-radius: 40px;
-  font-size: 1.1rem;
-  transition: 0.3s;
-  border: none;
-  width: 150px;
-  justify-content: center;
-  text-align: center;
-}
-
-.btn-servicios:hover {
-  color: white;
-}
 
 .Básicos {
-
   color: #1e2a2a;
-
 }
 
 .Premium {
   color: #f08e3a;
 }
-
 
 .card-servicio-basico {
   background-color: #2ab7ae;
@@ -44,13 +24,36 @@
 }
 
 .card-servicio-premium {
-
-  background-color: #2ab7ae;
-
+  background-color: #E6FAF9;
 }
+
+.descripcion {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;  
+  line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.descripcion.expandido {
+  -webkit-line-clamp: unset;
+  line-clamp: unset; 
+  overflow: visible;
+}
+
+.ver-mas {
+  color: #2cb1a3;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 6px;
+}
+
 
 .lista-valores {
   list-style: none;
+  text-align: left;
 }
 
 .list-style {
