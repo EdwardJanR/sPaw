@@ -48,7 +48,7 @@ function actualizarServicios() {
                 </h3>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <div class="dog-mask">
-                        <img src="../IMG/spaw19.png" class="img-básicos" alt="Imagen perro">
+                        <img src="../IMG/spaw20.png" class="img-básicos" alt="Imagen perro">
                     </div>
                     <div>
                         <p class="descripcion">
@@ -75,7 +75,7 @@ function actualizarServicios() {
                     </div>
                 </div>
                 <div class="text-center mt-4">
-                    <button class="boton-login btn-agenda" onclick="agendar('${p.nombre}')">
+                    <button class="boton-login btn-agenda" onclick="agendar()">
                         ¡Agenda ahora!
                     </button>
                 </div>
