@@ -47,28 +47,30 @@ function actualizarServicios() {
                     ${p.nombre}
                 </h3>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
-                    <img src="../IMG/SERVICIOS/servicio_basico.png" class="img-básicos" alt="Imagen perro">
+                    <div class="dog-mask">
+                        <img src="../IMG/spaw19.png" class="img-básicos" alt="Imagen perro">
+                    </div>
                     <div>
                         <p class="descripcion">
                             ${p.descripcion}
                         </p>
                         <span class="ver-mas">ver más</span>
                         <div class="d-flex justify-content-center">
-                        <ul class="lista-valores p-0 m-0">
-                            <li class="fw-bold text-center">Precio:</li>
-                            <li>
-                                <img src="/IMG/spaw0.png" class="list-style">
-                                Pequeño ${p.precioPequeno}
-                            </li>
-                            <li>
-                                <img src="/IMG/spaw0.png" class="list-style">
-                                Mediano ${p.precioMediano}
-                            </li>
-                            <li>
-                                <img src="/IMG/spaw0.png" class="list-style">
-                                Grande ${p.precioGrande}
-                            </li>
-                        </ul>
+                            <ul class="lista-valores p-0 m-0">
+                                <li class="fw-bold text-center">Precio:</li>
+                                <li>
+                                    <img src="/IMG/spaw0.png" class="list-style">
+                                    Pequeño ${p.precioPequeno}
+                                </li>
+                                <li>
+                                    <img src="/IMG/spaw0.png" class="list-style">
+                                    Mediano ${p.precioMediano}
+                                </li>
+                                <li>
+                                    <img src="/IMG/spaw0.png" class="list-style">
+                                    Grande ${p.precioGrande}
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
