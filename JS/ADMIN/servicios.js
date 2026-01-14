@@ -41,7 +41,7 @@ function actualizarServicios() {
         col.className = "col-12 col-lg-6";
 
         col.innerHTML = `
-            <div class="card-servicio-premium rounded-5 p-4 h-100 d-flex flex-column justify-content-evenly">
+            <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column justify-content-evenly">
 
                 <h3 class="subtitulo text-center mb-3">
                     ${p.nombre}
@@ -50,7 +50,7 @@ function actualizarServicios() {
                     <div class="dog-mask">
                         <img src="../IMG/spaw20.png" class="img-básicos" alt="Imagen perro">
                     </div>
-                    <div>
+                    <div class="parrafo">
                         <p class="descripcion">
                             ${p.descripcion}
                         </p>

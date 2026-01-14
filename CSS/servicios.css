@@ -15,8 +15,8 @@
   color: #f08e3a;
 }
 
-.card-servicio-basico {
-  background-color: #2ab7ae;
+.card-servicio {
+  background-color: #E6FAF9;
 }
 
 .dog-mask {
@@ -32,7 +32,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: #3aa7a3;
+    background: #2ab7ae;
     filter: blur(2px);
     mask-image: url("../IMG/forma-imagen.png");
     mask-size: contain;
@@ -63,9 +63,6 @@
     -webkit-mask-position: center;
 }
 
-.card-servicio-premium {
-  background-color: #E6FAF9;
-}
 
 .descripcion {
   display: -webkit-box;
