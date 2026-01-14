@@ -76,22 +76,23 @@ function mostrarVal(id, mensaje) {
 }
 
 function limpiarVal() {
-
     document.querySelectorAll('.error-message').forEach(error => error.remove());
     document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
 }
 
 
-//let idCounter = localStorage.getItem('nextId') || 1
 function guardarInformacion() {
-    let nombreServicio = document.getElementById("nombreServicio").value;
+    let nombreServicio = document.getElementById("nombreServicio");
     let nombreMascota = document.getElementById("nombreMascota").value;
     let tamanoMascota = document.getElementById("tamanoMascota").value;
-    let nombreGroomer = document.getElementById("nombreGroomer").value;
+    let nombreGroomer = document.getElementById("nombreGroomer");
     let fechaReserva = document.getElementById("fechaReserva").value;
     let horaReserva = document.getElementById("horaReserva").value;
 
-    //console.log(JSON.stringify(infoReservas));
+    //Se obtiene la descripción del valor seleccionado en el select nombreServicio
+    let servicioSeleccionado = nombreServicio.options[nombreServicio.selectedIndex].text;
+    //Se obtiene la descripción del valor seleccionado en el select nombreGroomer
+    let groomerSeleccionado = nombreGroomer.options[nombreGroomer.selectedIndex].text;
 
     //let listaReservas = JSON.parse(localStorage.getItem("listaReservas")) || [];
     let listaReservas = JSON.parse(localStorage.getItem('listaReservas')) || { contador: 0, items: [] };
@@ -101,10 +102,10 @@ function guardarInformacion() {
 
     const infoReservas = {
         idReserva: nuevoId,
-        nombreServicio: nombreServicio,
+        nombreServicio: servicioSeleccionado,
         nombreMascota: nombreMascota,
         tamanoMascota: tamanoMascota,
-        nombreGroomer: nombreGroomer,
+        nombreGroomer: groomerSeleccionado,
         fechaReserva: fechaReserva,
         horaReserva: horaReserva
     };
@@ -116,31 +117,29 @@ function guardarInformacion() {
     localStorage.setItem("listaReservas", JSON.stringify(listaReservas));
 
     //Aleta para el usuario
-    mostrarAlerta('Reserva registrada.', 'success');
+    mostrarAlerta('<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...','success');
     limpiarFormulario();
     mostrarReservas();
 }
 
-function mostrarAlerta(mensaje, tipo = 'success') {
+function mostrarAlerta(mensaje, tipo) {
     const alertContainer = document.getElementById('alertContainer');
-
-    // Crear el elemento de alerta
+            
     const alerta = document.createElement('div');
     alerta.className = `alert alert-${tipo} alert-dismissible fade show`;
     alerta.role = 'alert';
     alerta.innerHTML = `
-        <strong>${tipo === 'success' ? '¡Éxito!' : tipo === 'danger' ? '¡Error!' : '¡Atención!'}</strong> ${mensaje}
+        ${mensaje}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `;
-
-    // Agregar la alerta al contenedor
+            
+    alertContainer.innerHTML = '';
     alertContainer.appendChild(alerta);
-
-    // Remover la alerta después de 5 segundos
+            
     setTimeout(() => {
         alerta.classList.remove('show');
         setTimeout(() => alerta.remove(), 150);
-    }, 5000);
+    }, 3000);
 }
 
 function eliminarReserva(idAEliminar) {

@@ -57,3 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
 function capitalizeFirstLetter(string) {
   return string ? string.charAt(0).toUpperCase() + string.slice(1) : "";
 }
+
+document.getElementById("servicios_Basicos").addEventListener("click", function (e) {
+    if (e.target.classList.contains("ver-mas")) {
+        const descripcion = e.target.previousElementSibling;
+        descripcion.classList.toggle("expandido");
+        if (descripcion.classList.contains("expandido")) {
+            e.target.textContent = "ver menos";
+        } else {
+            e.target.textContent = "ver más";
+        }
+    }
+});

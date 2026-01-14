@@ -11,7 +11,7 @@
 .menu {
   background: linear-gradient(
     48deg,
-    rgba(230, 250, 249, 1) 0%,
+    rgb(230, 250, 249) 0%,
     rgba(42, 183, 174, 1) 100%
   );
   padding: 0.5rem 2rem;
