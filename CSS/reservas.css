@@ -127,3 +127,47 @@ option {
     text-decoration: none;
 
 }
+
+/*  INPUTS RESERVAS */
+
+
+
+@media (min-width: 768px) {
+    .form-reserva .form-floating {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+
+.form-reserva .form-floating {
+    display: flex;
+    justify-content: center;
+}
+
+/* INPUT */
+.form-reserva .form-floating > .form-control,
+.form-reserva .form-floating > .form-select {
+    height: 38px !important;
+    padding-top: 1.1rem !important;
+    padding-bottom: 0.25rem !important;
+}
+
+/* LABEL */
+.form-reserva .form-floating > label {
+    padding: 0 0.75rem !important;
+    font-size: 1.1rem ;  
+    top: 0.35rem;       
+
+}
+
+
+.form-reserva .form-floating > .form-control:focus,
+.form-reserva .form-floating > .form-control:not(:placeholder-shown),
+.form-reserva .form-floating > .form-select:focus {
+    padding-top: 1.35rem !important;
+}
+
+
+
+

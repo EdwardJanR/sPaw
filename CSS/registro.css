@@ -39,3 +39,33 @@ input[type="password"] {
     background-color: #E6FAF9;
 }
 
+
+/* REGISTRO – INPUTS PROPORCIONALES */
+
+
+
+@media (min-width: 768px) {
+    .form-registro .column-form > .d-flex {
+        max-width: 900px;   
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Altura  */
+.form-registro .form-floating > .form-control {
+    height: 38px !important;
+    padding-top: 1.1rem !important;
+    padding-bottom: 0.25rem !important;
+}
+
+/* Label */
+.form-registro .form-floating > label {
+    top: 0.35rem;
+    padding: 0 0.75rem !important;
+}
+ 
+.form-registro .form-floating > .form-control:focus,
+.form-registro .form-floating > .form-control:not(:placeholder-shown) {
+    padding-top: 1.35rem !important;
+}

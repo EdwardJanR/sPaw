@@ -13,3 +13,40 @@
 .entrada {
     padding-right: 45px;
 }
+
+
+/* INPUTS INICIO DE SESIÓN */
+
+
+@media (min-width: 768px) {
+    #formInicioSesion .form-floating {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+/* INPUT */
+#formInicioSesion .form-floating > .form-control {
+    height: 38px !important;
+    padding-top: 1.15rem !important;
+    padding-bottom: 0.25rem !important;
+    font-size: 1rem;
+}
+
+/* LABEL  */
+#formInicioSesion .form-floating > label {
+    left: 0;
+    right: 0;
+    padding: 0 0.75rem !important;
+    font-size: 1rem;
+    top: 0.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+#formInicioSesion .form-floating > .form-control:focus,
+#formInicioSesion .form-floating > .form-control:not(:placeholder-shown) {
+    padding-top: 1.35rem !important;
+}
