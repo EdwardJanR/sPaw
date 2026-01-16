@@ -54,7 +54,6 @@ function actualizarServicios() {
                         <p class="descripcion">
                             ${p.descripcion}
                         </p>
-                        <span class="ver-mas">ver más</span>
                         <div class="d-flex justify-content-center">
                             <ul class="lista-valores p-0 m-0">
                                 <li class="fw-bold text-center">Precio:</li>
@@ -107,18 +106,6 @@ function mostrarAlerta(mensaje, tipo = 'success') {
         setTimeout(() => alerta.remove(), 150);
     }, 5000);
 }
-
-document.getElementById("servicios_Basicos").addEventListener("click", function (e) {
-    if (e.target.classList.contains("ver-mas")) {
-        const descripcion = e.target.previousElementSibling;
-        descripcion.classList.toggle("expandido");
-        if (descripcion.classList.contains("expandido")) {
-            e.target.textContent = "ver menos";
-        } else {
-            e.target.textContent = "ver más";
-        }
-    }
-});
 
 
 actualizarServicios();

@@ -64,30 +64,6 @@
 }
 
 
-.descripcion {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;  
-  line-clamp: 3; 
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  margin-bottom: 0;
-}
-
-.descripcion.expandido {
-  -webkit-line-clamp: unset;
-  line-clamp: unset; 
-  overflow: visible;
-}
-
-.ver-mas {
-  color: #2cb1a3;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-block;
-  margin-top: 6px;
-}
-
-
 .lista-valores {
   list-style: none;
   text-align: left;
