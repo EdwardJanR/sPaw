@@ -69,13 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return false;
         }
 
-        Swal.fire({
-            icon: 'success',
-            title: '¡Éxito!',
-            html: '<strong>¡Éxito!</strong> Todos los campos son válidos.',
-            timer: 1500,
-            showConfirmButton: false
-        });
+        mostrarAlerta('exito', 'Todos los campos son válidos.');
 
         setTimeout(() => {
             document.getElementById('formContactenos').submit();
@@ -113,16 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         localStorage.setItem("listaReservas", JSON.stringify(listaReservas));
 
-        //Aleta SweetAlert2
-        Swal.fire({
-            icon: 'success',
-            title: '¡Reserva exitosa!',
-            html: 'Tu reserva ha sido guardada correctamente.',
-            confirmButtonColor: '#e97502',
-            confirmButtonText: 'Perfecto'
-        }).then(() => {
-            console.log('Usuario confirmó la reserva exitosa');
-        });
+        mostrarAlerta('exito', 'Tu reserva ha sido guardada correctamente.');
         limpiarFormulario();
         mostrarReservas();
     }
@@ -162,15 +147,8 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         const id = parseInt(botonEliminar.dataset.id);
 
-        Swal.fire({
-            title: '¿Eliminar reserva?',
-            text: "¡Esta acción no se puede deshacer!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#e97502',
-            cancelButtonColor: '#2ab7ae',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
+        mostrarAlerta('confirmar', '¿Eliminar esta reserva?<br><small>¡Esta acción no se puede deshacer!</small>', {
+            botonConfirmar: 'Sí, eliminar'
         }).then((result) => {
             if (result.isConfirmed) {
 
@@ -208,24 +186,53 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
     }
 
-    function mostrarAlertaSweet(tipo, mensaje) {
+    function mostrarAlerta(tipo, mensaje, opciones = {}) {
+        if (opciones.campoId) {
+            const field = document.getElementById(opciones.campoId);
+            if (!field) return;
+            const formFloating = field.closest('.form-floating');
+            const errorElement = document.createElement('div');
+            errorElement.className = 'error-message text-danger mt-1 small';
+            errorElement.textContent = mensaje;
+            formFloating.appendChild(errorElement);
+            field.classList.add('is-invalid');
+            return;
+        }
+
+        if (tipo === 'confirmar') {
+            return Swal.fire({
+                icon: 'warning',
+                title: '¿Confirmar?',
+                html: mensaje,
+                showCancelButton: true,
+                confirmButtonColor: '#e97502',
+                cancelButtonColor: '#2ab7ae',
+                confirmButtonText: opciones.botonConfirmar || 'Sí',
+                cancelButtonText: 'Cancelar'
+            });
+        }
+
         const config = {
-            text: mensaje,
-            timer: 3000,
-            showConfirmButton: false,
-            timerProgressBar: true
+            html: mensaje,
+            confirmButtonColor: '#e97502'
         };
 
-        if (tipo === 'success') {
+        if (tipo === 'exito') {
             config.icon = 'success';
             config.title = '¡Éxito!';
-        } else if (tipo === 'danger') {
+            config.timer = opciones.duracion || 2000;
+            config.showConfirmButton = false;
+            config.timerProgressBar = true;
+        } else if (tipo === 'error') {
             config.icon = 'error';
             config.title = 'Error';
-        } else if (tipo === 'warning') {
-            config.icon = 'warning';
-            config.title = 'Advertencia';
+            config.confirmButtonText = 'Entendido';
+        } else if (tipo === 'info') {
+            config.icon = 'info';
+            config.title = 'Información';
         }
+
+        if (opciones.titulo) config.title = opciones.titulo;
 
         Swal.fire(config);
     }
