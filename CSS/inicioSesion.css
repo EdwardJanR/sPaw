@@ -32,21 +32,17 @@
     padding-bottom: 0.25rem !important;
     font-size: 1rem;
 }
+.form-floating {
+    position: relative;
+}
 
-/* LABEL  */
-#formInicioSesion .form-floating > label {
+/*  layout */
+.form-floating .error-message {
+    position: absolute;
     left: 0;
-    right: 0;
-    padding: 0 0.75rem !important;
-    font-size: 1rem;
-    top: 0.4rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    bottom: -18px;   
+    font-size: 0.8rem;
+    color: #dc3545;
+    line-height: 1;
 }
 
-
-#formInicioSesion .form-floating > .form-control:focus,
-#formInicioSesion .form-floating > .form-control:not(:placeholder-shown) {
-    padding-top: 1.35rem !important;
-}
