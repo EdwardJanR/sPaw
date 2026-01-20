@@ -169,7 +169,7 @@ option {
 /* CARD DE SERVICIO RESERVADO */
 #servicio-reservado {
   display: flex;
-  justify-content: center;
+  justify-content:left;
   align-items: center;
   padding: 2rem 1rem;
   margin: 2rem 0;

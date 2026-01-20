@@ -129,7 +129,7 @@
                             </div>
                             <!-- Botón -->
                             <div class="form-floating d-flex justify-content-center">
-                                <button type="button" onclick="validarInfoReserva()"
+                                <button type="button" id="btnReservar"
                                     class="boton-login">Reservar</button>
                             </div>
                         </form>
@@ -141,9 +141,14 @@
                     </div>
                 </div>
             </div>
+        </div>
         </section>
-        <section id="servicio-reservado" class="row-cols-2 text-center">
+        <section class = "servicios-reservados container my-4">
+        <div class="container row-cols-1 row-cols-lg-2" id="servicio-reservado">
+            <!-- aqui se cargaran las reservas  -->
+        </div>
         </section>
+        
     </main>
     <footer class="footer-custom py-5">
         <div class="container">
@@ -215,6 +220,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
     <script src="../JS/reservas.js"></script>
     <script src="../JS/indexSesion.js"></script>
+    <script src="../components/reservaCard.js"></script>
 </body>
 
 </html>
