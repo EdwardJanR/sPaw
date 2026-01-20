@@ -59,13 +59,68 @@ input[type="password"] {
     padding-bottom: 0.25rem !important;
 }
 
-/* Label */
-.form-registro .form-floating > label {
-    top: 0.35rem;
-    padding: 0 0.75rem !important;
+/*  OCULTAR ICONO ERROR BOOTSTRAP */
+.form-registro .form-control.is-invalid {
+    background-image: none !important;
 }
- 
+
+.form-registro .form-floating {
+    position: relative;
+    height: 72px;
+}
+
+/* INPUT */
+.form-registro .form-floating > .form-control {
+    height: 38px !important;
+    padding-top: 1.1rem !important;
+    padding-bottom: 0.25rem !important;
+    padding-right: 70px !important; 
+}
+
+/*FLOATING ACTIVO */
 .form-registro .form-floating > .form-control:focus,
 .form-registro .form-floating > .form-control:not(:placeholder-shown) {
     padding-top: 1.35rem !important;
+}
+
+
+.form-registro .password-toggle {
+    position: absolute;
+    right: 15px;
+    bottom: 0.1rem; 
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 5;
+    color: #333;
+}
+
+/*OJO EN ROJO CUANDO HAY ERROR*/
+.form-registro .form-control.is-invalid ~ .password-toggle {
+    color: #dc3545;
+}
+
+/* MENSAJE ERROR */
+.form-registro .error-message {
+    position: absolute;
+    left: 0;
+    top: 78%;          
+    margin-top: 6px;    
+    font-size: 0.81rem;
+    color: #dc3545;
+    line-height: 1.2;
+}
+
+
+@media (max-width: 767px) {
+    .form-registro .form-floating {
+        height: 62px;
+    }
+
+    .form-registro .password-toggle {
+        bottom: 0.55rem;
+    }
+
+    .form-registro .error-message {
+        bottom: -18px;
+    }
 }

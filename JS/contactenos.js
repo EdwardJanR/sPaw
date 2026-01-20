@@ -37,10 +37,10 @@ function validaciones() {
     }
 
 
-    // Si todas las validaciones pasan
+ 
     mostrarAlerta('success', '<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...');
             
-    // Enviar el formulario después de 1.5 segundos
+
     setTimeout(() => {
         document.getElementById('formContactenos').submit();
     }, 1500);        
@@ -52,8 +52,10 @@ function mostrarVal(f, m) {
     const field = document.getElementById(f);
     const formFloating = field.closest('.form-floating');
     
+    formFloating.classList.add('has-error');
+    
     const errorElement = document.createElement('div');
-    errorElement.className = 'error-message text-danger mt-1 small';
+    errorElement.className = 'error-message';
     errorElement.textContent = m;
     
     formFloating.appendChild(errorElement);
@@ -62,16 +64,21 @@ function mostrarVal(f, m) {
 }
 
 function limpiarVal() {
-
+   
     document.querySelectorAll('.error-message').forEach(error => error.remove());
+    
+ 
     document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
+    
+
+    document.querySelectorAll('.has-error').forEach(container => container.classList.remove('has-error'));
 }
 
 function mostrarAlerta(tipo, mensaje) {
     const alertContainer = document.getElementById('alertContainer');
             
     const alerta = document.createElement('div');
-    alerta.className = `alert alert-${tipo} alert-dismissible fade show`;
+    alerta.className = `alert alert-${tipo} alert-dismissible fade show mt-3`;
     alerta.role = 'alert';
     alerta.innerHTML = `
         ${mensaje}
@@ -81,7 +88,7 @@ function mostrarAlerta(tipo, mensaje) {
     alertContainer.innerHTML = '';
     alertContainer.appendChild(alerta);
             
-    // Auto-cerrar después de 5 segundos
+
     setTimeout(() => {
         alerta.classList.remove('show');
         setTimeout(() => alerta.remove(), 150);
