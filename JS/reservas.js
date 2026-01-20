@@ -35,12 +35,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         limpiarVal();
 
-    const nombreMascota = inputNombreMascota.value.trim();
-    const tamanoMascota = inputTamanoMascota.value.trim();
-    const nombreGroomer = inputNombreGroomer.value.trim();
-    const nombreServicio = inputNombreServicio.value.trim();
-    const fechaReserva = inputFechaReserva.value.trim();
-    const horaReserva = inputHoraReserva.value.trim();
+        const nombreMascota = inputNombreMascota.value.trim();
+        const tamanoMascota = inputTamanoMascota.value.trim();
+        const nombreGroomer = inputNombreGroomer.value.trim();
+        const nombreServicio = inputNombreServicio.value.trim();
+        const fechaReserva = inputFechaReserva.value.trim();
+        const horaReserva = inputHoraReserva.value.trim();
 
 
         if (nombreMascota.length < 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombreMascota)) {
@@ -69,7 +69,13 @@ document.addEventListener('DOMContentLoaded', function () {
             return false;
         }
 
-        mostrarAlerta('success', '<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...');
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            html: '<strong>¡Éxito!</strong> Todos los campos son válidos.',
+            timer: 1500,
+            showConfirmButton: false
+        });
 
         setTimeout(() => {
             document.getElementById('formContactenos').submit();
@@ -107,8 +113,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         localStorage.setItem("listaReservas", JSON.stringify(listaReservas));
 
-        //Aleta para el usuario
-        mostrarAlerta('success', '<strong>¡Reserva exitosa!</strong> Tu reserva ha sido guardada correctamente.');
+        //Aleta SweetAlert2
+        Swal.fire({
+            icon: 'success',
+            title: '¡Reserva exitosa!',
+            html: 'Tu reserva ha sido guardada correctamente.',
+            confirmButtonColor: '#e97502',
+            confirmButtonText: 'Perfecto'
+        }).then(() => {
+            console.log('Usuario confirmó la reserva exitosa');
+        });
         limpiarFormulario();
         mostrarReservas();
     }
@@ -124,19 +138,57 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        reservas.items.forEach(reseva => {
+        reservas.items.forEach(reserva => {
             const reservaCard = document.createElement('reserva-card');
-            reservaCard.setAttribute('nombreServicio', reseva.nombreServicio);
-            reservaCard.setAttribute('nombreMascota', reseva.nombreMascota);
-            reservaCard.setAttribute('tamanoMascota', reseva.tamanoMascota);
-            reservaCard.setAttribute('nombreGroomer', reseva.nombreGroomer);
-            reservaCard.setAttribute('fechaReserva', reseva.fechaReserva);
-            reservaCard.setAttribute('horaReserva', reseva.horaReserva);
-            reservaCard.setAttribute('idReserva', reseva.idReserva);
+            reservaCard.setAttribute('nombreServicio', reserva.nombreServicio);
+            reservaCard.setAttribute('nombreMascota', reserva.nombreMascota);
+            reservaCard.setAttribute('tamanoMascota', reserva.tamanoMascota);
+            reservaCard.setAttribute('nombreGroomer', reserva.nombreGroomer);
+            reservaCard.setAttribute('fechaReserva', reserva.fechaReserva);
+            reservaCard.setAttribute('horaReserva', reserva.horaReserva);
+            reservaCard.setAttribute('idReserva', reserva.idReserva);
             contenedorReservas.appendChild(reservaCard);
         }
         );
     }
+
+
+    document.addEventListener('click', function (e) {
+
+        const botonEliminar = e.target.closest('.eliminar-reserva');
+
+        if (!botonEliminar) return;
+
+        e.preventDefault();
+        const id = parseInt(botonEliminar.dataset.id);
+
+        Swal.fire({
+            title: '¿Eliminar reserva?',
+            text: "¡Esta acción no se puede deshacer!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#e97502',
+            cancelButtonColor: '#2ab7ae',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                const reservas = JSON.parse(localStorage.getItem('listaReservas')) || { items: [] };
+                reservas.items = reservas.items.filter(item => item.idReserva !== id);
+                localStorage.setItem('listaReservas', JSON.stringify(reservas));
+
+                const card = button.closest('reserva-card');
+                if (card) card.remove();
+
+                if (reservas.items.length === 0) {
+                    document.getElementById('servicio-reservado').innerHTML =
+                        '<p class="text-muted">No hay reservas</p>';
+                }
+            }
+        });
+    });
+
 
     function mostrarVal(id, mensaje) {
         const field = document.getElementById(id);
@@ -156,40 +208,27 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
     }
 
+    function mostrarAlertaSweet(tipo, mensaje) {
+        const config = {
+            text: mensaje,
+            timer: 3000,
+            showConfirmButton: false,
+            timerProgressBar: true
+        };
 
+        if (tipo === 'success') {
+            config.icon = 'success';
+            config.title = '¡Éxito!';
+        } else if (tipo === 'danger') {
+            config.icon = 'error';
+            config.title = 'Error';
+        } else if (tipo === 'warning') {
+            config.icon = 'warning';
+            config.title = 'Advertencia';
+        }
 
-
-    function mostrarAlerta(mensaje, tipo) {
-        const alertContainer = document.getElementById('alertContainer');
-
-        const alerta = document.createElement('div');
-        alerta.className = `alert alert-${tipo} alert-dismissible fade show`;
-        alerta.role = 'alert';
-        alerta.innerHTML = `
-        ${mensaje}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    `;
-        alertContainer.innerHTML = '';
-        alertContainer.appendChild(alerta);
-
-        setTimeout(() => {
-            alerta.classList.remove('show');
-            setTimeout(() => alerta.remove(), 150);
-        }, 3000);
+        Swal.fire(config);
     }
-
-    function eliminarReserva(idAEliminar) {
-        let data = JSON.parse(localStorage.getItem("listaReservas"));
-
-        // filtrar los items que NO sean el id a eliminar
-        data.items = data.items.filter(item => item.idReserva !== idAEliminar);
-
-        // guardar nuevamente
-        localStorage.setItem("listaReservas", JSON.stringify(data));
-
-        mostrarReservas();
-    }
-
 
 
     function limpiarFormulario() {
