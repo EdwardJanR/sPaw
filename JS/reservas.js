@@ -76,22 +76,23 @@ function mostrarVal(id, mensaje) {
 }
 
 function limpiarVal() {
-
     document.querySelectorAll('.error-message').forEach(error => error.remove());
     document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
 }
 
 
-//let idCounter = localStorage.getItem('nextId') || 1
 function guardarInformacion() {
-    let nombreServicio = document.getElementById("nombreServicio").value;
+    let nombreServicio = document.getElementById("nombreServicio");
     let nombreMascota = document.getElementById("nombreMascota").value;
     let tamanoMascota = document.getElementById("tamanoMascota").value;
-    let nombreGroomer = document.getElementById("nombreGroomer").value;
+    let nombreGroomer = document.getElementById("nombreGroomer");
     let fechaReserva = document.getElementById("fechaReserva").value;
     let horaReserva = document.getElementById("horaReserva").value;
 
-    //console.log(JSON.stringify(infoReservas));
+    //Se obtiene la descripción del valor seleccionado en el select nombreServicio
+    let servicioSeleccionado = nombreServicio.options[nombreServicio.selectedIndex].text;
+    //Se obtiene la descripción del valor seleccionado en el select nombreGroomer
+    let groomerSeleccionado = nombreGroomer.options[nombreGroomer.selectedIndex].text;
 
     //let listaReservas = JSON.parse(localStorage.getItem("listaReservas")) || [];
     let listaReservas = JSON.parse(localStorage.getItem('listaReservas')) || { contador: 0, items: [] };
@@ -101,10 +102,10 @@ function guardarInformacion() {
 
     const infoReservas = {
         idReserva: nuevoId,
-        nombreServicio: nombreServicio,
+        nombreServicio: servicioSeleccionado,
         nombreMascota: nombreMascota,
         tamanoMascota: tamanoMascota,
-        nombreGroomer: nombreGroomer,
+        nombreGroomer: groomerSeleccionado,
         fechaReserva: fechaReserva,
         horaReserva: horaReserva
     };
@@ -116,31 +117,29 @@ function guardarInformacion() {
     localStorage.setItem("listaReservas", JSON.stringify(listaReservas));
 
     //Aleta para el usuario
-    mostrarAlerta('Reserva registrada.', 'success');
+    mostrarAlerta('<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...','success');
     limpiarFormulario();
     mostrarReservas();
 }
 
-function mostrarAlerta(mensaje, tipo = 'success') {
+function mostrarAlerta(mensaje, tipo) {
     const alertContainer = document.getElementById('alertContainer');
-
-    // Crear el elemento de alerta
+            
     const alerta = document.createElement('div');
     alerta.className = `alert alert-${tipo} alert-dismissible fade show`;
     alerta.role = 'alert';
     alerta.innerHTML = `
-        <strong>${tipo === 'success' ? '¡Éxito!' : tipo === 'danger' ? '¡Error!' : '¡Atención!'}</strong> ${mensaje}
+        ${mensaje}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `;
-
-    // Agregar la alerta al contenedor
+            
+    alertContainer.innerHTML = '';
     alertContainer.appendChild(alerta);
-
-    // Remover la alerta después de 5 segundos
+            
     setTimeout(() => {
         alerta.classList.remove('show');
         setTimeout(() => alerta.remove(), 150);
-    }, 5000);
+    }, 3000);
 }
 
 function eliminarReserva(idAEliminar) {
@@ -156,22 +155,22 @@ function eliminarReserva(idAEliminar) {
 }
 
 function mostrarReservas() {
-    const reservas = JSON.parse(localStorage.getItem("listaReservas")) || [];
+    const data = JSON.parse(localStorage.getItem("listaReservas")) || { contador: 0, items: [] };
     const contenedor = document.getElementById("servicio-reservado");
 
     contenedor.innerHTML = "";
 
-    reservas.items.forEach(p => {
+    data.items.forEach(p => {
         const div = document.createElement("div");
         div.className = "agendar col-12 col-xl-5 rounded-4 justify-content-center m-2 py-5";
         div.innerHTML = `
-            <div class="">
+            <div>
                 <h2 class="subtitulo mb-2">${p.nombreServicio}</h2>
-                <p><b>Nombre de la mascota: </b>${p.nombreMascota}</p>
-                <p><b>Tamaño: </b>${p.tamanoMascota}</p>
-                <p><b>Groomer escogido: </b>${p.nombreGroomer}</p>
-                <p><b>Fecha: </b>${p.fechaReserva}</p>
-                <p><b>Hora: </b>${p.horaReserva}</p>
+                <p><b>Nombre de la mascota:</b> ${p.nombreMascota}</p>
+                <p><b>Tamaño:</b> ${p.tamanoMascota}</p>
+                <p><b>Groomer escogido:</b> ${p.nombreGroomer}</p>
+                <p><b>Fecha:</b> ${p.fechaReserva}</p>
+                <p><b>Hora:</b> ${p.horaReserva}</p>
                 <p><i class="bi bi-trash" onclick="eliminarReserva(${p.idReserva})"></i></p>
                 <a class="boton-login" href="../HTML/servicios.html">Volver a servicios</a>
             </div>
@@ -179,6 +178,7 @@ function mostrarReservas() {
         contenedor.appendChild(div);
     });
 }
+
 
 function limpiarFormulario() {
     document.getElementById("formReserva").reset();

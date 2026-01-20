@@ -13,3 +13,54 @@
 .entrada {
     padding-right: 45px;
 }
+
+
+/* INPUTS INICIO DE SESIÓN */
+
+
+@media (min-width: 768px) {
+    #formInicioSesion .form-floating {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+/* INPUT */
+#formInicioSesion .form-floating > .form-control {
+    height: 38px !important;
+    padding-top: 1.15rem !important;
+    padding-bottom: 0.25rem !important;
+    font-size: 1rem;
+}
+.form-floating {
+    position: relative;
+}
+
+/*  layout */
+.form-floating .error-message {
+    position: absolute;
+    left: 0;
+    bottom: -18px;   
+    font-size: 0.8rem;
+    color: #dc3545;
+    line-height: 1;
+}
+
+/* Conservar el color de texto y fondo en los campos del formulario */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+
+    -webkit-text-fill-color: #ffffff !important; /* texto blanco */
+    caret-color: #ffffff;
+
+    -webkit-box-shadow: 0 0 0 30px #2ab7ae inset !important;
+    box-shadow: 0 0 0 30px #2ab7ae inset !important;
+
+    background-color: #2ab7ae !important;
+
+    transition: background-color 9999s ease-in-out 0s;
+}

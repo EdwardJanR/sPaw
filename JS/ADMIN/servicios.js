@@ -37,27 +37,51 @@ function actualizarServicios() {
     contenedor.innerHTML = "";
 
     servicios.forEach(p => {
-        const div = document.createElement("div");
-        div.className = "card-servicio-basico col-12 col-xl-5 d-flex rounded-5 justify-content-center my-3 p-4";
-        div.innerHTML = `
+        const col = document.createElement("div");
+        col.className = "col-12 col-lg-6";
 
-                    <div class="d-flex flex-column">
-                        <h3 class="subtittle mb-2">${p.nombre}</h3>
-                        <p>${p.descripcion}</p>
-                        <ul class="lista-valores p-0">
-                            Precio:
-                            <li><img src="/IMG/spaw0.png" class="list-style" alt="">${p.precioPequeno}</li>
-                            <li><img src="/IMG/spaw0.png" class="list-style" alt="">${p.precioMediano}</li>
-                            <li><img src="/IMG/spaw0.png" class="list-style" alt="">${p.precioGrande}</li>
-                        </ul>
-                    </div>
-                    <div class="d-flex flex-column  align-items-center justify-content-evenly">
-                        <a href="../HTML/reservas.html"><button class="btn-servicios" onclick="agendar()">¡Agenda ahora!</button></a>
-                        <img src="../IMG/SERVICIOS/servicio_basico.png" class="img-básicos" alt="Imagen perro">
-                    </div>
+        col.innerHTML = `
+            <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column justify-content-evenly">
 
+                <h3 class="subtitulo text-center mb-3">
+                    ${p.nombre}
+                </h3>
+                <div class="d-flex flex-column flex-md-row align-items-center gap-3">
+                    <div class="dog-mask">
+                        <img src="../IMG/spaw20.png" class="img-básicos" alt="Imagen perro">
+                    </div>
+                    <div class="parrafo">
+                        <p class="descripcion">
+                            ${p.descripcion}
+                        </p>
+                        <div class="d-flex justify-content-center">
+                            <ul class="lista-valores p-0 m-0">
+                                <li class="fw-bold text-center">Precio:</li>
+                                <li>
+                                    <img src="/IMG/spaw0.png" class="list-style">
+                                    Pequeño ${p.precioPequeno}
+                                </li>
+                                <li>
+                                    <img src="/IMG/spaw0.png" class="list-style">
+                                    Mediano ${p.precioMediano}
+                                </li>
+                                <li>
+                                    <img src="/IMG/spaw0.png" class="list-style">
+                                    Grande ${p.precioGrande}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <button class="boton-login btn-agenda" onclick="agendar()">
+                        ¡Agenda ahora!
+                    </button>
+                </div>
+            </div>
         `;
-        contenedor.appendChild(div);
+
+        contenedor.appendChild(col);
     });
 }
 
@@ -82,5 +106,6 @@ function mostrarAlerta(mensaje, tipo = 'success') {
         setTimeout(() => alerta.remove(), 150);
     }, 5000);
 }
+
 
 actualizarServicios();

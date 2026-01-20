@@ -81,11 +81,17 @@ function validaciones() {
             
     registroUsuario();
 
-    setTimeout(() => {
+    /*setTimeout(() => {
         document.getElementById('formRegistro').submit();
-    }, 1500);        
+    }, 1500);*/        
 
     limpiarFormulario();
+
+    //Redirecciona el usuario a inicio de sesión
+    setTimeout(() => {
+      window.location.href = "../HTML/inicioSesion.html";
+    }, 3000);
+
     return true;
 
 }

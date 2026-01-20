@@ -6,51 +6,67 @@
   box-sizing: border-box;
 }
 
-.btn-servicios {
-  background: #f08e3a;
-  color: #1e2a2a;
-  font-weight: 700;
-  padding: 10px 10px;
-  border-radius: 40px;
-  font-size: 1.1rem;
-  transition: 0.3s;
-  border: none;
-  width: 150px;
-  justify-content: center;
-  text-align: center;
-}
-
-.btn-servicios:hover {
-  color: white;
-}
 
 .Básicos {
-
   color: #1e2a2a;
-
 }
 
 .Premium {
   color: #f08e3a;
 }
 
-
-.card-servicio-basico {
-  background-color: #2ab7ae;
+.card-servicio {
+  background-color: #E6FAF9;
 }
 
-.img-básicos {
-  width: 200px;
+.dog-mask {
+    width: 200px;
+    height: 200px;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    padding: 10px;
 }
 
-.card-servicio-premium {
-
-  background-color: #2ab7ae;
-
+/* BORDE / GLOW */
+.dog-mask::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #2ab7ae;
+    filter: blur(2px);
+    mask-image: url("../IMG/forma-imagen.png");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url("../IMG/forma-imagen.png");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
 }
+
+/* IMAGEN */
+.dog-mask img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+
+    mask-image: url("../IMG/forma-imagen.png");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+
+    -webkit-mask-image: url("../IMG/forma-imagen.png");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+}
+
 
 .lista-valores {
   list-style: none;
+  text-align: left;
 }
 
 .list-style {
