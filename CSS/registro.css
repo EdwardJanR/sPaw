@@ -29,7 +29,7 @@ input[type="password"] {
     transform: translateY(-50%);
     cursor: pointer;
     font-size: 1.2rem;
-    color: #333;
+    color: #FFFFFF;
 }
 
 
@@ -91,7 +91,7 @@ input[type="password"] {
     cursor: pointer;
     font-size: 1.2rem;
     z-index: 5;
-    color: #333;
+    color: #FFFFFF;
 }
 
 /*OJO EN ROJO CUANDO HAY ERROR*/
@@ -110,6 +110,80 @@ input[type="password"] {
     line-height: 1.2;
 }
 
+/* === ESTILOS PERSONALIZADOS PARA BOTONES === */
+
+/* Botón "Agregar otra mascota" - estilo outline con colores de la paleta */
+.btn-agregar-mascota {
+    background-color: transparent;
+    border: 2px solid #2AB7AE;
+    color: #2AB7AE;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 600;
+    padding: 8px 20px;
+    font-size: 1rem;
+    border-radius: 40px;
+    transition: 0.3s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.btn-agregar-mascota:hover {
+    background-color: #2AB7AE;
+    color: #ffffff;
+    border-color: #2AB7AE;
+}
+
+.btn-agregar-mascota:active,
+.btn-agregar-mascota:focus {
+    background-color: #249d95;
+    border-color: #249d95;
+    color: #ffffff;
+    outline: none;
+}
+
+/* Botón "Eliminar" - estilo con naranja de la paleta */
+.btn-eliminar-mascota {
+    background-color: #f08e3a;
+    border: 2px solid #f08e3a;
+    color: #1e2a2a;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 600;
+    padding: 8px 20px;
+    font-size: 1rem;
+    border-radius: 40px;
+    transition: 0.3s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.btn-eliminar-mascota:hover {
+    background-color: #e97502;
+    border-color: #e97502;
+    color: #ffffff;
+}
+
+.btn-eliminar-mascota:active,
+.btn-eliminar-mascota:focus {
+    background-color: #d06802;
+    border-color: #d06802;
+    color: #ffffff;
+    outline: none;
+}
+
+/* Icono dentro de los botones */
+.btn-agregar-mascota i,
+.btn-eliminar-mascota i {
+    margin-right: 0.4rem;
+    font-size: 1rem;
+}
 
 @media (max-width: 767px) {
     .form-registro .form-floating {
@@ -122,6 +196,29 @@ input[type="password"] {
 
     .form-registro .error-message {
         bottom: -18px;
+    }
+}
+
+/* Alineación vertical: centrar botones con el input de mascota */
+.form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center {
+    align-items: center !important;
+    min-height: 72px;
+    display: flex !important;
+    justify-content: flex-start !important; /* Alinear a la izquierda */
+}
+
+.form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center button {
+    margin-top: -17px; /* Ajuste para centrar con el input */
+}
+
+@media (max-width: 767px) {
+    .form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center {
+        min-height: 62px;
+        justify-content: center !important; /* En móvil centrado */
+    }
+    
+    .form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center button {
+        margin-top: -12px;
     }
 }
 

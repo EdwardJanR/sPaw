@@ -24,6 +24,11 @@ function activarTogglePassword(inputId, toggleId) {
 activarTogglePassword("contrasenaUsuario", "togglePassword1");
 activarTogglePassword("confirmarContraUsuario", "togglePassword2");
 
+// Contador global de mascotas (empieza en 1 porque solo hay 1 campo inicial)
+let contadorMascotas = 1;
+const MAX_MASCOTAS = 4;
+
+
 function validaciones() {
 
     limpiarValidaciones();
@@ -34,10 +39,10 @@ function validaciones() {
     let contrasenaUsuario = document.getElementById("contrasenaUsuario").value.trim();
     let confirmarContraUsuario = document.getElementById("confirmarContraUsuario").value.trim();
     let telefonoUsuario = document.getElementById("telefonoUsuario").value.trim();
-    let mascota1Usuario = document.getElementById("mascota1Usuario").value.trim();
-    let mascota2Usuario = document.getElementById("mascota2Usuario").value.trim();
-    let mascota3Usuario = document.getElementById("mascota3Usuario").value.trim();
-    let mascota4Usuario = document.getElementById("mascota4Usuario").value.trim();
+    //let mascota1Usuario = document.getElementById("mascota1Usuario").value.trim();
+    //let mascota2Usuario = document.getElementById("mascota2Usuario").value.trim();
+    //let mascota3Usuario = document.getElementById("mascota3Usuario").value.trim();
+    //let mascota4Usuario = document.getElementById("mascota4Usuario").value.trim();
 
     if (nombreUsuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombreUsuario)) {
         mostrarValidaciones('nombreUsuario','El nombre debe ser alfabético y mínimo de dos caracteres.');
@@ -72,9 +77,29 @@ function validaciones() {
         return false;
     }
 
-    if (mascota1Usuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(mascota1Usuario)) {
+    /*if (mascota1Usuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(mascota1Usuario)) {
         mostrarValidaciones('mascota1Usuario','El nombre debe ser alfabético y mínimo de dos caracteres.');
         return false;
+    }*/
+
+        // Validar OBLIGATORIAMENTE la primera mascota
+    const mascota1Usuario = document.getElementById("mascota1Usuario").value.trim();
+    if (mascota1Usuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(mascota1Usuario)) {
+        mostrarValidaciones('mascota1Usuario','Debes ingresar al menos el nombre de una mascota (mínimo 2 caracteres alfabéticos).');
+        return false;
+    }
+
+    // Validar mascotas adicionales SOLO si tienen contenido (son opcionales)
+    for (let i = 2; i <= contadorMascotas; i++) {
+        const mascotaInput = document.getElementById(`mascota${i}Usuario`);
+        if (mascotaInput) {
+            const valorMascota = mascotaInput.value.trim();
+            // Si el campo tiene contenido, validarlo
+            if (valorMascota.length > 0 && (valorMascota.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(valorMascota))) {
+                mostrarValidaciones(`mascota${i}Usuario`, 'El nombre debe ser alfabético y mínimo de dos caracteres.');
+                return false;
+            }
+        }
     }
 
     mostrarAlerta('<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...','success');
@@ -143,10 +168,22 @@ function registroUsuario() {
     let contrasenaUsuario = document.getElementById("contrasenaUsuario").value;
     let confirmarContraUsuario = document.getElementById("confirmarContraUsuario").value;
     let telefonoUsuario = document.getElementById("telefonoUsuario").value;
-    let mascota1Usuario = document.getElementById("mascota1Usuario").value;
-    let mascota2Usuario = document.getElementById("mascota2Usuario").value;
-    let mascota3Usuario = document.getElementById("mascota3Usuario").value;
-    let mascota4Usuario = document.getElementById("mascota4Usuario").value;
+    //let mascota1Usuario = document.getElementById("mascota1Usuario").value;
+    //let mascota2Usuario = document.getElementById("mascota2Usuario").value;
+    //let mascota3Usuario = document.getElementById("mascota3Usuario").value;
+    //let mascota4Usuario = document.getElementById("mascota4Usuario").value;
+
+    // Recopilar todas las mascotas dinámicamente (solo las que tengan valor)
+    const mascotas = [];
+    for (let i = 1; i <= contadorMascotas; i++) {
+        const mascotaInput = document.getElementById(`mascota${i}Usuario`);
+        if (mascotaInput) {
+            const valorMascota = mascotaInput.value.trim();
+            if (valorMascota.length > 0) {
+                mascotas.push(valorMascota);
+            }
+        }
+    }
     
     const infoUsuario = {
         nombre: nombreUsuario,
@@ -155,12 +192,7 @@ function registroUsuario() {
         contrasena: contrasenaUsuario,
         confirmarContraseña: confirmarContraUsuario,
         telefono: telefonoUsuario,
-        mascotas: [
-            mascota1Usuario,
-            mascota2Usuario,
-            mascota3Usuario,
-            mascota4Usuario
-        ]
+        mascotas: mascotas
     }
 
     let infoRegistro = JSON.parse(localStorage.getItem("infoRegistro")) || [];
@@ -172,4 +204,72 @@ function registroUsuario() {
 
 function limpiarFormulario() {
     document.getElementById("formRegistro").reset();
+}
+
+// Función para contar cuántos campos de mascota existen actualmente
+function contarCamposMascota() {
+    let count = 1; // Siempre existe mascota1Usuario (obligatorio)
+    for (let i = 2; i <= contadorMascotas; i++) {
+        if (document.getElementById(`mascotaContainer${i}`)) {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Función para agregar un nuevo campo de mascota
+function agregarCampoMascota() {
+    // Contar campos actuales en lugar de usar el contador
+    const camposActuales = contarCamposMascota();
+    
+    // Verificar si ya se alcanzó el máximo
+    if (camposActuales >= MAX_MASCOTAS) {
+        mostrarAlerta('<strong>Límite alcanzado:</strong> Solo puedes registrar hasta 4 mascotas.', 'warning');
+        return;
+    }
+
+    contadorMascotas++;    
+    
+    const columnForm = document.querySelector('.column-form');
+    const botonRegistro = columnForm.querySelector('.form-floating.d-flex.justify-content-center');
+    
+    // Crear el nuevo div para la mascota
+    const nuevoDiv = document.createElement('div');
+    nuevoDiv.className = 'd-flex flex-column flex-md-row w-100 w-lg-75 align-items-center px-3 my-lg-1';
+    nuevoDiv.id = `mascotaContainer${contadorMascotas}`;
+    
+    nuevoDiv.innerHTML = `
+        <div class="form-floating w-100 w-md-50 m-3">
+            <input type="text" class="form-control entrada" id="mascota${contadorMascotas}Usuario" placeholder="">
+            <label for="mascota${contadorMascotas}Usuario">Ingresa el nombre de tu mascota (opcional)</label>
+        </div>
+        <div class="w-100 w-md-50 m-3 d-flex align-items-center justify-content-center justify-content-md-start">
+            <button type="button" class="btn-eliminar-mascota" onclick="eliminarCampoMascota(${contadorMascotas})">
+                <i class="bi bi-trash"></i> Eliminar
+            </button>        
+        </div>
+    `;    
+
+    // Insertar antes del botón de registro
+    columnForm.insertBefore(nuevoDiv, botonRegistro);
+    
+    // Si se alcanzó el máximo, ocultar el botón de agregar
+    if (contarCamposMascota() >= MAX_MASCOTAS) {
+        const botonAgregarContainer = document.getElementById('botonAgregarMascota');
+        botonAgregarContainer.style.display = 'none';
+    }
+}
+
+// Función para eliminar un campo de mascota
+function eliminarCampoMascota(numero) {
+    const container = document.getElementById(`mascotaContainer${numero}`);
+    if (container) {
+        container.remove();
+        
+        // Mostrar nuevamente el botón de agregar si estaba oculto
+        const botonAgregarContainer = document.getElementById('botonAgregarMascota');
+        if (botonAgregarContainer.style.display === 'none') {
+            botonAgregarContainer.style.display = 'flex';
+        }
+    }
 }
