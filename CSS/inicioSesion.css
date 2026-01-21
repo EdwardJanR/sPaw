@@ -46,6 +46,17 @@
     line-height: 1;
 }
 
+.toggle-password {
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+    bottom: 0.1rem; 
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 5;
+    color: #333;
+}
+
 /* Conservar el color de texto y fondo en los campos del formulario */
 
 input:-webkit-autofill,
