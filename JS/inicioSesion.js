@@ -1,3 +1,7 @@
+const SPAWBK_API_URL = 'http://localhost:8080/auth';
+
+
+
 document.getElementById("mostrarPass").addEventListener("click", function () {
   const pass = document.getElementById("password");
   const eyeIcon = document.getElementById("eyeIcon");
@@ -11,30 +15,85 @@ document.getElementById("mostrarPass").addEventListener("click", function () {
   eyeIcon.classList.toggle("bi-eye-slash");
 });
 
-function validaciones() {
-  limpiarValidaciones();
+const formInicioSesion = document.getElementById('formInicioSesion');
 
-  const email = document.getElementById("email").value.trim();
-  const contrasena = document.getElementById("password").value.trim();
+if (formInicioSesion) {
+  formInicioSesion.addEventListener('submit', async function (event) {
+    event.preventDefault();
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    mostrarValidaciones("email", "Por favor ingresa un email válido.");
-    return false;
-  }
+    const email = document.getElementById('email').value.trim();
+    const passwordUsuario = document.getElementById('password').value.trim();
 
-  if (contrasena.length < 8) {
-    mostrarValidaciones(
-      "password",
-      "La contraseña debe tener mínimo 8 caracteres"
-    );
-    return false;
-  }
+    limpiarValidaciones();
 
-  verificarUsuario();
-  limpiarFormulario();
-  return true;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      mostrarValidaciones("email", "Por favor ingresa un email válido.");
+      return;
+    }
+
+    if (passwordUsuario.length < 8) {
+      mostrarValidaciones("password", "La contraseña debe tener mínimo 8 caracteres");
+      return;
+    }
+
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Iniciando sesión...';
+    submitBtn.disabled = true;
+
+    try {
+      const response = await fetch(`${SPAWBK_API_URL}/loginConDTO`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          passwordUsuario: passwordUsuario
+        })
+      });
+
+      // Restaurar botón
+      submitBtn.innerHTML = originalText;
+      submitBtn.disabled = false;
+
+      if (response.ok) {
+        const token = await response.text();
+        localStorage.setItem('jwt', token);
+
+        const nombreDelEmail = email.split('@')[0];
+        const nombreFormateado = nombreDelEmail
+          .split('.')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+
+        const usuarioActivo = {
+          nombre: nombreFormateado,
+          apellidos: '',
+          email: email
+        };
+
+        localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+
+        mostrarAlerta("<strong>¡Inicio de sesión exitoso!</strong>", "success");
+
+        setTimeout(() => {
+          window.location.href = '../HTML/reservas.html';
+        }, 1000);
+
+      } else {
+        const errorMessage = await response.text();
+        mostrarAlerta(`<strong>Error:</strong> ${errorMessage}`, "danger");
+      }
+    } catch (error) {
+      submitBtn.innerHTML = originalText;
+      submitBtn.disabled = false;
+      mostrarAlerta('<strong>Error de conexión con el servidor.</strong>', "danger");
+    }
+  });
 }
+
 
 function mostrarValidaciones(id, mensaje) {
   const field = document.getElementById(id);
@@ -58,36 +117,6 @@ function limpiarValidaciones() {
     .forEach((field) => field.classList.remove("is-invalid"));
 }
 
-function verificarUsuario() {
-  const email = document.getElementById("email").value.trim();
-  const contrasena = document.getElementById("password").value.trim();
-
-  const usuariosRegistrados =
-    JSON.parse(localStorage.getItem("infoRegistro")) || [];
-
-  const usuarioEncontrado = usuariosRegistrados.find(
-    (usuario) => usuario.correo === email && usuario.contrasena === contrasena
-  );
-
-  if (usuarioEncontrado) {
-    // Guardar usuario logueado
-    const usuarioActivo = {
-      nombre: usuarioEncontrado.nombre,
-      apellidos: usuarioEncontrado.apellidos,
-    };
-
-    localStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
-
-    mostrarAlerta("<strong>¡Inicio de sesión exitoso!</strong> Redirigiendo...", "success");
-
-    setTimeout(() => {
-      window.location.href = "../index.html";
-    }, 5000);
-    
-  } else {
-    mostrarAlerta("<strong>Usuario o contraseña incorrecto</strong>", "danger");
-  }
-}
 
 function mostrarAlerta(mensaje, tipo) {
   const alertContainer = document.getElementById("alertContainer");
@@ -110,5 +139,5 @@ function mostrarAlerta(mensaje, tipo) {
 }
 
 function limpiarFormulario() {
-  document.getElementById("formRegistro").reset();
+  document.getElementById("formInicioSesion").reset();
 }

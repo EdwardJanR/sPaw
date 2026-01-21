@@ -1,3 +1,4 @@
+const API_URL = 'http://localhost:8080/usuarios';
 
 function activarTogglePassword(inputId, toggleId) {
     const input = document.getElementById(inputId);

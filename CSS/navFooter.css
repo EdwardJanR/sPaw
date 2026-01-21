@@ -74,6 +74,14 @@
   text-align: center;
 }
 
+.subtitulo2 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #2ab7ae;
+  text-align: center;
+}
+
 .parrafo {
   font-family: "Nunito", sans-serif;
   font-size: 16px;
