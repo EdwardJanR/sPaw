@@ -273,3 +273,30 @@ function eliminarCampoMascota(numero) {
         }
     }
 }
+const input = document.getElementById("contrasenaUsuario");
+const bubble = document.getElementById("passwordBubble");
+
+let timeoutBubble = null;
+
+input.addEventListener("focus", () => {
+    bubble.style.display = "block";
+
+    if (timeoutBubble) {
+        clearTimeout(timeoutBubble);
+    }
+
+    timeoutBubble = setTimeout(() => {
+        bubble.style.display = "none";
+    }, 10000);
+});
+
+input.addEventListener("blur", () => {
+   
+    bubble.style.display = "none";
+
+    if (timeoutBubble) {
+        clearTimeout(timeoutBubble);
+    }
+});
+
+
