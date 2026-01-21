@@ -2,15 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const btnLogin = document.getElementById("btnLogin");
   const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+  const jwt = localStorage.getItem("jwt");
 
-  if (btnLogin && usuarioActivo?.nombre) {
+  if (btnLogin && usuarioActivo?.nombre && jwt) {
     btnLogin.outerHTML = `
       <div class="nav-item dropdown">
         <a class="boton-login dropdown-toggle d-flex align-items-center"
-           id="btnLogin"
-           role="button"
-           data-bs-toggle="dropdown"
-           aria-expanded="false">
+          id="btnLogin"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false">
           <i class="bi bi-person-circle me-2"></i>
           ${capitalizeFirstLetter(usuarioActivo.nombre)}
         </a>
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cerrarSesion.addEventListener("click", (e) => {
           e.preventDefault();
           localStorage.removeItem("usuarioActivo");
+          localStorage.removeItem("jwt");
           window.location.href = "../index.html";
         });
       }
