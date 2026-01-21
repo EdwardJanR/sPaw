@@ -27,11 +27,10 @@
                     <h2 class="text-center mb-2 section-title titulo" id="Contacto">Reserva ahora</h2>
                 </div>
                 <div class="container d-flex justify-content-around flex-column flex-lg-row">
-                    <div
-                        class="d-flex flex-column w-100 w-md-50 p-md-3 justify-content-around gap-1 order-2 order-md-1">
+                    <div class="d-flex flex-column w-100 w-md-50 p-md-3 justify-content-around gap-1 order-2 order-md-1 text-center">
                         <p class="subtitulo2 text-center mt-3 mb-3">Vamos a reservar ahora la cita para tu mascota</p>
 
-                        <form class="form-reserva" id="formReserva">
+                        <form class="form-reserva mx-auto" id="formReserva">
                             <!-- Nombre mascota -->
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control form-control-lg entrada" id="nombreMascota"
@@ -89,7 +88,7 @@
                                 <label for="fechaReserva">Selecciona una fecha</label>
                             </div>
                             <!-- Hora -->
-                            <div class="form-floating mb-4">
+                            <div class="form-floating mb-3">
                                 <select class="form-select form-select-lg entrada" id="horaReserva" name="horaReserva"
                                     required>
                                     <option value="" disabled selected></option>
@@ -103,12 +102,10 @@
                                 <label for="horaReserva">Selecciona una hora</label>
                             </div>
                             <!-- Botón -->
-                            <div class="form-floating d-flex justify-content-center">
+                            <div class="form-floating d-flex justify-content-center mt-4">
                                 <button type="button" id="btnReservar" class="boton-login">Reservar</button>
                             </div>
                         </form>
-                        <!-- Contenedor para alertas -->
-                        <div id="alertContainer"></div>
                     </div>
                     <div class="imagen-contacto w-100 w-md-50 p-md-3 order-1">
                         <img class="img-contacto w-100" src="../IMG/spaw18.png" alt="">
@@ -117,13 +114,13 @@
             </div>
             </div>
         </section>
-        <section class="servicios-reservados container my-4">
-            <h2 class="subtitulo my-3">Mis Reservas</h2>
-            <div class="row row-cols-1 row-cols-lg-2" id="servicio-reservado">
-                <!-- aqui se cargaran las reservas  -->
+        <section class="servicios-reservados container my-5">
+            <h2 class="subtitulo text-center fw-bold mb-4">Mis Reservas</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="servicio-reservado">
+                <!-- Las cards se cargan aquí -->
             </div>
         </section>
-
+        <div id="protected-data" style="margin-top: 1rem;"></div>
     </main>
     <footer class="footer-custom py-5">
         <footer-component></footer-component>
@@ -138,9 +135,7 @@
     <script src="../components/footer.js"></script>
 
     <!-- scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
     <script src="../JS/reservas.js"></script>

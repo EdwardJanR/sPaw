@@ -132,12 +132,18 @@ document.addEventListener('DOMContentLoaded', function () {
             reservaCard.setAttribute('fechaReserva', reserva.fechaReserva);
             reservaCard.setAttribute('horaReserva', reserva.horaReserva);
             reservaCard.setAttribute('idReserva', reserva.idReserva);
+            reservaCard.style.opacity = '0';
+            reservaCard.style.transform = 'translateY(20px)';
             contenedorReservas.appendChild(reservaCard);
-        }
-        );
+            setTimeout(() => {
+            reservaCard.style.opacity = '1';
+            reservaCard.style.transform = 'translateY(0)';
+            reservaCard.style.transition = 'all 0.4s ease';
+        }, 50);
+        });
     }
 
-
+    // Eliminar reserva
     document.addEventListener('click', function (e) {
 
         const botonEliminar = e.target.closest('.eliminar-reserva');
@@ -158,12 +164,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const card = button.closest('reserva-card');
                 if (card) card.remove();
+                mostrarAlerta('exito', 'La reserva ha sido eliminada correctamente.');
 
                 if (reservas.items.length === 0) {
                     document.getElementById('servicio-reservado').innerHTML =
                         '<p class="text-muted">No hay reservas</p>';
                 }
             }
+            mostrarReservas();
         });
     });
 
