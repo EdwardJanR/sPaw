@@ -10,7 +10,7 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Contáctenos</title>
+    <title>Administración de Clientes - sPaw</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -30,7 +30,7 @@
                             <a class="nav-link" href="../../index.html">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="../quienesSomos.html">Quienes somos</a>
+                            <a class="nav-link" href="../quienesSomos.html">Quienes somos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../servicios.html">Servicios</a>
@@ -44,13 +44,15 @@
             </div>
         </nav>
     </header>
-    <main class="d-flex align-items-center justify-content-center flex-grow-1">
-        <div class="d-flex flex-column align-items-center">
-            <h1 class="text-center mt-3 titulo">
+
+    <main class="flex-grow-1">
+        <div class="container py-4">
+            <h1 class="text-center titulo">
                 Administrador
             </h1>
-            <!-- Empieza seccion de tabs -->
-            <ul class="nav nav-tabs justify-content-center w-100">
+
+            <!-- Sección de tabs -->
+            <ul class="nav nav-tabs justify-content-center w-100 mb-4">
                 <li class="nav-item">
                     <a class="nav-link custom-tab" href="./index.html">Servicios</a>
                 </li>
@@ -64,21 +66,43 @@
                     <a class="nav-link custom-tab" href="./admReservas.html">Reservas</a>
                 </li>
             </ul>
-            <!-- Termina seccion de tabs -->
+
+            <!-- Controles -->
+            <div class="controls-section">
+                <div class="row align-items-center g-3">
+                    <div class="col-md-3">
+                        <button class="btn-reload w-100" onclick="cargarUsuarios()">
+                            <i class="bi bi-arrow-clockwise"></i> Recargar Usuarios
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="filter-select w-100" id="filtroRol" onchange="filtrarPorRol()">
+                            <option value="">Todos los roles</option>
+                            <option value="Cliente">Cliente</option>
+                            <option value="Administrador">Administrador</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <span class="stats-badge">
+                            Total de usuarios: <span id="totalUsuarios">0</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenedor de tabla -->
+            <div id="contenedor"></div>
         </div>
     </main>
-    <div id="reservas"></div>
+
     <footer class="footer-custom py-5">
         <div class="container">
             <div class="row align-items-center justify-content-between">
-                <!-- Logo -->
                 <div class="col-md-4 d-flex justify-content-center justify-content-md-start mb-4 mb-md-0">
                     <img src="../../IMG/logo-03.png" class="footer-logo" alt="Logo sPaw">
                 </div>
-                <!-- Información  -->
                 <div class="col-md-8">
                     <div class="row g-4 align-items-start">
-                        <!-- Correo -->
                         <div class="col-12 col-md-5">
                             <div class="info-item d-flex gap-3 mb-3">
                                 <i class="bi bi-envelope-fill info-icon"></i>
@@ -87,7 +111,6 @@
                                     <p class="info-text mb-0">sPaw@gmail.com</p>
                                 </div>
                             </div>
-                            <!-- Teléfono -->
                             <div class="info-item d-flex gap-3">
                                 <i class="bi bi-telephone-fill info-icon"></i>
                                 <div>
@@ -96,7 +119,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Horarios -->
                         <div class="col-12 col-md-5">
                             <div class="info-item d-flex gap-3 mb-3">
                                 <i class="bi bi-clock-fill info-icon"></i>
@@ -105,7 +127,6 @@
                                     <p class="info-text mb-0">Lun-Dom: 9:30AM - 6:30PM</p>
                                 </div>
                             </div>
-                            <!-- Dirección -->
                             <div class="info-item d-flex gap-3">
                                 <i class="bi bi-geo-alt-fill info-icon"></i>
                                 <div>
@@ -114,7 +135,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Redes -->
                         <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-end">
                             <div class="social-icons d-flex gap-3">
                                 <i class="bi bi-whatsapp"></i>
@@ -128,11 +148,14 @@
             </div>
         </div>
     </footer>
+
     <div class="footer-copy text-center py-2">
         ©2025 sPaw. Todos los derechos reservados
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-        </script>
+    </script>
+    <script src="../../JS/ADMIN/admClientes.js"></script>    
 </body>
 </html>
