@@ -7,22 +7,22 @@ let todosLosGroomers = [];
 // Cuando se cargue la página, listar los groomers
 window.addEventListener('DOMContentLoaded', listarGroomers);
 
-// Función para obtener los groomers desde el backend
-async function listarGroomers() {
-    const contenedor = document.getElementById("infoGroomers");
-    contenedor.innerHTML = `
-        <tr>
-            <td colspan="5" class="loading text-center">
-                <p>Cargando groomers...</p>
-            </td>
-        </tr>
-    `;
+// // Función para obtener los groomers desde el backend
+// async function listarGroomers() {
+//     const contenedor = document.getElementById("infoGroomers");
+//     contenedor.innerHTML = `
+//         <tr>
+//             <td colspan="5" class="loading text-center">
+//                 <p>Cargando groomers...</p>
+//             </td>
+//         </tr>
+//     `;
 
-    try {
+/*    try {
         const response = await fetch(API_URL);
         if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
 
-        todosLosGroomers = await response.json();
+        //  todosLosGroomers = await response.json();
         console.log("Primer groomer:", todosLosGroomers[0]); // 👈 mira aquí el id real
         mostrarGroomers(todosLosGroomers);
 
@@ -36,6 +36,54 @@ async function listarGroomers() {
                     <p>Verifica que el backend esté ejecutándose en: ${API_URL}</p>
                 </td>
             </tr>
+        `;
+    }
+}*/
+
+async function listarGroomers() {
+    const contenedor = document.getElementById('infoGroomers');
+    contenedor.innerHTML = `
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Cargando groomers...</p>
+        </div>
+    `;
+ 
+    try {
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+       
+        // Intentar obtener el token si existe
+        const jwtData = localStorage.getItem('jwt');
+        if (jwtData) {
+            try {
+                const { token } = JSON.parse(jwtData);
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                }
+            } catch (e) {
+                console.warn('Error al parsear JWT:', e);
+            }
+        }
+ 
+        const response = await fetch(API_URL, { headers });
+       
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+ 
+        todosLosGroomers = await response.json();
+        mostrarGroomers(todosLosGroomers);
+       
+    } catch (error) {
+        console.error('Error al cargar groomers:', error);
+        contenedor.innerHTML = `
+            <div class="error">
+                <h3><i class="bi bi-exclamation-triangle"></i> Error al cargar los datos</h3>
+                <p>${error.message}</p>
+                <p>Verifica que el backend esté ejecutándose en: ${API_URL}</p>
+            </div>
         `;
     }
 }
@@ -111,6 +159,7 @@ function eliminarGroomer(id) {
         alert(`Eliminar groomer #${id} (pendiente)`);
     }
 }
+
 
 
 
