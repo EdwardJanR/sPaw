@@ -39,9 +39,9 @@
 }
 
 .btn-danger:hover {
-    background-color: #e97502 !important;
-    border-color: #e97502 !important;
-    color: white !important;
+    background-color: var(--color-fondo) !important;
+    border-color: var(--color-naranja) !important;
+    color: var(--color-naranja) !important;
 }
 
 .bg-light {
