@@ -17,6 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
         </a>
         <ul class="dropdown-menu dropdown-menu-end list-unstyled">
           <li>
+            <a class="dropdown-item" href="../HTML/reservas.html" id="">
+              Mis reservas
+            </a>
+          </li>
+            <li>
             <a class="dropdown-item" href="#" id="cerrarSesion">
               Cerrar sesión
             </a>

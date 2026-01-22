@@ -4,19 +4,14 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
 }
 
-
-.Básicos {
-  color: #1e2a2a;
-}
-
-.Premium {
-  color: #f08e3a;
-}
 
 .card-servicio {
   background-color: #E6FAF9;
+  max-width: 360px;
+  width: 100%;
 }
 
 .dog-mask {
@@ -64,14 +59,22 @@
 }
 
 
-.lista-valores {
-  list-style: none;
-  text-align: left;
+.btn-size {
+  border: 2px solid #2ab7ae;
+  background: transparent;
+  padding: 3px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #1e2a2a;
 }
 
-.list-style {
-  width: 15px;
-  height: 15px;
-  padding-bottom: 5px;
-  padding-right: 2px;
+.btn-size.active {
+  background: #2ab7ae;
+  color: white;
 }
+
+.precio-final {
+  color: #1e2a2a;
+}
+
+
