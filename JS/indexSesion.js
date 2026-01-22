@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </a>
         <ul class="dropdown-menu dropdown-menu-end list-unstyled">
           <li>
-            <a class="dropdown-item" href="../HTML/reservas.html" id="">
+            <a class="dropdown-item" href="../HTML/misReservas.html" id="">
               Mis reservas
             </a>
           </li>
@@ -63,6 +63,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function capitalizeFirstLetter(string) {
   return string ? string.charAt(0).toUpperCase() + string.slice(1) : "";
+}
+
+function seleccionarPrecio(btn, precio) {
+  const card = btn.closest(".card-servicio");
+
+  card.querySelectorAll(".btn-size").forEach(b =>
+    b.classList.remove("active")
+  );
+
+  btn.classList.add("active");
+
+  const spanPrecio = card.querySelector(".precio-final span");
+  spanPrecio.textContent = precio.toLocaleString("es-CO");
 }
 
 

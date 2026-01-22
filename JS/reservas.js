@@ -253,3 +253,11 @@ document.addEventListener('DOMContentLoaded', function () {
     mostrarReservas();
 
 });
+
+function nuevaReserva() {
+  const seccion = document.getElementById("seccionReserva");
+  seccion.classList.toggle("d-none");
+
+  // scroll automático al formulario
+  seccion.scrollIntoView({ behavior: "smooth" });
+}
