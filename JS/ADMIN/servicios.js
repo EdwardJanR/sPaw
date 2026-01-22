@@ -28,7 +28,9 @@ async function guardarInformacion() {
   limpiarValidaciones();
 
   let nombreServicio = document.getElementById("nombreServicio").value.trim();
-  let descripcionServicio = document.getElementById("descripcionServicio").value.trim();
+  let descripcionServicio = document
+    .getElementById("descripcionServicio")
+    .value.trim();
   let imgServicio = document.getElementById("imgServicio");
   let precioPequeno = document.getElementById("precioPequeno").value.trim();
   let precioMediano = document.getElementById("precioMediano").value.trim();
@@ -37,13 +39,22 @@ async function guardarInformacion() {
   let duracionMediano = document.getElementById("duracionMediano").value.trim();
   let duracionGrande = document.getElementById("duracionGrande").value.trim();
 
-  if (nombreServicio.length < 3 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombreServicio)) {
-    mostrarValidaciones("nombreServicio","El nombre debe ser alfabético y tener mínimo 3 caracteres");
+  if (
+    nombreServicio.length < 3 ||
+    !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s&\-()]+$/.test(nombreServicio)
+  ) {
+    mostrarValidaciones(
+      "nombreServicio",
+      "El nombre debe tener mínimo 3 caracteres y solo puede contener letras, espacios, &, -, ()",
+    );
     return;
   }
 
   if (descripcionServicio.length < 10) {
-    mostrarValidaciones("descripcionServicio","La descripción debe tener mínimo 10 caracteres");
+    mostrarValidaciones(
+      "descripcionServicio",
+      "La descripción debe tener mínimo 10 caracteres",
+    );
     return;
   }
 
@@ -63,17 +74,26 @@ async function guardarInformacion() {
   }
 
   if (!/^\d+$/.test(duracionPequeno)) {
-    mostrarValidaciones("duracionPequeno", "La duración debe ser un número en minutos");
+    mostrarValidaciones(
+      "duracionPequeno",
+      "La duración debe ser un número en minutos",
+    );
     return;
   }
 
   if (!/^\d+$/.test(duracionMediano)) {
-    mostrarValidaciones("duracionMediano", "La duración debe ser un número en minutos");
+    mostrarValidaciones(
+      "duracionMediano",
+      "La duración debe ser un número en minutos",
+    );
     return;
   }
 
   if (!/^\d+$/.test(duracionGrande)) {
-    mostrarValidaciones("duracionGrande", "La duración debe ser un número en minutos");
+    mostrarValidaciones(
+      "duracionGrande",
+      "La duración debe ser un número en minutos",
+    );
     return;
   }
 
@@ -94,7 +114,10 @@ async function guardarInformacion() {
 
     if (!imageUrl) {
       limpiarAlertas();
-      mostrarAlerta("No se pudo subir la imagen. Intenta nuevamente.","danger");
+      mostrarAlerta(
+        "No se pudo subir la imagen. Intenta nuevamente.",
+        "danger",
+      );
       return;
     }
 
@@ -115,7 +138,10 @@ async function guardarInformacion() {
     listaServicios.push(infoServicios);
     localStorage.setItem("listaServicios", JSON.stringify(listaServicios));
 
-    mostrarAlerta("Todos los campos son válidos. Enviando formulario...", "success");
+    mostrarAlerta(
+      "Todos los campos son válidos. Enviando formulario...",
+      "success",
+    );
 
     limpiarFormulario();
     actualizarServicios();
@@ -128,64 +154,49 @@ async function guardarInformacion() {
 
 function actualizarServicios() {
   const contenedor = document.getElementById("servicios_Basicos");
-
-  if (!contenedor) {
-    return;
-  }
+  if (!contenedor) return;
 
   const servicios = JSON.parse(localStorage.getItem("listaServicios")) || [];
-
   contenedor.innerHTML = "";
 
   servicios.forEach((p) => {
     const col = document.createElement("div");
-    col.className = "col-12 col-lg-6";
+    col.className = "col-12 col-md-6 col-lg-4 d-flex justify-content-center";
 
     col.innerHTML = `
-      <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column justify-content-evenly">
+      <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column align-items-center justify-content-between text-center">
 
-        <h3 class="subtitulo text-center mb-3">
+        <div class="dog-mask mb-3">
+          <img src="${p.imagen}" class="img-básicos" alt="Imagen perro">
+        </div>
+
+        <h3 class="tercertitulo">
           ${p.nombre}
         </h3>
 
-        <div class="d-flex flex-column flex-md-row align-items-center gap-3">
-          <div class="dog-mask">
-            <img src="${p.imagen}" class="img-básicos" alt="Imagen perro">
-          </div>
+        <p class="descripcion">
+          ${p.descripcion}
+        </p>
 
-          <div class="parrafo">
-            <p class="descripcion">
-              ${p.descripcion}
-            </p>
+        <p class="fw-bold">Tamaño:</p>
 
-            <div class="d-flex justify-content-center">
-              <ul class="lista-valores p-0 m-0">
-                <li class="fw-bold text-center">Precio:</li>
-
-                <li>
-                  <img src="/IMG/spaw0.png" class="list-style">
-                  Pequeño ${p.precioPequeno}
-                </li>
-
-                <li>
-                  <img src="/IMG/spaw0.png" class="list-style">
-                  Mediano ${p.precioMediano}
-                </li>
-
-                <li>
-                  <img src="/IMG/spaw0.png" class="list-style">
-                  Grande ${p.precioGrande}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center mt-4">
-          <button class="boton-login btn-agenda" onclick="agendar()">
-            ¡Agenda ahora!
+        <div class="d-flex justify-content-center gap-2 mb-3">
+          <button class="btn-size" onclick="seleccionarPrecio(this, ${p.precioPequeno})">
+            Pequeño
+          </button>
+          <button class="btn-size" onclick="seleccionarPrecio(this, ${p.precioMediano})">
+            Mediano
+          </button>
+          <button class="btn-size" onclick="seleccionarPrecio(this, ${p.precioGrande})">
+            Grande
           </button>
         </div>
+
+        <p class="precio-final fw-bold fs-4">$<span>—</span></p>
+
+        <button class="boton-login btn-agenda" onclick="agendar()">
+          ¡Agenda ahora!
+        </button>
 
       </div>
     `;
@@ -193,7 +204,6 @@ function actualizarServicios() {
     contenedor.appendChild(col);
   });
 }
-
 
 function mostrarAlerta(mensaje, tipo = "success") {
   const alertContainer = document.getElementById("alertContainer");
@@ -258,5 +268,19 @@ function limpiarAlertas() {
   const alertContainer = document.getElementById("alertContainer");
   alertContainer.innerHTML = "";
 }
+
+function seleccionarPrecio(btn, precio) {
+  const card = btn.closest(".card-servicio");
+
+  card.querySelectorAll(".btn-size").forEach(b =>
+    b.classList.remove("active")
+  );
+
+  btn.classList.add("active");
+
+  const spanPrecio = card.querySelector(".precio-final span");
+  spanPrecio.textContent = precio.toLocaleString("es-CO");
+}
+
 
 actualizarServicios();

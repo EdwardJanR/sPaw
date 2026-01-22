@@ -48,72 +48,85 @@
         <section class="cards-servicios container text-center mb-5">
             <h2 class="Premium subtitulo mb-3"> Servicios básicos</h2>
             <div class="container">
-                <div class="row g-4 justify-content-center flex-wrap-reverse" id="servicios_Basicos">
-                    <div class="col-12 col-lg-6">
-                        <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column justify-content-evenly">
+                <div class="row g-4 justify-content-center" id="servicios_Basicos">
+                    <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                        <div
+                            class="card-servicio rounded-5 p-4 h-100 d-flex flex-column align-items-center justify-content-between text-center">
 
-                            <h3 class="subtitulo text-center mb-3">
-                                Combo Spaw Premium <br> Día de Relajación
+                            <div class="dog-mask mb-3">
+                                <img src="../IMG/spaw20.png" class="img-básicos" alt="Imagen perro">
+                            </div>
+
+                            <h3 class="tercertitulo">
+                                Combo Spaw Premium Día de Relajación
                             </h3>
 
-                            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
-                                <div class="dog-mask">
-                                    <img src="../IMG/spaw20.png" class="img-básicos" alt="Imagen perro">
-                                </div>
-                                <div class="parrafo">
-                                    <p class="descripcion">
-                                        Servicio de lujo con baño aromático, masaje relajante, hidratación profunda
-                                        del pelaje, perfumado y obsequio (pañuelo o moñito). Perfecto para consentir
-                                        a tu mascota y brindarle una experiencia única de bienestar y relajación.
-                                    </p>
-                                    <span class="ver-mas">ver más</span>
-                                    <ul class="lista-valores p-0 m-0">
-                                        <li class="fw-bold">Precio:</li>
-                                        <li><img src="/IMG/spaw0.png" class="list-style"> Pequeño $85.000</li>
-                                        <li><img src="/IMG/spaw0.png" class="list-style"> Mediano $110.000</li>
-                                        <li><img src="/IMG/spaw0.png" class="list-style"> Grande $140.000</li>
-                                    </ul>
-                                </div>
+                            <p class="descripcion">
+                                Servicio de lujo con baño aromático, masaje relajante, hidratación profunda del pelaje, perfumado y obsequio (pañuelo o moñito). Perfecto para consentir a tu mascota y brindarle una experiencia única de bienestar y relajación.
+                            </p>
+
+                            <p class="fw-bold">Tamaño:</p>
+
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <button class="btn-size" onclick="seleccionarPrecio(this, 85000)">
+                                    Pequeño
+                                </button>
+                                <button class="btn-size" onclick="seleccionarPrecio(this, 110000)">
+                                    Mediano
+                                </button>
+                                <button class="btn-size" onclick="seleccionarPrecio(this, 140000)">
+                                    Grande
+                                </button>
                             </div>
 
-                            <div class="text-center mt-4">
-                                <button class="boton-login btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
-                            </div>
+                            <p class="precio-final fw-bold fs-4">
+                                $<span>—</span>
+                            </p>
+
+                            <button class="boton-login btn-agenda" onclick="agendar()">
+                                ¡Agenda ahora!
+                            </button>
 
                         </div>
                     </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column justify-content-evenly">
-                            <h3 class="subtitulo text-center mb-3">
+
+                    <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                        <div
+                            class="card-servicio rounded-5 p-4 h-100 d-flex flex-column align-items-center justify-content-between text-center">
+
+                            <div class="dog-mask mb-3">
+                                <img src="../IMG/spaw20.png" class="img-básicos" alt="Imagen perro">
+                            </div>
+
+                            <h3 class="tercertitulo">
                                 Combo Cachorro (Primer Spaw)
                             </h3>
 
-                            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
-                                <div class="dog-mask">
-                                    <img src="../IMG/spaw20.png" class="img-básicos" alt="Imagen perro">
-                                </div>
-                                <div class="parrafo">
-                                    <p class="descripcion">
-                                        Especial para perritos jóvenes. Incluye baño suave con shampoo para cachorro,
-                                        secado delicado, cepillado ligero, limpieza de oídos, recorte de puntas si es
-                                        necesario y desensibilización al secador y equipos. Ideal para crear una
-                                        experiencia tranquila desde pequeño.
-                                    </p>
-                                    <span class="ver-mas">ver más</span>
-                                    <div class="d-flex justify-content-center">
-                                        <ul class="lista-valores p-0 m-0">
-                                            <li class="fw-bold">Precio:</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Pequeño $85.000</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Mediano $110.000</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Grande $140.000</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                            <p class="descripcion">
+                                Especial para perritos jóvenes. Incluye baño suave con shampoo para cachorro, secado delicado, cepillado ligero, limpieza de oídos, recorte de puntas si es necesario y desensibilización al secador y equipos. Ideal para crear una experiencia tranquila desde pequeño.
+                            </p>
+
+                            <p class="fw-bold">Tamaño:</p>
+
+                            <div class="d-flex justify-content-center gap-2 mb-3">
+                                <button class="btn-size" onclick="seleccionarPrecio(this, 85000)">
+                                    Pequeño
+                                </button>
+                                <button class="btn-size" onclick="seleccionarPrecio(this, 110000)">
+                                    Mediano
+                                </button>
+                                <button class="btn-size" onclick="seleccionarPrecio(this, 140000)">
+                                    Grande
+                                </button>
                             </div>
 
-                            <div class="text-center mt-4">
-                                <button class="boton-login  btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
-                            </div>
+                            <p class="precio-final fw-bold fs-4">
+                                $<span>—</span>
+                            </p>
+
+                            <button class="boton-login btn-agenda" onclick="agendar()">
+                                ¡Agenda ahora!
+                            </button>
 
                         </div>
                     </div>
