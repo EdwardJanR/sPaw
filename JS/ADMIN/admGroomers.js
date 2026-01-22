@@ -7,39 +7,6 @@ let todosLosGroomers = [];
 // Cuando se cargue la página, listar los groomers
 window.addEventListener('DOMContentLoaded', listarGroomers);
 
-// // Función para obtener los groomers desde el backend
-// async function listarGroomers() {
-//     const contenedor = document.getElementById("infoGroomers");
-//     contenedor.innerHTML = `
-//         <tr>
-//             <td colspan="5" class="loading text-center">
-//                 <p>Cargando groomers...</p>
-//             </td>
-//         </tr>
-//     `;
-
-/*    try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-
-        //  todosLosGroomers = await response.json();
-        console.log("Primer groomer:", todosLosGroomers[0]); // 👈 mira aquí el id real
-        mostrarGroomers(todosLosGroomers);
-
-    } catch (error) {
-        console.error('Error al cargar groomers:', error);
-        contenedor.innerHTML = `
-            <tr>
-                <td colspan="5" class="error text-center">
-                    <h3><i class="bi bi-exclamation-triangle"></i> Error al cargar los datos</h3>
-                    <p>${error.message}</p>
-                    <p>Verifica que el backend esté ejecutándose en: ${API_URL}</p>
-                </td>
-            </tr>
-        `;
-    }
-}*/
-
 async function listarGroomers() {
     const contenedor = document.getElementById('infoGroomers');
     contenedor.innerHTML = `
@@ -127,7 +94,7 @@ function mostrarGroomers(groomers) {
                 <div class="action-icons">
                     <i class="bi bi-eye action-icon" title="Ver" onclick="verGroomer(${id})"></i>
                     <i class="bi bi-pencil action-icon" title="Editar" onclick="editarGroomer(${id})"></i>
-                    <i class="bi bi-trash action-icon" title="Eliminar" onclick="eliminarGroomer(${id})"></i>
+                    <i class="bi bi-trash action-icon" title="Eliminar" onclick="eliminar(${id})"></i>
                 </div>
             </td>
         `;
@@ -154,11 +121,105 @@ function editarGroomer(id) {
     alert(`Editar groomer #${id} (pendiente)`);
 }
 
-function eliminarGroomer(id) {
-    if (confirm(`¿Eliminar groomer #${id}?`)) {
-        alert(`Eliminar groomer #${id} (pendiente)`);
+async function eliminar(id) {
+    const resultado = await mostrarAlerta('confirmar',
+        `¿Estás seguro de que deseas eliminar al groomer <strong>#${id}</strong>?<br>Esta acción no se puede deshacer.`,
+        { botonConfirmar: 'Eliminar definitivamente' }
+    );
+ 
+    if (resultado && resultado.isConfirmed) {
+        try {
+            // Obtener el objeto JWT del localStorage
+            const jwtData = localStorage.getItem('jwt');
+           
+            if (!jwtData) {
+                mostrarAlerta('error', 'No estás autenticado. Por favor, inicia sesión.');
+                return;
+            }
+           
+            // Parsear el JSON y extraer el token
+            const { token } = JSON.parse(jwtData);
+           
+            if (!token) {
+                mostrarAlerta('error', 'Token no válido. Por favor, inicia sesión nuevamente.');
+                return;
+            }
+ 
+            const response = await fetch(`${API_URL}/eliminar/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+ 
+            if (response.ok) {
+                mostrarAlerta('exito', 'El groomer ha sido eliminado correctamente.');
+                await listarGroomers();
+            } else if (response.status === 401 || response.status === 403) {
+                mostrarAlerta('error', 'No tienes permisos para eliminar groomers o tu sesión ha expirado.');
+            } else {
+                const mensajeError = await response.text();
+                mostrarAlerta('error', `No se pudo eliminar: ${mensajeError || 'Error del servidor'}`);
+            }
+        } catch (error) {
+            console.error('Error al eliminar:', error);
+            mostrarAlerta('error', 'Ocurrió un fallo en la conexión con el servidor.');
+        }
     }
 }
+ 
+function mostrarAlerta(tipo, mensaje, opciones = {}) {
+    if (opciones.campoId) {
+        const field = document.getElementById(opciones.campoId);
+        if (!field) return;
+        const formFloating = field.closest('.form-floating');
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message text-danger mt-1 small';
+        errorElement.textContent = mensaje;
+        formFloating.appendChild(errorElement);
+        field.classList.add('is-invalid');
+        return;
+    }
+ 
+    if (tipo === 'confirmar') {
+        return Swal.fire({
+            icon: 'warning',
+            title: '¿Confirmar?',
+            html: mensaje,
+            showCancelButton: true,
+            confirmButtonColor: '#e97502',
+            cancelButtonColor: '#2ab7ae',
+            confirmButtonText: opciones.botonConfirmar || 'Sí',
+            cancelButtonText: 'Cancelar'
+        });
+    }
+ 
+    const config = {
+        html: mensaje,
+        confirmButtonColor: '#e97502'
+    };
+ 
+    if (tipo === 'exito') {
+        config.icon = 'success';
+        config.title = '¡Éxito!';
+        config.timer = opciones.duracion || 2000;
+        config.showConfirmButton = false;
+        config.timerProgressBar = true;
+    } else if (tipo === 'error') {
+        config.icon = 'error';
+        config.title = 'Error';
+        config.confirmButtonText = 'Entendido';
+    } else if (tipo === 'info') {
+        config.icon = 'info';
+        config.title = 'Información';
+    }
+ 
+    if (opciones.titulo) config.title = opciones.titulo;
+ 
+    Swal.fire(config);
+}
+ 
 
 
 
