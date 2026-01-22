@@ -7,16 +7,59 @@ let picker = flatpickr("#fechaReserva", {
     allowInput: false,
     disableMobile: false,
 
+    // Germán
+    // onChange: function (selectedDates, dateStr, instance) {
 
-    onChange: function (selectedDates, dateStr, instance) {
+    //     document.getElementById('fechaReserva').dispatchEvent(new Event('input'));
+    //     document.getElementById('fechaReserva').dispatchEvent(new Event('change'));
+    // }
 
-        document.getElementById('fechaReserva').dispatchEvent(new Event('input'));
-        document.getElementById('fechaReserva').dispatchEvent(new Event('change'));
+    onChange: function (selectedDates, dateStr) {
+    const fechaInput = document.getElementById("fechaReserva");
+
+    if (dateStr) {
+        fechaInput.classList.remove("is-invalid");
+        fechaInput.classList.add("is-valid");
+    } else {
+        fechaInput.classList.remove("is-valid");
+        fechaInput.classList.add("is-invalid");
     }
+}
+    // Germán
 });
 
 
 function validarInfoReserva() {
+
+    /*Germán*/
+    /* Verificar si los campos del formulario son válidos antes de permitir su envío */
+    const form = document.getElementById("formReserva");
+    const fechaInput = document.getElementById("fechaReserva");
+
+    fechaInput.classList.remove("is-valid", "is-invalid");
+
+    fechaInput.classList.remove("is-valid");
+    form.classList.remove("was-validated");
+
+    // Forzar estado inválido si está vacía
+    if (!fechaInput.value) {
+        fechaInput.classList.remove("is-valid");
+        fechaInput.classList.add("is-invalid");
+    } else {
+        fechaInput.classList.remove("is-invalid");
+        fechaInput.classList.add("is-valid");
+    }
+    //****** */
+    // if (fechaInput.value.trim() === "") {
+    // fechaInput.classList.add("is-invalid");
+    // }
+    //****** */
+    if (!form.checkValidity()) {
+        form.classList.add("was-validated");
+        return;
+    }
+
+    /*Germán*/
 
     limpiarVal();
     const nombreMascota = document.getElementById('nombreMascota').value.trim();
@@ -42,44 +85,52 @@ function validarInfoReserva() {
         mostrarVal('nombreServicio', 'Por favor selecciona un servicio');
         return false;
     }
+    
     if (fechaReserva === "") {
         mostrarVal('fechaReserva', 'Por favor selecciona una fecha para la reserva');
         return false;
     }
-
+    
     if (horaReserva < "08:00" || horaReserva > "18:00" || horaReserva === "") {
         mostrarVal('horaReserva', 'Debe seleccionar una hora entre 08:00 AM y 06:00 PM');
         return false;
     }
 
     mostrarAlerta('success', '<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...');
-            
+
     setTimeout(() => {
         document.getElementById('formContactenos').submit();
-    }, 1500); 
+    }, 1500);
 
     guardarInformacion();
     return true;
 }
 
-function mostrarVal(id, mensaje) {
+// Germán
+// function mostrarVal(id, mensaje) {
+//     const field = document.getElementById(id);
+//     const formFloating = field.closest('.form-floating');
+
+//     const errorElement = document.createElement('div');
+//     errorElement.className = 'error-message text-danger mt-1 small';
+//     errorElement.textContent = mensaje;
+
+//     formFloating.appendChild(errorElement);
+
+//     field.classList.add('is-invalid');
+// }
+
+function mostrarVal(id) {
     const field = document.getElementById(id);
-    const formFloating = field.closest('.form-floating');
-
-    const errorElement = document.createElement('div');
-    errorElement.className = 'error-message text-danger mt-1 small';
-    errorElement.textContent = mensaje;
-
-    formFloating.appendChild(errorElement);
-
     field.classList.add('is-invalid');
 }
 
 function limpiarVal() {
     document.querySelectorAll('.error-message').forEach(error => error.remove());
     document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
+    document.querySelectorAll('.is-valid').forEach(field => field.classList.remove('is-valid'));
 }
-
+// Germán
 
 function guardarInformacion() {
     let nombreServicio = document.getElementById("nombreServicio");
@@ -117,14 +168,14 @@ function guardarInformacion() {
     localStorage.setItem("listaReservas", JSON.stringify(listaReservas));
 
     //Aleta para el usuario
-    mostrarAlerta('<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...','success');
+    mostrarAlerta('<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...', 'success');
     limpiarFormulario();
     mostrarReservas();
 }
 
 function mostrarAlerta(mensaje, tipo) {
     const alertContainer = document.getElementById('alertContainer');
-            
+
     const alerta = document.createElement('div');
     alerta.className = `alert alert-${tipo} alert-dismissible fade show`;
     alerta.role = 'alert';
@@ -132,10 +183,10 @@ function mostrarAlerta(mensaje, tipo) {
         ${mensaje}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `;
-            
+
     alertContainer.innerHTML = '';
     alertContainer.appendChild(alerta);
-            
+
     setTimeout(() => {
         alerta.classList.remove('show');
         setTimeout(() => alerta.remove(), 150);

@@ -98,7 +98,7 @@ input[type="date"].flatpickr-input {
 }
 
 .form-reserva .form-floating > label {
-    padding: 1.5rem 1rem; 
+    padding: 1.5rem 1rem;
 }
 
 label,
@@ -137,25 +137,55 @@ option {
     }
 }
 
-
-.form-reserva .form-floating {
+/* Germán */
+/* .form-reserva .form-floating {
     display: flex;
     justify-content: center;
-}
+} */
 
 /* INPUT */
-.form-reserva .form-floating > .form-control,
+/* .form-reserva .form-floating > .form-control,
 .form-reserva .form-floating > .form-select {
     height: 38px !important;
     padding-top: 1.1rem !important;
     padding-bottom: 0.25rem !important;
+    padding-right: 70px !important;
+} */
+
+/*  OCULTAR ICONO ERROR BOOTSTRAP */
+.form-registro .form-control.is-invalid {
+    background-image: none !important;
 }
+
+/* Posición correcta del icono */
+.form-control.is-valid,
+.form-control.is-invalid,
+.form-select.is-valid,
+.form-select.is-invalid {
+    padding-right: 3rem !important;
+    background-position: right 1rem center !important;
+}
+
+/* Eliminar mensajes, sólo iconos */
+.invalid-feedback,
+.valid-feedback {
+    display: none !important;
+}
+
+.form-floating > .form-control {
+    min-height: calc(3.5rem + 2px);
+}
+
+.form-floating > label {
+    pointer-events: none;
+}
+/* Germán */
 
 /* LABEL */
 .form-reserva .form-floating > label {
     padding: 0 0.75rem !important;
-    font-size: 1.1rem ;  
-    top: 0.35rem;       
+    font-size: 1.1rem ;
+    top: 0.35rem;
 
 }
 
@@ -276,15 +306,15 @@ p {
   .titulo, h1 {
     font-size: 60px;
   }
-  
+
   .subtitulo, h2 {
     font-size: 45px;
   }
-  
+
   h3 {
     font-size: 32px;
   }
-  
+
   .parrafo, p {
     font-size: 20px;
   }
@@ -296,20 +326,42 @@ p {
     max-width: 100%;
     padding: 1.5rem 1rem;
   }
-  
+
   .titulo, h1 {
     font-size: 50px;
   }
-  
+
   .subtitulo, h2 {
     font-size: 35px;
   }
-  
+
   h3, #servicio-reservado h3 {
     font-size: 28px;
   }
-  
+
   .parrafo, p, #servicio-reservado .info-reserva p {
     font-size: 18px;
   }
 }
+
+/* Germán */
+/* Conservar el color de texto y fondo en los campos del formulario */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+
+    -webkit-text-fill-color: #ffffff !important; /* texto blanco */
+    caret-color: #ffffff;
+
+    -webkit-box-shadow: 0 0 0 30px #2ab7ae inset !important;
+    box-shadow: 0 0 0 30px #2ab7ae inset !important;
+
+    background-color: #2ab7ae !important;
+
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Germán */

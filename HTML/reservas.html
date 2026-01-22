@@ -56,11 +56,13 @@
                         class="d-flex flex-column w-100 w-md-50 p-md-3 justify-content-around gap-1 order-2 order-md-1">
                         <h3 class="subtitulo text-center mt-3 mb-3">Vamos a reservar ahora la cita para tu mascota</h3>
 
-                        <form class="form-reserva" id="formReserva">
+
+                        <!-- /*Germán*/ -->
+                        <form class="form-reserva" id="formReserva" novalidate>
                             <!-- Nombre mascota -->
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control form-control-lg entrada" id="nombreMascota"
-                                    name="nombreMascota" placeholder=" ">
+                                    name="nombreMascota" required minlength="2">
                                 <label for="nombreMascota">Escribe el nombre de tu mascota</label>
                             </div>
 
@@ -110,11 +112,11 @@
                             <!-- Fecha -->
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control form-control-lg entrada" id="fechaReserva"
-                                    name="fechaReserva" placeholder=" " data-input required>
+                                    name="fechaReserva" data-input>
                                 <label for="fechaReserva">Selecciona una fecha</label>
                             </div>
                             <!-- Hora -->
-                            <div class="form-floating mb-4">
+                            <div class="form-floating mb-3">
                                 <select class="form-select form-select-lg entrada" id="horaReserva" name="horaReserva"
                                     required>
                                     <option value="" disabled selected></option>
