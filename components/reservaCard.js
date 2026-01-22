@@ -21,7 +21,7 @@ class ReservaCard extends HTMLElement {
                             <button class="btn btn-eliminar-reserva eliminar-reserva"
                                     data-id="${idReserva}"
                                     title="Eliminar reserva">
-                                <i class="bi bi-trash text-white"></i>
+                                <i class="bi bi-trash"></i>
                             </button>
                         </div>
                     </div>

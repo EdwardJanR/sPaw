@@ -115,166 +115,168 @@
         <section class="cards-servicios container text-center mb-5">
             <h2 class="Premium subtitulo mb-3"> Servicios básicos</h2>
             <div class="container">
-                <div class="row g-4 justify-content-center flex-wrap-reverse" id="servicios_Basicos">
-                    <div class="col-12 col-lg-6">
-                        <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column justify-content-evenly">
+                <div class="row g-4 justify-content-center" id="servicios_Basicos">
+                            <!-- Combo Dental -->
+                            <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                                <div
+                                    class="card-servicio rounded-5 p-4 h-100 d-flex flex-column align-items-center justify-content-between text-center">
 
-                            <h3 class="subtitulo text-center mb-3">
-                                Combo Dental & Limpieza de Oídos
-                            </h3>
+                                    <div class="dog-mask mb-3">
+                                        <img src="../IMG/spaw22.png" class="img-básicos" alt="Imagen perro">
+                                    </div>
 
-                            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
-                                <div class="dog-mask">
-                                    <img src="../IMG/spaw20.png" class="img-básicos" alt="Imagen perro">
-                                </div>
-                                <div class="parrafo">
+                                    <h3 class="tercertitulo">Combo Dental & Limpieza de Oídos</h3>
+
                                     <p class="descripcion">
                                         Cepillado dental básico, limpieza profunda de oídos, corte de uñas y cepillado de pelaje.
                                     </p>
-                                    <div class="d-flex justify-content-center">
-                                        <ul class="lista-valores p-0 m-0">
-                                            <li class="fw-bold text-center">Precio:</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Pequeño $30.000</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Mediano $40.000</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Grande $50.000</li>
-                                        </ul>
+
+                                    <p class="fw-bold">Tamaño:</p>
+
+                                    <div class="d-flex justify-content-center gap-2 mb-3">
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 30000)">Pequeño</button>
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 40000)">Mediano</button>
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 50000)">Grande</button>
                                     </div>
+
+                                    <p class="precio-final fw-bold fs-4">$<span>—</span></p>
+
+                                    <button class="boton-login btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
                                 </div>
                             </div>
 
-                            <div class="text-center mt-4">
-                                <button class="boton-login btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
-                            </div>
+                            <!-- Combo Deslanado -->
+                            <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                                <div
+                                    class="card-servicio rounded-5 p-4 h-100 d-flex flex-column align-items-center justify-content-between text-center">
 
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column justify-content-evenly">
-                            <h3 class="subtitulo text-center mb-3">
-                                Combo Deslanado Básico
-                            </h3>
+                                    <div class="dog-mask mb-3">
+                                        <img src="../IMG/spaw5.png" class="img-básicos" alt="Imagen perro">
+                                    </div>
 
-                            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
-                                <div class="dog-mask">
-                                    <img src="../IMG/spaw20.png" class="img-básicos" alt="Imagen perro">
-                                </div>
-                                <div class="parrafo">
+                                    <h3 class="tercertitulo">Combo Deslanado Básico</h3>
+
                                     <p class="descripcion">
                                         Baño, secado y cepillado intensivo para eliminar pelo muerto, limpieza de oídos y corte de uñas.
                                     </p>
-                                    <div class="d-flex justify-content-center">
-                                        <ul class="lista-valores p-0 m-0">
-                                            <li class="fw-bold text-center">Precio:</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Pequeño $45.000</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Mediano $55.000</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Grande $70.000</li>
-                                        </ul>
+
+                                    <p class="fw-bold">Tamaño:</p>
+
+                                    <div class="d-flex justify-content-center gap-2 mb-3">
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 45000)">Pequeño</button>
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 55000)">Mediano</button>
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 70000)">Grande</button>
                                     </div>
+
+                                    <p class="precio-final fw-bold fs-4">$<span>—</span></p>
+
+                                    <button class="boton-login btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
                                 </div>
                             </div>
 
-                            <div class="text-center mt-4">
-                                <button class="boton-login  btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
-                            </div>
+                            <!-- Combo Baño Básico -->
+                            <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                                <div
+                                    class="card-servicio rounded-5 p-4 h-100 d-flex flex-column align-items-center justify-content-between text-center">
 
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column justify-content-evenly">
+                                    <div class="dog-mask mb-3">
+                                        <img src="../IMG/spaw27.png" class="img-básicos" alt="Imagen perro">
+                                    </div>
 
-                            <h3 class="subtitulo text-center mb-3">
-                                Combo baño básico
-                            </h3>
+                                    <h3 class="tercertitulo">Combo Baño Básico</h3>
 
-                            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
-                                <div class="dog-mask">
-                                    <img src="../IMG/spaw20.png" class="img-básicos" alt="Imagen perro">
-                                </div>
-                                <div class="parrafo">
                                     <p class="descripcion">
-                                        Baño con shampoo neutro, secado profesional, limpieza de oídos y corte de uñas. Ideal para mantener la higiene regular.
+                                        Baño con shampoo neutro, secado profesional, limpieza de oídos y corte de uñas. Ideal para mantener la higiene.
                                     </p>
-                                    <div class="d-flex justify-content-center">
-                                        <ul class="lista-valores p-0 m-0">
-                                            <li class="fw-bold text-center">Precio:</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Pequeño $35.000</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Mediano $45.000</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Grande $55.000</li>
-                                        </ul>
+
+                                    <p class="fw-bold">Tamaño:</p>
+
+                                    <div class="d-flex justify-content-center gap-2 mb-3">
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 35000)">Pequeño</button>
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 45000)">Mediano</button>
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 55000)">Grande</button>
                                     </div>
+
+                                    <p class="precio-final fw-bold fs-4">$<span>—</span></p>
+
+                                    <button class="boton-login btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
                                 </div>
                             </div>
 
-                            <div class="text-center mt-4">
-                                <button class="boton-login btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
-                            </div>
+                            <!-- Combo Grooming -->
+                            <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                                <div
+                                    class="card-servicio rounded-5 p-4 h-100 d-flex flex-column align-items-center justify-content-between text-center">
 
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column justify-content-evenly">
-                            <h3 class="subtitulo text-center mb-3">
-                                Combo Grooming Completo
-                            </h3>
+                                    <div class="dog-mask mb-3">
+                                        <img src="../IMG/spaw26.png" class="img-básicos" alt="Imagen perro">
+                                    </div>
 
-                            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
-                                <div class="dog-mask">
-                                    <img src="../IMG/spaw20.png" class="img-básicos" alt="Imagen perro">
-                                </div>
-                                <div class="parrafo">
+                                    <h3 class="tercertitulo">Combo Grooming Completo</h3>
+
                                     <p class="descripcion">
                                         Baño, secado y corte de pelo según raza o preferencia, perfilado de rostro y patas, corte de uñas y colonia hipoalergénica.
                                     </p>
-                                    <div class="d-flex justify-content-center">
-                                        <ul class="lista-valores p-0 m-0">
-                                            <li class="fw-bold text-center">Precio:</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Pequeño $60.000</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Mediano $75.000</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Grande $95.000</li>
-                                        </ul>
+
+                                    <p class="fw-bold">Tamaño:</p>
+
+                                    <div class="d-flex justify-content-center gap-2 mb-3">
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 60000)">Pequeño</button>
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 75000)">Mediano</button>
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 95000)">Grande</button>
                                     </div>
+
+                                    <p class="precio-final fw-bold fs-4">$<span>—</span></p>
+
+                                    <button class="boton-login btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
                                 </div>
                             </div>
 
-                            <div class="text-center mt-4">
-                                <button class="boton-login  btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
-                            </div>
+                            <!-- Combo Antipulgas -->
+                            <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                                <div
+                                    class="card-servicio rounded-5 p-4 h-100 d-flex flex-column align-items-center justify-content-between text-center">
 
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column justify-content-evenly">
-                            <h3 class="subtitulo text-center mb-3">
-                                Combo Antipulgas Total
-                            </h3>
+                                    <div class="dog-mask mb-3">
+                                        <img src="../IMG/spaw25.png" class="img-básicos" alt="Imagen perro">
+                                    </div>
 
-                            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
-                                <div class="dog-mask">
-                                    <img src="../IMG/spaw20.png" class="img-básicos" alt="Imagen perro">
-                                </div>
-                                <div class="parrafo">
+                                    <h3 class="tercertitulo">Combo Antipulgas Total</h3>
+
                                     <p class="descripcion">
                                         Baño antipulgas y antigarrapatas, limpieza profunda de oídos, corte de uñas y revisión completa de piel.
                                     </p>
-                                    <div class="d-flex justify-content-center">
-                                        <ul class="lista-valores p-0 m-0">
-                                            <li class="fw-bold text-center">Precio:</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Pequeño $40.000</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Mediano $50.000</li>
-                                            <li><img src="/IMG/spaw0.png" class="list-style"> Grande $65.000</li>
-                                        </ul>
+
+                                    <p class="fw-bold">Tamaño:</p>
+
+                                    <div class="d-flex justify-content-center gap-2 mb-3">
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 40000)">Pequeño</button>
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 50000)">Mediano</button>
+                                        <button class="btn-size"
+                                            onclick="seleccionarPrecio(this, 65000)">Grande</button>
                                     </div>
+
+                                    <p class="precio-final fw-bold fs-4">$<span>—</span></p>
+
+                                    <button class="boton-login btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
                                 </div>
                             </div>
-
-                            <div class="text-center mt-4">
-                                <button class="boton-login  btn-agenda" onclick="agendar()">¡Agenda ahora!</button>
-                            </div>
-
-                        </div>
                     </div>
                 </div>
-            </div>
         </section>
         <!-- termina seccion servicios destacados -->
         <!-- Inicio testimonios-->
@@ -389,11 +391,13 @@
                         <span class="visually-hidden">Siguiente</span>
                     </button>-->
                     <!-- Controles -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselTestimonios" data-bs-slide="prev">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselTestimonios"
+                        data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Anterior</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselTestimonios" data-bs-slide="next">
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselTestimonios"
+                        data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Siguiente</span>
                     </button>
@@ -468,8 +472,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
         </script>
-    <script src="../JS/indexSesion.js"></script>
+    <script src="./JS/indexSesion.js"></script>
 </body>
 
 </html>
-
