@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../CSS/navFooter.css">
+    <link rel="stylesheet" href="../../CSS/ADMIN/admClientes.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Administración de Clientes - sPaw</title>
+    <style>
+        .titulo {
+            color: #2AB7AE;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .controls-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-reload {
+            background: #2AB7AE;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-reload:hover {
+            background: #239d95;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 183, 174, 0.3);
+        }
+
+        .filter-select {
+            padding: 10px 16px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #2AB7AE;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .custom-table thead {
+            background: #2AB7AE;
+            color: white;
+        }
+
+        .custom-table thead th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            border: none;
+        }
+
+        .custom-table thead th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        .custom-table thead th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        .custom-table tbody tr {
+            border-bottom: 1px solid #e9ecef;
+            transition: all 0.2s;
+        }
+
+        .custom-table tbody tr:hover {
+            background: #f8f9fa;
+            transform: scale(1.01);
+        }
+
+        .custom-table tbody td {
+            padding: 15px;
+            color: #1e2a2a;
+        }
+
+        .badge-rol {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .rol-cliente {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .rol-administrador {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2AB7AE;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #fee;
+            border: 2px solid #f88;
+            color: #c33;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px;
+            color: #999;
+            font-size: 1.2em;
+        }
+
+        .stats-badge {
+            background: #2AB7AE;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .action-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-icon {
+            cursor: pointer;
+            color: #6c757d;
+            font-size: 1.2em;
+            transition: all 0.2s;
+        }
+
+        .action-icon:hover {
+            color: #2AB7AE;
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .table-container {
+                overflow-x: auto;
+            }
+
+            .custom-table {
+                min-width: 600px;
+            }
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-md menu">
+            <div class="container-fluid d-flex align-items-center">
+                <a class="navbar-brand d-flex align-items-center" href="../../index.html">
+                    <img class="logo" src="../../IMG/logo-row-02.png" alt="logo-sPaw">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-4 pe-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../quienesSomos.html">Quienes somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../servicios.html">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../contactenos.html">Contáctanos</a>
+                        </li>
+                    </ul>
+                    <button class="boton-login">Administrador</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow-1">
+        <div class="container py-4">
+            <h1 class="text-center titulo">
+                Administrador
+            </h1>
+
+            <!-- Sección de tabs -->
+            <ul class="nav nav-tabs justify-content-center w-100 mb-4">
+                <li class="nav-item">
+                    <a class="nav-link custom-tab" href="./index.html">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-tab" href="./admGroomers.html">Groomers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-tab seleccion" href="./admClientes.html">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-tab" href="./admReservas.html">Reservas</a>
+                </li>
+            </ul>
+
+            <!-- Controles -->
+            <div class="controls-section">
+                <div class="row align-items-center g-3">
+                    <div class="col-md-3">
+                        <button class="btn-reload w-100" onclick="cargarUsuarios()">
+                            <i class="bi bi-arrow-clockwise"></i> Recargar Usuarios
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="filter-select w-100" id="filtroRol" onchange="filtrarPorRol()">
+                            <option value="">Todos los roles</option>
+                            <option value="Cliente">Cliente</option>
+                            <option value="Administrador">Administrador</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <span class="stats-badge">
+                            Total de usuarios: <span id="totalUsuarios">0</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenedor de tabla -->
+            <div id="contenedor"></div>
+        </div>
+    </main>
+
+    <footer class="footer-custom py-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md-4 d-flex justify-content-center justify-content-md-start mb-4 mb-md-0">
+                    <img src="../../IMG/logo-03.png" class="footer-logo" alt="Logo sPaw">
+                </div>
+                <div class="col-md-8">
+                    <div class="row g-4 align-items-start">
+                        <div class="col-12 col-md-5">
+                            <div class="info-item d-flex gap-3 mb-3">
+                                <i class="bi bi-envelope-fill info-icon"></i>
+                                <div>
+                                    <h6 class="info-title">Correo</h6>
+                                    <p class="info-text mb-0">sPaw@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="info-item d-flex gap-3">
+                                <i class="bi bi-telephone-fill info-icon"></i>
+                                <div>
+                                    <h6 class="info-title">Teléfono</h6>
+                                    <p class="info-text mb-0">+57 3485784413</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <div class="info-item d-flex gap-3 mb-3">
+                                <i class="bi bi-clock-fill info-icon"></i>
+                                <div>
+                                    <h6 class="info-title">Horarios</h6>
+                                    <p class="info-text mb-0">Lun-Dom: 9:30AM - 6:30PM</p>
+                                </div>
+                            </div>
+                            <div class="info-item d-flex gap-3">
+                                <i class="bi bi-geo-alt-fill info-icon"></i>
+                                <div>
+                                    <h6 class="info-title">Dirección</h6>
+                                    <p class="info-text mb-0">Cra 21 #112 - 36, Bogotá, Colombia</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-end">
+                            <div class="social-icons d-flex gap-3">
+                                <i class="bi bi-whatsapp"></i>
+                                <i class="bi bi-instagram"></i>
+                                <i class="bi bi-facebook"></i>
+                                <i class="bi bi-envelope-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="footer-copy text-center py-2">
+        ©2025 sPaw. Todos los derechos reservados
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+
+    <script>
+        // URL del backend - ajusta según tu configuración
+        const API_URL = 'http://localhost:8080/usuarios';
+        
+        let todosLosUsuarios = [];
+
+        // Cargar usuarios al iniciar la página
+        window.addEventListener('DOMContentLoaded', cargarUsuarios);
+
+        async function cargarUsuarios() {
+            const contenedor = document.getElementById('contenedor');
+            contenedor.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Cargando usuarios...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(API_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+
+                todosLosUsuarios = await response.json();
+                mostrarUsuarios(todosLosUsuarios);
+                
+            } catch (error) {
+                console.error('Error al cargar usuarios:', error);
+                contenedor.innerHTML = `
+                    <div class="error">
+                        <h3><i class="bi bi-exclamation-triangle"></i> Error al cargar los datos</h3>
+                        <p>${error.message}</p>
+                        <p>Verifica que el backend esté ejecutándose en: ${API_URL}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function mostrarUsuarios(usuarios) {
+            const contenedor = document.getElementById('contenedor');
+            document.getElementById('totalUsuarios').textContent = usuarios.length;
+
+            if (usuarios.length === 0) {
+                contenedor.innerHTML = `
+                    <div class="no-data">
+                        <i class="bi bi-inbox" style="font-size: 3em; color: #ccc;"></i>
+                        <p>No se encontraron usuarios</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const tablaHTML = `
+                <div class="table-container">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre Completo</th>
+                                <th>Teléfono</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Mascotas</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${usuarios.map(usuario => `
+                                <tr>
+                                    <td><strong>#${usuario.idUsuario}</strong></td>
+                                    <td>${usuario.nombre} ${usuario.apellido}</td>
+                                    <td>
+                                        <i class="bi bi-telephone"></i> ${usuario.telefono}
+                                    </td>
+                                    <td>
+                                        <i class="bi bi-envelope"></i> ${usuario.email}
+                                    </td>
+                                    <td>
+                                        <span class="badge-rol rol-${usuario.rol.toLowerCase()}">
+                                            ${usuario.rol}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        ${usuario.mascotas && usuario.mascotas.length > 0 
+                                            ? `<i class="bi bi-heart-fill" style="color: #2AB7AE;"></i> ${usuario.mascotas.map(m => m.nombreMascota).join(', ')}` 
+                                            : '<span style="color: #999;">Sin mascotas</span>'}
+                                    </td>
+                                    <td>
+                                        <div class="action-icons">
+                                            <i class="bi bi-eye action-icon" title="Ver detalles" onclick="verDetalle(${usuario.idUsuario})"></i>
+                                            <i class="bi bi-pencil action-icon" title="Editar" onclick="editar(${usuario.idUsuario})"></i>
+                                            <i class="bi bi-trash action-icon" title="Eliminar" onclick="eliminar(${usuario.idUsuario})"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            contenedor.innerHTML = tablaHTML;
+        }
+
+        function filtrarPorRol() {
+            const rolSeleccionado = document.getElementById('filtroRol').value;
+            
+            if (rolSeleccionado === '') {
+                mostrarUsuarios(todosLosUsuarios);
+            } else {
+                const usuariosFiltrados = todosLosUsuarios.filter(
+                    usuario => usuario.rol === rolSeleccionado
+                );
+                mostrarUsuarios(usuariosFiltrados);
+            }
+        }
+
+        // Funciones de acción (puedes personalizarlas según tus necesidades)
+        function verDetalle(id) {
+            const usuario = todosLosUsuarios.find(u => u.idUsuario === id);
+            if (usuario) {
+                let detalles = `Detalles del Usuario #${id}\n\n`;
+                detalles += `Nombre: ${usuario.nombre} ${usuario.apellido}\n`;
+                detalles += `Teléfono: ${usuario.telefono}\n`;
+                detalles += `Email: ${usuario.email}\n`;
+                detalles += `Rol: ${usuario.rol}\n`;
+                if (usuario.mascotas && usuario.mascotas.length > 0) {
+                    detalles += `\nMascotas:\n`;
+                    usuario.mascotas.forEach(m => {
+                        detalles += `- ${m.nombre || 'Sin nombre'}\n`;
+                    });
+                }
+                alert(detalles);
+            }
+        }
+
+        function editar(id) {
+            alert(`Editar usuario #${id} - Funcionalidad por implementar`);
+        }
+
+        function eliminar(id) {
+            if (confirm(`¿Está seguro de eliminar el usuario #${id}?`)) {
+                alert(`Eliminando usuario #${id} - Funcionalidad por implementar`);
+            }
+        }
+    </script>
+</body>
+</html>
