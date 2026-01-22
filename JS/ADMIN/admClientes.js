@@ -16,7 +16,24 @@ async function cargarUsuarios() {
     `;
 
     try {
-        const response = await fetch(API_URL);
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        
+        // Intentar obtener el token si existe
+        const jwtData = localStorage.getItem('jwt');
+        if (jwtData) {
+            try {
+                const { token } = JSON.parse(jwtData);
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                }
+            } catch (e) {
+                console.warn('Error al parsear JWT:', e);
+            }
+        }
+
+        const response = await fetch(API_URL, { headers });
         
         if (!response.ok) {
             throw new Error(`Error HTTP: ${response.status}`);
@@ -138,31 +155,44 @@ function verDetalle(id) {
 }
 
 async function eliminar(id) {
-    // 1. Llamamos a mostrarAlerta con el tipo 'confirmar'
-    const resultado = await mostrarAlerta('confirmar', `¿Estás seguro de que deseas eliminar al usuario <strong>#${id}</strong>?<br>Esta acción no se puede deshacer.`, {
-        botonConfirmar: 'Eliminar definitivamente'
-    });
+    const resultado = await mostrarAlerta('confirmar', 
+        `¿Estás seguro de que deseas eliminar al usuario <strong>#${id}</strong>?<br>Esta acción no se puede deshacer.`, 
+        { botonConfirmar: 'Eliminar definitivamente' }
+    );
 
-    // 2. Si el usuario confirmó (isConfirmed), procedemos con la petición
     if (resultado && resultado.isConfirmed) {
         try {
-            // El endpoint mapeado en UsuarioController es /usuarios/eliminar/{id}
+            // Obtener el objeto JWT del localStorage
+            const jwtData = localStorage.getItem('jwt');
+            
+            if (!jwtData) {
+                mostrarAlerta('error', 'No estás autenticado. Por favor, inicia sesión.');
+                return;
+            }
+            
+            // Parsear el JSON y extraer el token
+            const { token } = JSON.parse(jwtData);
+            
+            if (!token) {
+                mostrarAlerta('error', 'Token no válido. Por favor, inicia sesión nuevamente.');
+                return;
+            }
+
             const response = await fetch(`${API_URL}/eliminar/${id}`, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 }
             });
 
             if (response.ok) {
-                // 3. Alerta de éxito personalizada
                 mostrarAlerta('exito', 'El usuario ha sido eliminado correctamente.');
-                
-                // Recargamos la lista para actualizar la tabla
                 await cargarUsuarios(); 
+            } else if (response.status === 401 || response.status === 403) {
+                mostrarAlerta('error', 'No tienes permisos para eliminar usuarios o tu sesión ha expirado.');
             } else {
                 const mensajeError = await response.text();
-                // 4. Alerta de error si el servidor responde con fallo (ej. 403 o 404)
                 mostrarAlerta('error', `No se pudo eliminar: ${mensajeError || 'Error del servidor'}`);
             }
         } catch (error) {
