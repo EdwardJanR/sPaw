@@ -102,25 +102,185 @@ function mostrarGroomers(groomers) {
     });
 }
 
-/* Acciones (por ahora de prueba) */
+/* Ver detalles del groomer */
 function verGroomer(id) {
     const g = todosLosGroomers.find(x =>
         x.idGroomer == id || x.id == id || x.groomerId == id
     );
     if (g) {
-        alert(
-            `Groomer #${id}\n\n` +
-            `Nombre: ${g.nombre} ${g.apellido}\n` +
-            `Teléfono: ${g.telefono}\n` +
-            `Email: ${g.correo || g.email}`
-        );
+        Swal.fire({
+            title: `Groomer #${id}`,
+            html: `
+                <div style="text-align: left;">
+                    <p><strong>Nombre:</strong> ${g.nombre} ${g.apellido}</p>
+                    <p><strong>Teléfono:</strong> ${g.telefono}</p>
+                    <p><strong>Email:</strong> ${g.correo || g.email}</p>
+                </div>
+            `,
+            icon: 'info',
+            confirmButtonColor: '#e97502'
+        });
     }
 }
 
-function editarGroomer(id) {
-    alert(`Editar groomer #${id} (pendiente)`);
+/* Editar groomer - Carga los datos en el formulario */
+async function editarGroomer(id) {
+    const groomer = todosLosGroomers.find(g => 
+        g.idGroomer == id || g.id == id || g.groomerId == id
+    );
+    
+    if (!groomer) {
+        mostrarAlerta('error', 'Groomer no encontrado');
+        return;
+    }
+
+    // Llenar el formulario con los datos del groomer
+    document.getElementById('nombreGroomer').value = groomer.nombre;
+    document.getElementById('apellidoGroomer').value = groomer.apellido;
+    document.getElementById('telefonoGroomer').value = groomer.telefono;
+    document.getElementById('correoGroomer').value = groomer.correo || groomer.email;
+
+    // Guardar ID en el formulario
+    const form = document.getElementById('formGroomer');
+    form.dataset.id = id;
+
+    // Cambiar interfaz a modo "edición"
+    cambiarModoFormulario('edicion');
+
+    // Scroll al formulario
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('nombreGroomer').focus();
 }
 
+/* Cambiar modo del formulario (crear/editar) */
+function cambiarModoFormulario(modo) {
+    const titulo = document.getElementById('tituloFormulario');
+    const btnGuardar = document.getElementById('btnGuardar');
+    const btnActualizar = document.getElementById('btnActualizar');
+    const btnCancelar = document.getElementById('btnCancelar');
+
+    if (modo === 'edicion') {
+        titulo.textContent = 'Editar groomer';
+        btnGuardar.style.display = 'none';
+        btnActualizar.style.display = 'inline-block';
+        btnCancelar.style.display = 'inline-block';
+    } else {
+        titulo.textContent = 'Ingresar groomer';
+        btnGuardar.style.display = 'inline-block';
+        btnActualizar.style.display = 'none';
+        btnCancelar.style.display = 'none';
+    }
+}
+
+/* Cancelar edición */
+function cancelarEdicion() {
+    const form = document.getElementById('formGroomer');
+    delete form.dataset.id;
+    limpiarFormulario();
+    cambiarModoFormulario('crear');
+}
+
+/* Confirmar y ejecutar actualización */
+async function confirmarActualizacion() {
+    const form = document.getElementById('formGroomer');
+    const id = form.dataset.id;
+
+    if (!id) {
+        mostrarAlerta('error', 'No hay ningún groomer seleccionado para editar');
+        return;
+    }
+
+    // Validar campos
+    limpiarErrores();
+    
+    const nombre = document.getElementById('nombreGroomer').value.trim();
+    const apellido = document.getElementById('apellidoGroomer').value.trim();
+    const telefono = document.getElementById('telefonoGroomer').value.trim();
+    const correo = document.getElementById('correoGroomer').value.trim();
+    
+    let esValido = true;
+    
+    if (!nombre) {
+        mostrarAlerta('campo', 'El nombre es obligatorio', { campoId: 'nombreGroomer' });
+        esValido = false;
+    }
+    
+    if (!apellido) {
+        mostrarAlerta('campo', 'El apellido es obligatorio', { campoId: 'apellidoGroomer' });
+        esValido = false;
+    }
+    
+    if (!telefono) {
+        mostrarAlerta('campo', 'El teléfono es obligatorio', { campoId: 'telefonoGroomer' });
+        esValido = false;
+    } else if (telefono.length < 7) {
+        mostrarAlerta('campo', 'El teléfono debe tener al menos 7 dígitos', { campoId: 'telefonoGroomer' });
+        esValido = false;
+    }
+    
+    if (!correo) {
+        mostrarAlerta('campo', 'El correo es obligatorio', { campoId: 'correoGroomer' });
+        esValido = false;
+    } else if (!validarEmail(correo)) {
+        mostrarAlerta('campo', 'El correo no es válido', { campoId: 'correoGroomer' });
+        esValido = false;
+    }
+    
+    if (!esValido) return;
+
+    // Confirmar con el usuario
+    const resultado = await mostrarAlerta(
+        'confirmar',
+        `¿Confirmas la actualización del groomer <strong>#${id}</strong>?`,
+        { botonConfirmar: 'Actualizar' }
+    );
+
+    if (!resultado || !resultado.isConfirmed) return;
+
+    try {
+        const jwtData = localStorage.getItem('jwt');
+        
+        if (!jwtData) {
+            mostrarAlerta('error', 'No estás autenticado. Por favor, inicia sesión.');
+            return;
+        }
+        
+        const { token } = JSON.parse(jwtData);
+
+        const groomerActualizado = {
+            nombre: nombre,
+            apellido: apellido,
+            telefono: telefono,
+            email: correo
+        };
+
+        const response = await fetch(`${API_URL}/actualizar/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(groomerActualizado)
+        });
+
+        if (response.ok) {
+            mostrarAlerta('exito', 'Groomer actualizado correctamente');
+            cancelarEdicion(); // Limpia el formulario y vuelve a modo crear
+            listarGroomers();
+        } else if (response.status === 401 || response.status === 403) {
+            mostrarAlerta('error', 'No tienes permisos para actualizar groomers o tu sesión ha expirado.');
+        } else {
+            const msg = await response.text();
+            mostrarAlerta('error', `No se pudo actualizar: ${msg || 'Error del servidor'}`);
+        }
+
+    } catch (error) {
+        console.error(error);
+        mostrarAlerta('error', 'Error de conexión con el servidor');
+    }
+}
+
+/* Eliminar groomer */
 async function eliminar(id) {
     const resultado = await mostrarAlerta('confirmar',
         `¿Estás seguro de que deseas eliminar al groomer <strong>#${id}</strong>?<br>Esta acción no se puede deshacer.`,
@@ -129,7 +289,6 @@ async function eliminar(id) {
  
     if (resultado && resultado.isConfirmed) {
         try {
-            // Obtener el objeto JWT del localStorage
             const jwtData = localStorage.getItem('jwt');
            
             if (!jwtData) {
@@ -137,7 +296,6 @@ async function eliminar(id) {
                 return;
             }
            
-            // Parsear el JSON y extraer el token
             const { token } = JSON.parse(jwtData);
            
             if (!token) {
@@ -168,7 +326,132 @@ async function eliminar(id) {
         }
     }
 }
- 
+
+/* Guardar nuevo groomer (CREAR) */
+async function guardarInformacion() {
+    // Limpiar mensajes de error previos
+    limpiarErrores();
+    
+    // Obtener valores del formulario
+    const nombre = document.getElementById('nombreGroomer').value.trim();
+    const apellido = document.getElementById('apellidoGroomer').value.trim();
+    const telefono = document.getElementById('telefonoGroomer').value.trim();
+    const correo = document.getElementById('correoGroomer').value.trim();
+    
+    // Validaciones
+    let esValido = true;
+    
+    if (!nombre) {
+        mostrarAlerta('campo', 'El nombre es obligatorio', { campoId: 'nombreGroomer' });
+        esValido = false;
+    }
+    
+    if (!apellido) {
+        mostrarAlerta('campo', 'El apellido es obligatorio', { campoId: 'apellidoGroomer' });
+        esValido = false;
+    }
+    
+    if (!telefono) {
+        mostrarAlerta('campo', 'El teléfono es obligatorio', { campoId: 'telefonoGroomer' });
+        esValido = false;
+    } else if (telefono.length < 7) {
+        mostrarAlerta('campo', 'El teléfono debe tener al menos 7 dígitos', { campoId: 'telefonoGroomer' });
+        esValido = false;
+    }
+    
+    if (!correo) {
+        mostrarAlerta('campo', 'El correo es obligatorio', { campoId: 'correoGroomer' });
+        esValido = false;
+    } else if (!validarEmail(correo)) {
+        mostrarAlerta('campo', 'El correo no es válido', { campoId: 'correoGroomer' });
+        esValido = false;
+    }
+    
+    if (!esValido) return;
+    
+    // Crear objeto groomer
+    const nuevoGroomer = {
+        nombre: nombre,
+        apellido: apellido,
+        telefono: telefono,
+        email: correo
+    };
+    
+    try {
+        // Obtener token JWT
+        const jwtData = localStorage.getItem('jwt');
+        
+        if (!jwtData) {
+            mostrarAlerta('error', 'No estás autenticado. Por favor, inicia sesión.');
+            return;
+        }
+        
+        const { token } = JSON.parse(jwtData);
+        
+        if (!token) {
+            mostrarAlerta('error', 'Token no válido. Por favor, inicia sesión nuevamente.');
+            return;
+        }
+        
+        // Realizar petición POST
+        const response = await fetch(`${API_URL}/crear`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(nuevoGroomer)
+        });
+        
+        if (response.ok) {
+            const groomerCreado = await response.json();
+            mostrarAlerta('exito', `Groomer <strong>${groomerCreado.nombre} ${groomerCreado.apellido}</strong> creado exitosamente.`);
+            
+            // Limpiar formulario
+            limpiarFormulario();
+            
+            // Recargar lista de groomers
+            await listarGroomers();
+            
+        } else if (response.status === 401 || response.status === 403) {
+            mostrarAlerta('error', 'No tienes permisos para crear groomers o tu sesión ha expirado.');
+        } else {
+            const mensajeError = await response.text();
+            mostrarAlerta('error', `No se pudo crear el groomer: ${mensajeError || 'Error del servidor'}`);
+        }
+        
+    } catch (error) {
+        console.error('Error al crear groomer:', error);
+        mostrarAlerta('error', 'Ocurrió un fallo en la conexión con el servidor.');
+    }
+}
+
+// Función auxiliar para validar email
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
+// Función para limpiar el formulario
+function limpiarFormulario() {
+    document.getElementById('nombreGroomer').value = '';
+    document.getElementById('apellidoGroomer').value = '';
+    document.getElementById('telefonoGroomer').value = '';
+    document.getElementById('correoGroomer').value = '';
+    
+    // Eliminar el ID guardado si existe
+    const form = document.getElementById('formGroomer');
+    delete form.dataset.id;
+    
+    limpiarErrores();
+}
+
+// Función para limpiar mensajes de error
+function limpiarErrores() {
+    document.querySelectorAll('.error-message').forEach(el => el.remove());
+    document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+}
+
 function mostrarAlerta(tipo, mensaje, opciones = {}) {
     if (opciones.campoId) {
         const field = document.getElementById(opciones.campoId);
@@ -219,9 +502,3 @@ function mostrarAlerta(tipo, mensaje, opciones = {}) {
  
     Swal.fire(config);
 }
- 
-
-
-
-
-

@@ -34,10 +34,11 @@
                 <li class="nav-item"><a class="nav-link custom-tab" href="./admReservas.html">Reservas</a></li>
             </ul>
 
-            <!-- Formulario para crear Groomer -->
+            <!-- Sección del formulario actualizada -->
             <div class="contacto container d-flex flex-column align-items-center mb-5 mt-3 p-4 rounded-2">
-                <h3 class="mt-3 mb-3 subtitulo">Ingresar groomer</h3>
-                <form onsubmit="event.preventDefault(); guardarInformacion();">
+                <h3 class="mt-3 mb-3 subtitulo" id="tituloFormulario">Ingresar groomer</h3>
+                <form id="formGroomer" onsubmit="event.preventDefault();">
+
                     <div class="row g-4">
                         <div class="col-md-12 mt-4">
                             <div class="form-floating">
@@ -68,14 +69,29 @@
                         </div>
 
                         <div class="container text-center my-5 mb-3">
-                            <div class="d-flex justify-content-center gap-5 flex-wrap">
-                                <button class="boton-login" type="submit">Ingresar Groomer</button>
+                            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                                <!-- Botón para GUARDAR (crear nuevo) -->
+                                <button class="boton-login" type="button" onclick="guardarInformacion()"
+                                    id="btnGuardar">
+                                    <i class="bi bi-plus-circle"></i> Guardar Groomer
+                                </button>
+
+                                <!-- Botón para ACTUALIZAR (modificar existente) - Oculto por defecto -->
+                                <button class="boton-login" type="button" onclick="confirmarActualizacion()"
+                                    id="btnActualizar" style="display: none; background-color: #2ab7ae;">
+                                    <i class="bi bi-pencil-square"></i> Actualizar Groomer
+                                </button>
+
+                                <!-- Botón para CANCELAR edición -->
+                                <button class="btn btn-secondary" type="button" onclick="cancelarEdicion()"
+                                    id="btnCancelar" style="display: none;">
+                                    <i class="bi bi-x-circle"></i> Cancelar
+                                </button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-
             <!-- Sección para listar Groomers -->
             <div class="controls-section">
                 <div class="row align-items-center g-3">
