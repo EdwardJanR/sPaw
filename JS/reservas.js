@@ -14,10 +14,38 @@ document.addEventListener('DOMContentLoaded', function () {
         disableMobile: false,
 
 
-        onChange: function (selectedDates, dateStr, instance) {
+        // Germán
+        onChange: function (selectedDates, dateStr) {
+            const fechaInput = document.getElementById("fechaReserva");
+            if (dateStr) {
+                fechaInput.classList.remove("is-invalid");
+                fechaInput.classList.add("is-valid");
+            } else {
+                fechaInput.classList.remove("is-valid");
+                fechaInput.classList.add("is-invalid");
+            }
+        }
+        // Germán
 
-            document.getElementById('fechaReserva').dispatchEvent(new Event('input'));
-            document.getElementById('fechaReserva').dispatchEvent(new Event('change'));
+    });
+
+    const nombreMascota = document.getElementById("nombreMascota");
+
+    nombreMascota.addEventListener("focus", () => {
+        setTimeout(() => {
+            if (nombreMascota.value.trim().length >= 2) {
+                nombreMascota.classList.remove("is-invalid");
+                nombreMascota.classList.add("is-valid");
+            }
+        }, 50);
+    });
+
+    nombreMascota.addEventListener("input", () => {
+        if (nombreMascota.value.trim().length >= 2) {
+            nombreMascota.classList.add("is-valid");
+            nombreMascota.classList.remove("is-invalid");
+        } else {
+            nombreMascota.classList.remove("is-valid");
         }
     });
 
@@ -80,14 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         mostrarAlerta('exito', 'Todos los campos son válidos.');
 
-
-        procesarReserva({
-            nombreMascota,
-            tamanoMascota,
-            fechaReserva,
-            horaReserva
-        });
-        return true;
     });
 
     function obtenerToken() {
@@ -150,6 +170,72 @@ document.addEventListener('DOMContentLoaded', function () {
         const [horas, minutos] = horaInicio.split(':').map(Number);
         const horaFinal = new Date();
         horaFinal.setHours(horas + 2, minutos, 0);
+        /*Germán*/
+        /* Verificar si los campos del formulario son válidos antes de permitir su envío */
+        const form = document.getElementById("formReserva");
+        const fechaInput = document.getElementById("fechaReserva");
+
+        fechaInput.classList.remove("is-valid", "is-invalid");
+
+        fechaInput.classList.remove("is-valid");
+        form.classList.remove("was-validated");
+
+        // Forzar estado inválido si está vacía
+        if (!fechaInput.value) {
+            fechaInput.classList.remove("is-valid");
+            fechaInput.classList.add("is-invalid");
+        } else {
+            fechaInput.classList.remove("is-invalid");
+            fechaInput.classList.add("is-valid");
+        }
+
+        if (!form.checkValidity()) {
+            form.classList.add("was-validated");
+            return;
+        }
+
+        /*Germán*/
+
+        limpiarVal();
+        const nombreMascota = document.getElementById('nombreMascota').value.trim();
+        const tamanoMascota = document.getElementById('tamanoMascota').value.trim();
+        const nombreGroomer = document.getElementById('nombreGroomer').value.trim();
+        const nombreServicio = document.getElementById('nombreServicio').value.trim();
+        const fechaReserva = document.getElementById('fechaReserva').value.trim();
+        const horaReserva = document.getElementById('horaReserva').value.trim();
+
+        if (nombreMascota.length < 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombreMascota)) {
+            mostrarVal('nombreMascota', 'El nombre de la mascota debe ser alfabético y mínimo dos caracteres');
+            return false;
+        }
+        if (tamanoMascota === "") {
+            mostrarVal('tamanoMascota', 'Por favor selecciona el tamaño de la mascota');
+            return false;
+        }
+        if (nombreGroomer === "") {
+            mostrarVal('nombreGroomer', 'Por favor selecciona un groomer');
+            return false;
+        }
+        if (nombreServicio === "") {
+            mostrarVal('nombreServicio', 'Por favor selecciona un servicio');
+            return false;
+        }
+
+        if (fechaReserva === "") {
+            mostrarVal('fechaReserva', 'Por favor selecciona una fecha para la reserva');
+            return false;
+        }
+
+        if (horaReserva < "08:00" || horaReserva > "18:00" || horaReserva === "") {
+            mostrarVal('horaReserva', 'Debe seleccionar una hora entre 08:00 AM y 06:00 PM');
+            return false;
+        }
+
+        mostrarAlerta('success', '<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...');
+
+        setTimeout(() => {
+            document.getElementById('formContactenos').submit();
+        }, 1500);
 
         return `${horaFinal.getHours().toString().padStart(2, '0')}:${horaFinal.getMinutes().toString().padStart(2, '0')}:00`;
     }
@@ -230,6 +316,18 @@ document.addEventListener('DOMContentLoaded', function () {
             return null;
         }
     }
+    // Germán
+    function mostrarVal(id) {
+        const field = document.getElementById(id);
+        field.classList.add('is-invalid');
+    }
+
+    function limpiarVal() {
+        document.querySelectorAll('.error-message').forEach(error => error.remove());
+        document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
+        document.querySelectorAll('.is-valid').forEach(field => field.classList.remove('is-valid'));
+    }
+    // Germán
 
     async function obtenerMascotasUsuario(usuarioId) {
         try {
@@ -290,6 +388,7 @@ document.addEventListener('DOMContentLoaded', function () {
             selectElement = newSelect;
             console.log('✅ SELECT creado');
         }
+
 
         // 5. LIMPIAR Y AGREGAR OPCIONES
         console.log('🧹 Limpiando select...');
@@ -765,23 +864,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    function mostrarVal(id, mensaje) {
-        const field = document.getElementById(id);
-        const formFloating = field.closest('.form-floating');
+    // function mostrarVal(id, mensaje) {
+    //     const field = document.getElementById(id);
+    //     const formFloating = field.closest('.form-floating');
 
-        const errorElement = document.createElement('div');
-        errorElement.className = 'error-message text-danger mt-1 small';
-        errorElement.textContent = mensaje;
+    //     const errorElement = document.createElement('div');
+    //     errorElement.className = 'error-message text-danger mt-1 small';
+    //     errorElement.textContent = mensaje;
 
-        formFloating.appendChild(errorElement);
+    //     formFloating.appendChild(errorElement);
 
-        field.classList.add('is-invalid');
-    }
+    //     field.classList.add('is-invalid');
+    // }
 
-    function limpiarVal() {
-        document.querySelectorAll('.error-message').forEach(error => error.remove());
-        document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
-    }
+    // function limpiarVal() {
+    //     document.querySelectorAll('.error-message').forEach(error => error.remove());
+    //     document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
+    // }
 
     function mostrarAlerta(tipo, mensaje, opciones = {}) {
         if (opciones.campoId) {
@@ -873,3 +972,18 @@ function nuevaReserva() {
 
     seccion.scrollIntoView({ behavior: "smooth" });
 }
+
+
+function limpiarFormulario() {
+    document.getElementById("formReserva").reset();
+}
+
+mostrarReservas();
+
+
+// Germán
+// Mostrar check en el campo nombreMascota al seleccionar opción en caché
+document.addEventListener("DOMContentLoaded", () => {
+
+});
+// Germán

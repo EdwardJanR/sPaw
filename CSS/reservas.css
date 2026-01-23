@@ -7,9 +7,110 @@
 }
 
 
+<<<<<<< HEAD
 .btn-primary {
     background-color: var(--color-naranja) !important;
     border-color: var(--color-naranja) !important;
+=======
+.form-floating .boton-enviar {
+    background: #F08E3A;
+    color: #1E2A2A;
+    font-weight: 700;
+    padding: 10px 25px;
+    border-radius: 40px;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    border: none;
+}
+
+.form-floating .boton-enviar:hover {
+    background: #e97502;
+    color: white;
+}
+
+.img-contacto {
+    border-radius: 20px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.form-floating#mensaje-form>.form-control {
+    height: 150px !important;
+    min-height: 150px !important;
+}
+
+.titulo {
+    margin-top: 20px;
+}
+
+.entrada {
+    background-color: #2AB7AE !important;
+    height: 70px !important;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.form-floating > input[type="date"] {
+    padding-top: 1.625rem !important;
+    padding-bottom: 0.625rem !important;
+    min-height: calc(3.5rem + 2px) !important;
+}
+
+.form-floating > .form-select {
+    padding-top: 1.625rem !important;
+    padding-bottom: 0.625rem !important;
+    min-height: calc(3.5rem + 2px) !important;
+}
+
+.form-floating > input[type="date"] ~ label,
+.form-floating > .form-select ~ label {
+    padding-top: 1.625rem !important;
+}
+
+.form-floating > input[type="date"]:required:invalid ~ label,
+.form-floating > .form-select:required:invalid ~ label {
+    transform: none !important;
+}
+
+.form-floating > input[type="date"]:focus ~ label,
+.form-floating > input[type="date"]:valid ~ label,
+.form-floating > input[type="date"]:not(:invalid) ~ label,
+.form-floating > .form-select:focus ~ label,
+.form-floating > .form-select:valid ~ label,
+.form-floating > .form-select:not(:invalid) ~ label {
+    transform: scale(.85) translateY(-0.7rem) translateX(0.15rem) !important;
+    opacity: 1 !important;
+    color: #FFF !important;
+    padding-top: 1rem !important;
+}
+
+input[type="date"] {
+    position: relative;
+}
+
+input[type="date"].flatpickr-input {
+    background-color: white !important;
+    color: #212529 !important;
+}
+
+.form-floating > input[type="date"].has-value ~ label,
+.form-floating > input[type="date"]:valid ~ label {
+    transform: scale(.85) translateY(-0.7rem) translateX(0.15rem) !important;
+    opacity: 1 !important;
+}
+
+.form-reserva .form-floating > label {
+    padding: 1.5rem 1rem;
+}
+
+label,
+input,
+select,
+option {
+>>>>>>> german
     color: white !important;
 }
 
@@ -109,16 +210,30 @@
     color: var(--color-verde) !important;
 }
 
+<<<<<<< HEAD
 .form-reserva .form-floating {
     display: flex;
     justify-content: center;
 }
+=======
+/*  INPUTS RESERVAS */
+
+@media (min-width: 768px) {
+    .form-reserva .form-floating {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+/* Germán */
+>>>>>>> german
 
 .form-reserva .form-floating>.form-control,
 .form-reserva .form-floating>.form-select {
     height: 38px !important;
     padding-top: 1.1rem !important;
     padding-bottom: 0.25rem !important;
+<<<<<<< HEAD
     background-color: var(--color-verde) !important;
     border: 2px solid var(--color-verde) !important;
     color: white !important;
@@ -164,9 +279,62 @@
 
 .form-reserva input[type="text"].flatpickr-input.has-value~label {
     transform: scale(.85) translateY(-0.5rem) translateX(0.15rem) !important;
+=======
+    padding-right: 70px !important;
+    font-size: 1.2rem !important;
 }
 
+/*  OCULTAR ICONO ERROR BOOTSTRAP */
+.form-registro .form-control.is-invalid {
+    background-image: none !important;
+}
 
+/* Posición correcta del icono */
+.form-control.is-valid,
+.form-control.is-invalid,
+.form-select.is-valid,
+.form-select.is-invalid {
+    padding-right: 3rem !important;
+    background-position: right 1rem center !important;
+}
+
+.form-floating > label {
+    pointer-events: none;
+}
+
+input:-webkit-autofill {
+  animation-name: autofillFix;
+  animation-duration: 0.01s;
+}
+
+@keyframes autofillFix {
+  from {}
+  to {}
+}
+
+/* Germán */
+
+/* LABEL */
+.form-floating > label {
+    top: 0.9rem;
+    font-size: 1.0rem;
+    align-items: center;
+    transform: translateY(-50%);
+    /* height: auto;
+    line-height: 1; */
+>>>>>>> german
+}
+
+.form-floating > .form-select ~ label {
+    padding: 0 0.75rem !important;
+    /* padding-top: 2.2rem !important;
+    padding-bottom: 0.6rem !important; */
+    top: 10%;
+    /* height: auto;
+    line-height: 1; */
+}
+
+<<<<<<< HEAD
 
 @media (max-width: 768px) {
     .card-reserva .card-header {
@@ -174,3 +342,210 @@
         padding: 1rem !important;
     }
 }
+=======
+.form-floating > .form-control ~ label {
+    padding: 0 0.75rem !important;
+    /* padding-top: 0.8rem !important; */
+    padding-bottom: 0.6rem !important;
+    top: 35%;
+    height: auto;
+    line-height: 1;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select:focus ~ label,
+.form-floating > .form-select:not([value=""]) ~ label {
+    transform: scale(.85) translateY(-80%);
+}
+/* .form-reserva .form-floating > .form-control:focus,
+.form-reserva .form-floating > .form-control:not(:placeholder-shown),
+.form-reserva .form-floating > .form-select:focus {
+    padding-top: 1.35rem !important;
+} */
+
+/* CARD DE SERVICIO RESERVADO */
+#servicio-reservado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  margin: 2rem 0;
+  min-height: auto;
+}
+
+#servicio-reservado .card,
+#servicio-reservado > div {
+  background-color: #E6FAF9;
+  border-radius: 25px;
+  padding: 2rem 1.5rem;
+  max-width: 380px;
+  width: 100%;
+  box-shadow: 2px 2px 20px rgba(240, 148, 58, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+#servicio-reservado h2,
+#servicio-reservado h3 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 40px;
+  font-weight: 500;
+  color: #2AB7AE;
+  margin-bottom: 0.8rem;
+  text-align: center;
+  line-height: 1.3;
+}
+
+#servicio-reservado .info-reserva {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+#servicio-reservado .info-reserva p {
+  font-family: "Nunito", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #1E2A2A;
+  line-height: 1.4;
+  margin-bottom: 0.3rem;
+}
+
+#servicio-reservado .boton-login,
+#servicio-reservado button {
+  margin: 0.5rem auto 0;
+  padding: 0.75rem 2rem;
+  width: fit-content;
+}
+
+#servicio-reservado .bi-trash {
+  cursor: pointer;
+  color: #F08E3A;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+  text-align: center;
+  display: block;
+  margin: 0.5rem auto 0;
+}
+
+#servicio-reservado .bi-trash:hover {
+  color: #e97502;
+}
+
+/* TIPOGRAFÍA GENERAL */
+.titulo,
+h1 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 80px;
+  font-weight: 600;
+  color: #2ab7ae;
+  text-align: center;
+}
+
+.subtitulo,
+h2 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 60px;
+  font-weight: 500;
+  color: #2ab7ae;
+  text-align: center;
+}
+
+h3 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 40px;
+  font-weight: 500;
+  color: #2ab7ae;
+}
+
+.parrafo,
+p {
+  font-family: "Nunito", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #1e2a2a;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .titulo, h1 {
+    font-size: 60px;
+  }
+
+  .subtitulo, h2 {
+    font-size: 45px;
+  }
+
+  h3 {
+    font-size: 32px;
+  }
+
+  .parrafo, p {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  #servicio-reservado .card,
+  #servicio-reservado > div {
+    max-width: 100%;
+    padding: 1.5rem 1rem;
+  }
+
+  .titulo, h1 {
+    font-size: 50px;
+  }
+
+  .subtitulo, h2 {
+    font-size: 35px;
+  }
+
+  h3, #servicio-reservado h3 {
+    font-size: 28px;
+  }
+
+  .parrafo, p, #servicio-reservado .info-reserva p {
+    font-size: 18px;
+  }
+}
+
+/* Germán */
+/* Conservar el color de texto y fondo en los campos del formulario */
+
+.form-reserva input:-webkit-autofill,
+.form-reserva input:-webkit-autofill:hover,
+.form-reserva input:-webkit-autofill:focus,
+.form-reserva textarea:-webkit-autofill,
+.form-reserva select:-webkit-autofill {
+
+    -webkit-text-fill-color: #ffffff !important; /* texto blanco */
+    caret-color: #ffffff;
+    -webkit-box-shadow: 0 0 0 30px #2ab7ae inset !important;
+    box-shadow: 0 0 0 30px #2ab7ae inset !important;
+    background-color: #2ab7ae !important;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+/* TEXTO SIEMPRE BLANCO EN INPUTS Y TEXTAREA */
+.form-reserva input,
+.form-reserva textarea {
+  color: #fff !important;
+  caret-color: #fff;
+}
+
+/* Cuando está enfocado */
+.form-reserva input:focus,
+.form-reserva textarea:focus {
+  color: #fff !important;
+}
+
+/* Bootstrap pisa el color en .form-control */
+.container-form .form-control {
+  color: #fff !important;
+}
+
+/* Germán */
+>>>>>>> german
