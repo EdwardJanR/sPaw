@@ -5,7 +5,7 @@ class Footer extends HTMLElement {
             <div class="row align-items-center justify-content-between">
                 <!-- Logo -->
                 <div class="col-md-4 d-flex justify-content-center justify-content-md-start mb-4 mb-md-0">
-                    <img src="../IMG/logo-03.png" class="footer-logo" alt="Logo sPaw">
+                    <img src="../../IMG/logo-03.png" class="footer-logo" alt="Logo sPaw">
                 </div>
                 <!-- Información  -->
                 <div class="col-md-8">
