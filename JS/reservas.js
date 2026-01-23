@@ -972,18 +972,3 @@ function nuevaReserva() {
 
     seccion.scrollIntoView({ behavior: "smooth" });
 }
-
-
-function limpiarFormulario() {
-    document.getElementById("formReserva").reset();
-}
-
-mostrarReservas();
-
-
-// Germán
-// Mostrar check en el campo nombreMascota al seleccionar opción en caché
-document.addEventListener("DOMContentLoaded", () => {
-
-});
-// Germán

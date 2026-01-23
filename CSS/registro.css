@@ -215,6 +215,7 @@ input[type="password"] {
 .btn-eliminar-mascota i {
     margin-right: 0.4rem;
     font-size: 1rem;
+}
 /* Password con check y botón de ojo */
 .form-floating input[type="password"].is-valid {
   background-position: right 2.4rem center;
