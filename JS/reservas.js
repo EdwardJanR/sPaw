@@ -8,12 +8,6 @@ let picker = flatpickr("#fechaReserva", {
     disableMobile: false,
 
     // Germán
-    // onChange: function (selectedDates, dateStr, instance) {
-
-    //     document.getElementById('fechaReserva').dispatchEvent(new Event('input'));
-    //     document.getElementById('fechaReserva').dispatchEvent(new Event('change'));
-    // }
-
     onChange: function (selectedDates, dateStr) {
     const fechaInput = document.getElementById("fechaReserva");
 
@@ -49,11 +43,7 @@ function validarInfoReserva() {
         fechaInput.classList.remove("is-invalid");
         fechaInput.classList.add("is-valid");
     }
-    //****** */
-    // if (fechaInput.value.trim() === "") {
-    // fechaInput.classList.add("is-invalid");
-    // }
-    //****** */
+ 
     if (!form.checkValidity()) {
         form.classList.add("was-validated");
         return;
@@ -107,19 +97,6 @@ function validarInfoReserva() {
 }
 
 // Germán
-// function mostrarVal(id, mensaje) {
-//     const field = document.getElementById(id);
-//     const formFloating = field.closest('.form-floating');
-
-//     const errorElement = document.createElement('div');
-//     errorElement.className = 'error-message text-danger mt-1 small';
-//     errorElement.textContent = mensaje;
-
-//     formFloating.appendChild(errorElement);
-
-//     field.classList.add('is-invalid');
-// }
-
 function mostrarVal(id) {
     const field = document.getElementById(id);
     field.classList.add('is-invalid');
@@ -236,3 +213,29 @@ function limpiarFormulario() {
 }
 
 mostrarReservas();
+
+
+// Germán
+// Mostrar check en el campo nombreMascota al seleccionar opción en caché
+document.addEventListener("DOMContentLoaded", () => {
+  const nombreMascota = document.getElementById("nombreMascota");
+
+  nombreMascota.addEventListener("focus", () => {
+    setTimeout(() => {
+      if (nombreMascota.value.trim().length >= 2) {
+        nombreMascota.classList.remove("is-invalid");
+        nombreMascota.classList.add("is-valid");
+      }
+    }, 50);
+  });
+
+  nombreMascota.addEventListener("input", () => {
+    if (nombreMascota.value.trim().length >= 2) {
+      nombreMascota.classList.add("is-valid");
+      nombreMascota.classList.remove("is-invalid");
+    } else {
+      nombreMascota.classList.remove("is-valid");
+    }
+  });
+});
+// Germán

@@ -63,7 +63,7 @@ function validaciones() {
     const regexContrasena = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
     if (!regexContrasena.test(contrasenaUsuario)) {
         mostrarValidaciones(
-            'contrasenaUsuario', 'La contraseña debe tener mínimo 8 caracteres, incluir mayúscula, minúscula, número y caracter especial.');
+            'contrasenaUsuario', 'La contraseña debe tener mínimo: 8 caracteres, incluir una mayúscula, una minúscula, un número y un caracter especial.');
         return false;
     }
 
@@ -173,3 +173,48 @@ function registroUsuario() {
 function limpiarFormulario() {
     document.getElementById("formRegistro").reset();
 }
+
+// Germán
+// Quitar mensaje de advertencia al diligenciar campos de formulario
+function validarCampo(campo) {
+  if (campo.checkValidity() && campo.value.trim() !== "") {
+    campo.classList.remove("is-invalid");
+    campo.classList.add("is-valid");
+
+    // elimina mensaje de error si existe
+    const error = campo
+      .closest(".form-floating")
+      ?.querySelector(".error-message");
+
+    if (error) error.remove();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const campos = [
+    "nombreUsuario",
+    "apellidosUsuario",
+    "correoUsuario",
+    "contrasenaUsuario",
+    "confirmarContraUsuario",
+    "telefonoUsuario",
+    "mascota1Usuario",
+    "mascota2Usuario",
+    "mascota3Usuario",
+    "mascota4Usuario"
+  ];
+
+  campos.forEach(id => {
+    const campo = document.getElementById(id);
+
+    if (!campo) return;
+
+    // Para inputs de texto y password
+    campo.addEventListener("input", () => validarCampo(campo));
+
+    // Por si alguno es select
+    campo.addEventListener("change", () => validarCampo(campo));
+  });
+
+});

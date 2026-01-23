@@ -21,9 +21,18 @@
 @media (min-width: 768px) {
     #formInicioSesion .form-floating {
         width: 80%;
+        height: 62px;
         margin: 0 auto;
     }
+    #formInicioSesion .password-toggle {
+        bottom: 0.55rem;
+    }
+    #formInicioSesion .error-message {
+        bottom: -18px;
+    }
 }
+
+    
 
 /* INPUT */
 #formInicioSesion .form-floating > .form-control {
@@ -37,24 +46,96 @@
 }
 
 /*  layout */
-.form-floating .error-message {
+/* .form-floating .error-message {
     position: absolute;
     left: 0;
     bottom: -18px;   
     font-size: 0.8rem;
     color: #dc3545;
     line-height: 1;
+} */
+
+/* MENSAJE ERROR */
+.form-control .error-message {
+    position: absolute;
+    left: 0;
+    top: 78%;          
+    margin-top: 6px;    
+    font-size: 0.81rem;
+    color: #dc3545;
+    line-height: 1.2;
 }
 
 .toggle-password {
     position: absolute;
-    top: 30%;
+    right: 15px;
+    top: 50%;
     transform: translateY(-50%);
-    bottom: 0.1rem; 
     cursor: pointer;
     font-size: 1.2rem;
-    z-index: 5;
     color: #333;
+}
+
+/* Quitar iconos de validación de Bootstrap SOLO en password */
+#password.is-invalid,
+#password.is-valid {
+  background-image: none !important;
+  padding-right: 3rem !important; /* deja espacio para el ojo */
+}
+
+/*OJO EN ROJO CUANDO HAY ERROR*/
+/* .form-control.is-invalid ~ .toggle-password {
+    color: #dc3545;
+} */
+ 
+/* Ojo normal */
+#eyeIcon {
+  color: white;
+  transition: color 0.2s ease;
+}
+
+/* Ojo en error */
+#password.is-invalid ~ button #eyeIcon {
+  color: #dc3545; /* rojo Bootstrap */
+}
+
+#password {
+  padding-right: 3rem !important;
+}
+
+/* Posición correcta del icono */
+.form-control.is-valid,
+.form-control.is-invalid {
+    padding-right: 3rem !important;
+    background-position: right 1rem center !important;
+}
+
+#pass-form {
+  position: relative;
+}
+
+/* Ojo */
+.pass-toggle-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
+  border: none;
+  background: transparent;
+  z-index: 5;
+}
+
+/* Reservar espacio SIEMPRE */
+#password {
+  padding-right: 3rem !important;
+}
+
+.pass-toggle-btn {
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
+  line-height: 1;
 }
 
 /* Conservar el color de texto y fondo en los campos del formulario */

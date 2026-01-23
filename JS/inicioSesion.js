@@ -1,14 +1,18 @@
 document.getElementById("mostrarPass").addEventListener("click", function () {
   const pass = document.getElementById("password");
-  const eyeIcon = document.getElementById("eyeIcon");
+  // const eyeIcon = document.getElementById("eyeIcon");
 
-  // cambia tipa de input
-  const type = pass.getAttribute("type") === "password" ? "text" : "password";
-  pass.setAttribute("type", type);
+  const eyeIcon = this.querySelector("i");
+  const isPassword = pass.type === "password";
+
+  // Germán
+  // Cambiar tipo de input
+  pass.type = isPassword ? "text" : "password";
 
   // cambia el icono del ojo
-  eyeIcon.classList.toggle("bi-eye");
-  eyeIcon.classList.toggle("bi-eye-slash");
+  eyeIcon.classList.toggle("bi-eye", !isPassword);
+  eyeIcon.classList.toggle("bi-eye-slash", isPassword);
+  // Germán
 });
 
 function validaciones() {
@@ -23,13 +27,12 @@ function validaciones() {
     return false;
   }
 
-  if (contrasena.length < 8) {
-    mostrarValidaciones(
-      "password",
-      "La contraseña debe tener mínimo 8 caracteres"
-    );
-    return false;
-  }
+  const regexContrasena = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+    if (!regexContrasena.test(contrasena)) {
+        mostrarValidaciones(
+            "password", "La contraseña debe tener mínimo: 8 caracteres, incluir una mayúscula, una minúscula, un número y un caracter especial.");
+        return false;
+    }
 
   verificarUsuario();
   limpiarFormulario();
@@ -112,3 +115,40 @@ function mostrarAlerta(mensaje, tipo) {
 function limpiarFormulario() {
   document.getElementById("formRegistro").reset();
 }
+
+// Germán
+// Quitar mensaje de advertencia al diligenciar campos de formulario
+function validarCampo(campo) {
+  if (campo.checkValidity() && campo.value.trim() !== "") {
+    campo.classList.remove("is-invalid");
+    campo.classList.add("is-valid");
+
+    // elimina mensaje de error si existe
+    const error = campo
+      .closest(".form-floating")
+      ?.querySelector(".error-message");
+
+    if (error) error.remove();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const campos = [
+    "email",
+    "password"
+  ];
+
+  campos.forEach(id => {
+    const campo = document.getElementById(id);
+
+    if (!campo) return;
+
+    // Para inputs de texto y password
+    campo.addEventListener("input", () => validarCampo(campo));
+
+    // Por si alguno es select
+    campo.addEventListener("change", () => validarCampo(campo));
+  });
+
+});

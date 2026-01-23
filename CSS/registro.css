@@ -22,17 +22,6 @@ input[type="password"] {
     position: relative;
 }
 
-.password-toggle {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 1.2rem;
-    color: #333;
-}
-
-
 .container-registro{
     border: 0.5px dotted #9CECE6;
     box-shadow: 2px 2px 20px rgba(240, 148, 58, 0.3);
@@ -49,8 +38,25 @@ input[type="password"] {
         max-width: 900px;   
         margin-left: auto;
         margin-right: auto;
+        /* width: 80%;
+        height: 62px;
+        margin: 0 auto; */
+    }
+    .form-registro .error-message {
+        bottom: -18px;
+    }
+    .form-registro .password-toggle {
+        bottom: 0.55rem;
     }
 }
+
+@media (max-width: 576px) {
+  .error-message {
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+  }
+}
+
 
 /* Altura  */
 .form-registro .form-floating > .form-control {
@@ -83,7 +89,6 @@ input[type="password"] {
     padding-top: 1.35rem !important;
 }
 
-
 .form-registro .password-toggle {
     position: absolute;
     right: 15px;
@@ -91,7 +96,22 @@ input[type="password"] {
     cursor: pointer;
     font-size: 1.2rem;
     z-index: 5;
-    color: #333;
+    color: #FFF;
+}
+
+/* OJO PASSWORD */
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/* OJO BLANCO */
+.form-registro .form-control ~ .password-toggle {
+    color: #FFF;
 }
 
 /*OJO EN ROJO CUANDO HAY ERROR*/
@@ -110,19 +130,53 @@ input[type="password"] {
     line-height: 1.2;
 }
 
+/* Password con check y botón de ojo */
+.form-floating input[type="password"].is-valid {
+  background-position: right 2.4rem center;
+  padding-right: 4.5rem; /* espacio para check + ojo */
+}
 
-@media (max-width: 767px) {
-    .form-registro .form-floating {
-        height: 62px;
-    }
+.form-floating > .form-control:focus {
+  background-position: right 3.25rem center;
+}
 
-    .form-registro .password-toggle {
-        bottom: 0.55rem;
-    }
+.pass-toggle-btn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
 
-    .form-registro .error-message {
-        bottom: -18px;
-    }
+.pass-toggle-btn i {
+  line-height: 1;
+  font-size: 1.1rem;
+}
+
+.form-floating input[type="password"].is-valid,
+.form-floating input[type="password"].is-invalid {
+  background-image: none !important;
+  padding-right: 3.5rem !important;
+}
+
+.entrada.is-valid,
+.entrada.is-invalid {
+  background-image: none !important;
+  padding-right: 3.5rem !important;
+}
+
+.error-message {
+  margin-top: 0.35rem;
+  line-height: 1.2;
+}
+
+.form-floating {
+  transition: padding 0.2s ease;
 }
 
 /* Conservar el color de texto y fondo en los campos del formulario */
@@ -142,4 +196,23 @@ select:-webkit-autofill {
     background-color: #2ab7ae !important;
 
     transition: background-color 9999s ease-in-out 0s;
+}
+
+.form-registro input,
+.form-registro select,
+.form-registro textarea {
+  color: #ffffff !important;
+  caret-color: #ffffff;
+}
+
+.form-registro input:focus,
+.form-registro select:focus,
+.form-registro textarea:focus {
+  color: #ffffff !important;
+}
+
+.form-registro input:focus,
+.form-registro select:focus,
+.form-registro textarea:focus {
+  color: #ffffff !important;
 }
