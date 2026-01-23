@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../CSS/navFooter.css">
     <link rel="stylesheet" href="../../CSS/ADMIN/servicios.css">
+    <link rel="stylesheet" href="../../CSS/ADMIN/admServicios.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <title>Administrador</title>
 
 </head>
@@ -97,16 +99,73 @@
                                 <label for="durPeq">Duración </label>
                             </div>
                         </div>
-                        <div class="container text-center my-5 mb-3 ">
+                        <!--<div class="container text-center my-5 mb-3 ">
                             <div class="d-flex justify-content-center gap-5 flex-wrap">
                                 <button type="button" class="boton-login" onclick="guardarInformacion();">Ingresar Servicio</button>
                             </div>
+                        </div>-->
+                        <div class="container text-center my-5 mb-3">
+                            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                                <!-- Botón para GUARDAR (crear nuevo) -->
+                                <button class="boton-login" type="button" onclick="guardarInformacion()"
+                                    id="btnGuardar">
+                                    <i class="bi bi-plus-circle"></i> Guardar Servicio
+                                </button>
+
+                                <!-- Botón para ACTUALIZAR (modificar existente) - Oculto por defecto -->
+                                <button class="boton-login" type="button" onclick="confirmarActualizacion()"
+                                    id="btnActualizar" style="display: none; background-color: #2ab7ae;">
+                                    <i class="bi bi-pencil-square"></i> Actualizar Servicio
+                                </button>
+
+                                <!-- Botón para CANCELAR edición -->
+                                <button class="btn btn-secondary" type="button" onclick="cancelarEdicion()"
+                                    id="btnCancelar" style="display: none;">
+                                    <i class="bi bi-x-circle"></i> Cancelar
+                                </button>
+                            </div>
                         </div>
+
                     </div>
                 </form>
                 <!-- Termina seccion de formulario -->
                 <!-- Contenedor para alerta de ingreso de servicio -->
                 <div id="alertContainer"></div>
+                <!-- Sección para listar Groomers -->
+                <div class="controls-section">
+                    <div class="row align-items-center g-3">
+                        <div class="col-md-3">
+                            <button class="btn-reload w-100" onclick="listarServicios()">
+                                <i class="bi bi-arrow-clockwise"></i> Recargar Servicios
+                            </button>
+                        </div>  
+                        <div class="col-md-6 text-end">
+                            <span class="stats-badge">
+                                Total de servicios: <span id="totalServicios">0</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de servicios -->
+                <div class="table-container">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Tamaño Pequeño</th>
+                                <th>Tamaño Mediano</th>
+                                <th>Tamaño Grande</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="infoServicios">
+                            <!-- Los servicios se listan aquí -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </main>
@@ -120,8 +179,10 @@
     <script src="../../components/footer.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-        </script>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../JS/ADMIN/servicios.js"></script>
+    <script src="../../JS/ADMIN/admServicios.js"></script>
 </body>
 
 </html>
