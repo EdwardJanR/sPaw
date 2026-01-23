@@ -10,20 +10,22 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Contáctenos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <title>Administración de Clientes - sPaw</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
     <header>
         <header-component></header-component>
     </header>
-    <main class="d-flex align-items-center justify-content-center flex-grow-1">
-        <div class="d-flex flex-column align-items-center">
-            <h1 class="text-center mt-3 titulo">
+    <main class="flex-grow-1">
+        <div class="container py-4">
+            <h1 class="text-center titulo">
                 Administrador
             </h1>
-            <!-- Empieza seccion de tabs -->
-            <ul class="nav nav-tabs justify-content-center w-100">
+
+            <!-- Sección de tabs -->
+            <ul class="nav nav-tabs justify-content-center w-100 mb-4">
                 <li class="nav-item">
                     <a class="nav-link custom-tab" href="./index.html">Servicios</a>
                 </li>
@@ -31,26 +33,56 @@
                     <a class="nav-link custom-tab" href="./admGroomers.html">Groomers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link custom-tab seleccion" href="./admClientes.html">Clientes</a>
+                    <a class="nav-link custom-tab seleccion" href="./admClientes.html">Usuarios</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link custom-tab" href="./admReservas.html">Reservas</a>
                 </li>
             </ul>
-            <!-- Termina seccion de tabs -->
+
+            <!-- Controles -->
+            <div class="controls-section">
+                <div class="row align-items-center g-3">
+                    <div class="col-md-3">
+                        <button class="btn-reload w-100" onclick="cargarUsuarios()">
+                            <i class="bi bi-arrow-clockwise"></i> Recargar Usuarios
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="filter-select w-100" id="filtroRol" onchange="filtrarPorRol()">
+                            <option value="">Todos los roles</option>
+                            <option value="Cliente">Cliente</option>
+                            <option value="Administrador">Administrador</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <span class="stats-badge">
+                            Total de usuarios: <span id="totalUsuarios">0</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenedor de tabla -->
+            <div id="contenedor"></div>
         </div>
     </main>
-    <div id="reservas"></div>
+
     <footer class="footer-custom py-5">
         <footer-component></footer-component>
     </footer>
+
     <div class="footer-copy text-center py-2">
         ©2025 sPaw. Todos los derechos reservados
     </div>
     <script src="../../components/header.js"></script>
     <script src="../../components/footer.js"></script>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../JS/ADMIN/admClientes.js"></script>    
 </body>
 </html>
