@@ -166,6 +166,8 @@
     transform: scale(.85) translateY(-0.5rem) translateX(0.15rem) !important;
 }
 
+
+
 @media (max-width: 768px) {
     .card-reserva .card-header {
         min-height: 70px;
