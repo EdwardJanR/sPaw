@@ -36,9 +36,10 @@
 
             <!-- Sección del formulario actualizada -->
             <div class="contacto container d-flex flex-column align-items-center mb-5 mt-3 p-4 rounded-2">
-                <h3 class="mt-3 mb-3 subtitulo" id="tituloFormulario">Ingresar groomer</h3>
+                <h3 class="mt-3 mb-3 subtitulo" id="tituloFormulario">
+                    Ingresar Groomer
+                </h3>
                 <form id="formGroomer" onsubmit="event.preventDefault();">
-
                     <div class="row g-4">
                         <div class="col-md-12 mt-4">
                             <div class="form-floating">
@@ -78,12 +79,12 @@
 
                                 <!-- Botón para ACTUALIZAR (modificar existente) - Oculto por defecto -->
                                 <button class="boton-login" type="button" onclick="confirmarActualizacion()"
-                                    id="btnActualizar" style="display: none; background-color: #2ab7ae;">
+                                    id="btnActualizar" style="display: none;">
                                     <i class="bi bi-pencil-square"></i> Actualizar Groomer
                                 </button>
 
                                 <!-- Botón para CANCELAR edición -->
-                                <button class="btn btn-secondary" type="button" onclick="cancelarEdicion()"
+                                <button class="boton-login" type="button" onclick="cancelarEdicion()"
                                     id="btnCancelar" style="display: none;">
                                     <i class="bi bi-x-circle"></i> Cancelar
                                 </button>
@@ -93,18 +94,23 @@
                 </form>
             </div>
             <!-- Sección para listar Groomers -->
-            <div class="controls-section">
-                <div class="row align-items-center g-3">
-                    <div class="col-md-3">
-                        <button class="btn-reload w-100" onclick="listarGroomers()">
+            <div class="controls-section w-100">
+                <div class="row justify-content-center align-items-center g-3">
+
+                    <!-- Botón Recargar -->
+                    <div class="col-12 col-md-auto d-flex justify-content-center">
+                        <button class="btn-reload px-4" onclick="listarGroomers()">
                             <i class="bi bi-arrow-clockwise"></i> Recargar Groomers
                         </button>
                     </div>
-                    <div class="col-md-6 text-end">
+
+                    <!-- Total Groomers -->
+                    <div class="col-12 col-md-auto d-flex justify-content-center">
                         <span class="stats-badge">
                             Total de groomers: <span id="totalGroomers">0</span>
                         </span>
                     </div>
+
                 </div>
             </div>
 

@@ -41,7 +41,7 @@
             </ul>
             <!-- Termina seccion de tabs -->
             <div class="contacto container d-flex flex-column align-items-center mb-5 mt-3 p-4 rounded-2">
-                <h3 class="mt-3 mb-3 subtitulo">
+                <h3 class="mt-3 mb-3 subtitulo" id="tituloFormulario">
                     Ingresar servicio
                 </h3>
                 <!-- Empieza seccion de formulario -->
@@ -107,39 +107,39 @@
                         <div class="container text-center my-5 mb-3">
                             <div class="d-flex justify-content-center gap-3 flex-wrap">
                                 <!-- Botón para GUARDAR (crear nuevo) -->
-                                <button class="boton-login" type="button" onclick="guardarInformacion()"
+                                <button class="boton-login" type="button" onclick="guardarServicio()"
                                     id="btnGuardar">
                                     <i class="bi bi-plus-circle"></i> Guardar Servicio
                                 </button>
 
                                 <!-- Botón para ACTUALIZAR (modificar existente) - Oculto por defecto -->
                                 <button class="boton-login" type="button" onclick="confirmarActualizacion()"
-                                    id="btnActualizar" style="display: none; background-color: #2ab7ae;">
+                                    id="btnActualizar" style="display: none;">
                                     <i class="bi bi-pencil-square"></i> Actualizar Servicio
                                 </button>
 
                                 <!-- Botón para CANCELAR edición -->
-                                <button class="btn btn-secondary" type="button" onclick="cancelarEdicion()"
+                                <button class="boton-login" type="button" onclick="cancelarEdicion()"
                                     id="btnCancelar" style="display: none;">
                                     <i class="bi bi-x-circle"></i> Cancelar
-                                </button>
+                                </button>                                
                             </div>
                         </div>
-
                     </div>
                 </form>
                 <!-- Termina seccion de formulario -->
                 <!-- Contenedor para alerta de ingreso de servicio -->
                 <div id="alertContainer"></div>
-                <!-- Sección para listar Groomers -->
-                <div class="controls-section">
-                    <div class="row align-items-center g-3">
-                        <div class="col-md-3">
-                            <button class="btn-reload w-100" onclick="listarServicios()">
+                <!-- Sección para listar servicios -->
+                <div class="controls-section w-100">
+                    <div class="row justify-content-center align-items-center g-3">
+                        <div class="col-12 col-md-auto d-flex justify-content-center">
+                            <button class="btn-reload px-4" onclick="listarServicios()">
                                 <i class="bi bi-arrow-clockwise"></i> Recargar Servicios
                             </button>
-                        </div>  
-                        <div class="col-md-6 text-end">
+                        </div>
+                        <!-- Total -->
+                        <div class="col-12 col-md-auto d-flex justify-content-center">
                             <span class="stats-badge">
                                 Total de servicios: <span id="totalServicios">0</span>
                             </span>
@@ -181,7 +181,7 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../JS/ADMIN/servicios.js"></script>
+
     <script src="../../JS/ADMIN/admServicios.js"></script>
 </body>
 
