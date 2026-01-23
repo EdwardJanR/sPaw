@@ -168,6 +168,125 @@ async function eliminar(id) {
         }
     }
 }
+
+async function guardarInformacion() {
+    // Limpiar mensajes de error previos
+    limpiarErrores();
+    
+    // Obtener valores del formulario
+    const nombre = document.getElementById('nombreGroomer').value.trim();
+    const apellido = document.getElementById('apellidoGroomer').value.trim();
+    const telefono = document.getElementById('telefonoGroomer').value.trim();
+    const correo = document.getElementById('correoGroomer').value.trim();
+    
+    // Validaciones
+    let esValido = true;
+    
+    if (!nombre) {
+        mostrarAlerta('campo', 'El nombre es obligatorio', { campoId: 'nombreGroomer' });
+        esValido = false;
+    }
+    
+    if (!apellido) {
+        mostrarAlerta('campo', 'El apellido es obligatorio', { campoId: 'apellidoGroomer' });
+        esValido = false;
+    }
+    
+    if (!telefono) {
+        mostrarAlerta('campo', 'El teléfono es obligatorio', { campoId: 'telefonoGroomer' });
+        esValido = false;
+    } else if (telefono.length < 7) {
+        mostrarAlerta('campo', 'El teléfono debe tener al menos 7 dígitos', { campoId: 'telefonoGroomer' });
+        esValido = false;
+    }
+    
+    if (!correo) {
+        mostrarAlerta('campo', 'El correo es obligatorio', { campoId: 'correoGroomer' });
+        esValido = false;
+    } else if (!validarEmail(correo)) {
+        mostrarAlerta('campo', 'El correo no es válido', { campoId: 'correoGroomer' });
+        esValido = false;
+    }
+    
+    if (!esValido) return;
+    
+    // Crear objeto groomer
+    const nuevoGroomer = {
+        nombre: nombre,
+        apellido: apellido,
+        telefono: telefono,
+        email: correo
+    };
+    
+    try {
+        // Obtener token JWT
+        const jwtData = localStorage.getItem('jwt');
+        
+        if (!jwtData) {
+            mostrarAlerta('error', 'No estás autenticado. Por favor, inicia sesión.');
+            return;
+        }
+        
+        const { token } = JSON.parse(jwtData);
+        
+        if (!token) {
+            mostrarAlerta('error', 'Token no válido. Por favor, inicia sesión nuevamente.');
+            return;
+        }
+        
+        // Realizar petición POST
+        const response = await fetch(`${API_URL}/crear`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(nuevoGroomer)
+        });
+        
+        if (response.ok) {
+            const groomerCreado = await response.json();
+            mostrarAlerta('exito', `Groomer <strong>${groomerCreado.nombre} ${groomerCreado.apellido}</strong> creado exitosamente.`);
+            
+            // Limpiar formulario
+            limpiarFormulario();
+            
+            // Recargar lista de groomers
+            await listarGroomers();
+            
+        } else if (response.status === 401 || response.status === 403) {
+            mostrarAlerta('error', 'No tienes permisos para crear groomers o tu sesión ha expirado.');
+        } else {
+            const mensajeError = await response.text();
+            mostrarAlerta('error', `No se pudo crear el groomer: ${mensajeError || 'Error del servidor'}`);
+        }
+        
+    } catch (error) {
+        console.error('Error al crear groomer:', error);
+        mostrarAlerta('error', 'Ocurrió un fallo en la conexión con el servidor.');
+    }
+}
+
+// Función auxiliar para validar email
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
+// Función para limpiar el formulario
+function limpiarFormulario() {
+    document.getElementById('nombreGroomer').value = '';
+    document.getElementById('apellidoGroomer').value = '';
+    document.getElementById('telefonoGroomer').value = '';
+    document.getElementById('correoGroomer').value = '';
+    limpiarErrores();
+}
+
+// Función para limpiar mensajes de error
+function limpiarErrores() {
+    document.querySelectorAll('.error-message').forEach(el => el.remove());
+    document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+}
  
 function mostrarAlerta(tipo, mensaje, opciones = {}) {
     if (opciones.campoId) {
