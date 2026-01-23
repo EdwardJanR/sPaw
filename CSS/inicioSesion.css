@@ -75,3 +75,11 @@ select:-webkit-autofill {
 
     transition: background-color 9999s ease-in-out 0s;
 }
+
+.img-contacto {
+    border-radius: 20px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover; 
+    display: block;
+}

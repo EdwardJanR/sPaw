@@ -249,10 +249,9 @@ select:-webkit-autofill {
 .password-bubble {
     position: absolute;
 
-    top: 50%;
-    transform: translateY(-50%);
-
-    right: calc(100% + 20px);
+    bottom: calc(100% + 16px); 
+    left: 50%;
+    transform: translateX(-50%);
 
     width: 220px;
     padding: 14px 16px;
@@ -273,8 +272,9 @@ select:-webkit-autofill {
     display: none;
     z-index: 1000;
 
-    animation: bubbleIn 0.25s ease-out;
+    animation: bubbleInTop 0.25s ease-out;
 }
+
 
 .password-bubble::before {
     content: "⚠️ Requisitos de contraseña";
@@ -292,25 +292,27 @@ select:-webkit-autofill {
     height: 14px;
 
     background: #ffffff;
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 
-    right: -7px;
-    top: 50%;
-    transform: translateY(-50%) rotate(45deg);
+    left: 50%;
+    bottom: -7px;
+    transform: translateX(-50%) rotate(45deg);
 
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: -3px 3px 8px rgba(0, 0, 0, 0.08);
 }
 
+
 /* ANIMACIÓN */
-@keyframes bubbleIn {
+@keyframes bubbleInTop {
     from {
         opacity: 0;
-        transform: translateY(-50%) scale(0.96);
+        transform: translateX(-50%) translateY(6px) scale(0.96);
     }
     to {
         opacity: 1;
-        transform: translateY(-50%) scale(1);
+        transform: translateX(-50%) translateY(0) scale(1);
     }
 }
+
 
