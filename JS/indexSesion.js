@@ -5,6 +5,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const jwt = localStorage.getItem("jwt");
 
   if (btnLogin && usuarioActivo?.nombre && jwt) {
+    // Determinar si el usuario es administrador
+    const esAdmin = usuarioActivo.email === "german.cruz@email.com";    
+
+    // Generar el menú según el perfil del usuario
+    const opcionMenu = esAdmin 
+      ? `<li>
+          <a class="dropdown-item" href="../HTML/ADMIN/index.html" id="">
+            Administración
+          </a>
+        </li>`
+      : `<li>
+          <a class="dropdown-item" href="../HTML/misReservas.html" id="">
+            Mis reservas
+          </a>
+        </li>`;
+    
     btnLogin.outerHTML = `
       <div class="nav-item dropdown">
         <a class="boton-login dropdown-toggle d-flex align-items-center"
@@ -16,12 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
           ${capitalizeFirstLetter(usuarioActivo.nombre)}
         </a>
         <ul class="dropdown-menu dropdown-menu-end list-unstyled">
+          ${opcionMenu}
           <li>
-            <a class="dropdown-item" href="../HTML/misReservas.html" id="">
-              Mis reservas
-            </a>
-          </li>
-            <li>
             <a class="dropdown-item" href="#" id="cerrarSesion">
               Cerrar sesión
             </a>
