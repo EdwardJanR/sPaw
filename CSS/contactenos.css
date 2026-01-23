@@ -32,7 +32,11 @@
 @media (min-width: 768px) {
     #formContactenos .form-floating {
         width: 80%;
-        margin: 0 auto;
+        margin: 0 auto 40px; /* Mantiene distancia fija */
+        margin-bottom: 1rem !important;
+    }
+    #formContactenos .error-message {
+        bottom: -25px;
     }
 }
 
@@ -88,21 +92,82 @@
     background-color: transparent !important;
 }
 
+/* Germán */
 /* Conservar el color de texto y fondo en los campos del formulario */
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
-
-    -webkit-text-fill-color: #ffffff !important; /* texto blanco */
-    caret-color: #ffffff;
-
-    -webkit-box-shadow: 0 0 0 30px #2ab7ae inset !important;
-    box-shadow: 0 0 0 30px #2ab7ae inset !important;
-
-    background-color: #2ab7ae !important;
-
-    transition: background-color 9999s ease-in-out 0s;
+/* TEXTO SIEMPRE BLANCO EN INPUTS Y TEXTAREA */
+.container-form input,
+.container-form textarea {
+  color: #fff !important;
+  caret-color: #fff;
 }
+
+/* Cuando está enfocado */
+.container-form input:focus,
+.container-form textarea:focus {
+  color: #fff !important;
+}
+
+/* Bootstrap pisa el color en .form-control */
+.container-form .form-control {
+  color: #fff !important;
+}
+
+/* Chrome AUTOFILL */
+.container-form input:-webkit-autofill,
+.container-form textarea:-webkit-autofill {
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff;
+  box-shadow: 0 0 0 30px #2ab7ae inset !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Ubicación del input de texto en mensaje de formulario */
+
+/* Inputs normales */
+.form-floating > .form-control:not(textarea) {
+  padding-top: 1.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+
+/* Textarea */
+.form-floating > textarea.form-control {
+  padding-top: 2.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+
+/* Label textarea */
+.form-floating > textarea ~ label {
+  top: 0.6rem !important;
+}
+
+.form-floating > textarea:focus ~ label,
+.form-floating > textarea:not(:placeholder-shown) ~ label {
+  transform: scale(.85) translateY(-1.0rem) !important;
+}
+
+/* Validación Bootstrap */
+.container-form .form-control.is-valid,
+.container-form .form-control.is-invalid,
+.container-form .form-select.is-valid,
+.container-form .form-select.is-invalid {
+  color: #fff !important;
+}
+
+/* Base: Espaciado fijo para TODOS los tamaños */
+#formContactenos .form-floating {
+    position: relative;  /* Para posicionar error absolutamente */
+    margin-bottom: 0.5rem; /* DISTANCIA FIJA entre campos */
+}
+
+#formContactenos .error-message {
+    position: absolute;
+    bottom: -25px;      /* Posición fija relativa al input */
+    left: 0;
+    right: 0;
+    font-size: 0.875em; /* Pequeño para no invadir espacio */
+    color: #dc3545;
+}
+
+/* Germán */
+

@@ -216,3 +216,19 @@ select:-webkit-autofill {
 .form-registro textarea:focus {
   color: #ffffff !important;
 }
+
+/* Validación Bootstrap */
+.form-registro .form-control.is-valid,
+.form-registro .form-control.is-invalid,
+.form-registro .form-select.is-valid,
+.form-registro .form-select.is-invalid {
+  color: #fff !important;
+}
+
+/* Validación Bootstrap */
+.form-control .form-control.is-valid,
+.form-control .form-control.is-invalid,
+.form-control .form-select.is-valid,
+.form-control .form-select.is-invalid {
+  color: #fff !important;
+}

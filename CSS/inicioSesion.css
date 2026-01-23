@@ -140,11 +140,11 @@
 
 /* Conservar el color de texto y fondo en los campos del formulario */
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
+.container-form input:-webkit-autofill,
+.container-form input:-webkit-autofill:hover,
+.container-form input:-webkit-autofill:focus,
+.container-form textarea:-webkit-autofill,
+.container-form select:-webkit-autofill {
 
     -webkit-text-fill-color: #ffffff !important; /* texto blanco */
     caret-color: #ffffff;
@@ -155,4 +155,69 @@ select:-webkit-autofill {
     background-color: #2ab7ae !important;
 
     transition: background-color 9999s ease-in-out 0s;
+}
+
+.container-form input,
+.container-form select,
+.container-form textarea {
+  color: #ffffff !important;
+  caret-color: #ffffff;
+}
+
+.container-form input:focus,
+.container-form select:focus,
+.container-form textarea:focus {
+  color: #ffffff !important;
+}
+
+.container-form input:focus,
+.container-form select:focus,
+.container-form textarea:focus {
+  color: #ffffff !important;
+}
+
+/* =========================================
+   TEXTO BLANCO SIEMPRE – FORMULARIOS
+========================================= */
+
+/* Fuerza color en TODOS los estados */
+.container-form .form-control,
+.container-form .form-select,
+.container-form textarea {
+  color: #fff !important;
+  caret-color: #fff;
+}
+
+/* Focus */
+.container-form .form-control:focus,
+.container-form .form-select:focus,
+.container-form textarea:focus {
+  color: #fff !important;
+}
+
+/* Validación Bootstrap */
+.container-form .form-control.is-valid,
+.container-form .form-control.is-invalid,
+.container-form .form-select.is-valid,
+.container-form .form-select.is-invalid {
+  color: #fff !important;
+}
+
+/* Autofill Chrome */
+.container-form input:-webkit-autofill,
+.container-form input:-webkit-autofill:hover,
+.container-form input:-webkit-autofill:focus,
+.container-form textarea:-webkit-autofill,
+.container-form select:-webkit-autofill {
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff;
+  box-shadow: 0 0 0 30px #2ab7ae inset !important;
+  background-color: #2ab7ae !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Form-floating (clave) */
+.container-form .form-floating > .form-control,
+.container-form .form-floating > .form-select {
+  color: #fff !important;
 }

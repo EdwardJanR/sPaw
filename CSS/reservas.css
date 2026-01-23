@@ -370,21 +370,36 @@ p {
 /* Germán */
 /* Conservar el color de texto y fondo en los campos del formulario */
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
+.form-reserva input:-webkit-autofill,
+.form-reserva input:-webkit-autofill:hover,
+.form-reserva input:-webkit-autofill:focus,
+.form-reserva textarea:-webkit-autofill,
+.form-reserva select:-webkit-autofill {
 
     -webkit-text-fill-color: #ffffff !important; /* texto blanco */
     caret-color: #ffffff;
-
     -webkit-box-shadow: 0 0 0 30px #2ab7ae inset !important;
     box-shadow: 0 0 0 30px #2ab7ae inset !important;
-
     background-color: #2ab7ae !important;
-
     transition: background-color 9999s ease-in-out 0s;
+}
+
+/* TEXTO SIEMPRE BLANCO EN INPUTS Y TEXTAREA */
+.form-reserva input,
+.form-reserva textarea {
+  color: #fff !important;
+  caret-color: #fff;
+}
+
+/* Cuando está enfocado */
+.form-reserva input:focus,
+.form-reserva textarea:focus {
+  color: #fff !important;
+}
+
+/* Bootstrap pisa el color en .form-control */
+.container-form .form-control {
+  color: #fff !important;
 }
 
 /* Germán */
