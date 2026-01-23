@@ -2,6 +2,32 @@ const API_URL = 'http://localhost:8080';
 let contadorMascotas = 1;
 const MAX_MASCOTAS = 4;
 
+const input = document.getElementById("contrasenaUsuario");
+const bubble = document.getElementById("passwordBubble");
+let timeoutBubble = null;
+
+if (input && bubble) {
+    input.addEventListener("focus", () => {
+        bubble.style.display = "block";
+
+        if (timeoutBubble) {
+            clearTimeout(timeoutBubble);
+        }
+
+        timeoutBubble = setTimeout(() => {
+            bubble.style.display = "none";
+        }, 10000);
+    });
+
+    input.addEventListener("blur", () => {
+        bubble.style.display = "none";
+
+        if (timeoutBubble) {
+            clearTimeout(timeoutBubble);
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const btnRegistro = document.getElementById('btnRegistro');
 
@@ -33,33 +59,6 @@ function activarTogglePassword(inputId, toggleId) {
             input.type = "text";
             toggle.classList.remove("bi-eye");
             toggle.classList.add("bi-eye-slash");
-        }
-    });
-}
-
-
-const input = document.getElementById("contrasenaUsuario");
-const bubble = document.getElementById("passwordBubble");
-let timeoutBubble = null;
-
-if (input && bubble) {
-    input.addEventListener("focus", () => {
-        bubble.style.display = "block";
-
-        if (timeoutBubble) {
-            clearTimeout(timeoutBubble);
-        }
-
-        timeoutBubble = setTimeout(() => {
-            bubble.style.display = "none";
-        }, 10000);
-    });
-
-    input.addEventListener("blur", () => {
-        bubble.style.display = "none";
-
-        if (timeoutBubble) {
-            clearTimeout(timeoutBubble);
         }
     });
 }
@@ -134,7 +133,6 @@ function limpiarFormulario() {
                 container.remove();
             }
         }
-
         const botonAgregarContainer = document.getElementById('botonAgregarMascota');
         if (botonAgregarContainer) {
             botonAgregarContainer.style.display = 'flex';
