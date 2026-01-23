@@ -1,13 +1,24 @@
 class ReservaCard extends HTMLElement {
 
     connectedCallback() {
-        const nombreServicio = this.getAttribute('nombreServicio') || 'Reserva';
-        const nombreMascota = this.getAttribute('nombreMascota') || 'Mascota';
-        const tamanoMascota = this.getAttribute('tamanoMascota') || 'Tamaño';
-        const nombreGroomer = this.getAttribute('nombreGroomer') || 'Groomer';
-        const fechaReserva = this.getAttribute('fechaReserva') || 'Fecha';
-        const horaReserva = this.getAttribute('horaReserva') || 'Hora';
-        const idReserva = this.getAttribute('idReserva') || '0';
+
+        const rawData = {
+            servicio: this.getAttribute('nombreServicio'),
+            mascota: this.getAttribute('nombreMascota'),
+            tamano: this.getAttribute('tamanoMascota'),
+            groomer: this.getAttribute('nombreGroomer'),
+            fecha: this.getAttribute('fechaReserva'),
+            hora: this.getAttribute('horaReserva'),
+            id: this.getAttribute('idReserva')
+        };
+
+        const nombreServicio = rawData.servicio || 'Servicio no especificado';
+        const nombreMascota = rawData.mascota || 'Mascota no especificada';
+        const tamanoMascota = rawData.tamano || 'No especificado';
+        const nombreGroomer = rawData.groomer || 'Groomer no asignado';
+        const fechaReserva = rawData.fecha || 'Fecha no definida';
+        const horaReserva = rawData.hora || 'Hora no definida';
+        const idReserva = rawData.id || '0';
 
         this.innerHTML = `
             <div class="col d-flex">

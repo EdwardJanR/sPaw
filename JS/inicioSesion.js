@@ -54,32 +54,35 @@ if (formInicioSesion) {
         })
       });
 
-      // Restaurar botón
       submitBtn.innerHTML = originalText;
       submitBtn.disabled = false;
 
       if (response.ok) {
-        const token = await response.text();
-        localStorage.setItem('jwt', token);
+        const data = await response.json();
+        const token = data.token;
 
-        const nombreDelEmail = email.split('@')[0];
-        const nombreFormateado = nombreDelEmail
-          .split('.')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' ');
+        localStorage.setItem('jwt', JSON.stringify(data));
 
-        const usuarioActivo = {
-          nombre: nombreFormateado,
-          apellidos: '',
-          email: email
+        const usuario = data.usuario;
+
+        console.log('✅ Datos de usuario recibidos:', usuario);
+
+
+        const usuarioActivoData = {
+          nombre: usuario.nombre,
+          apellido: usuario.apellido,
+          email: usuario.email
         };
 
-        localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+        localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivoData));
+        localStorage.setItem('jwt', JSON.stringify(data)); 
+        
+        console.log('⚠️ Usuario sin ID, se obtendrá después de la página de reservas');
 
         mostrarAlerta("<strong>¡Inicio de sesión exitoso!</strong>", "success");
 
         setTimeout(() => {
-          window.location.href = '../HTML/reservas.html';
+          window.location.href = '../index.html';
         }, 1000);
 
       } else {

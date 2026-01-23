@@ -92,7 +92,6 @@ function mostrarGroomers(groomers) {
             <td><i class="bi bi-envelope"></i> ${g.correo || g.email || '-'}</td>
             <td>
                 <div class="action-icons">
-                    <i class="bi bi-eye action-icon" title="Ver" onclick="verGroomer(${id})"></i>
                     <i class="bi bi-pencil action-icon" title="Editar" onclick="editarGroomer(${id})"></i>
                     <i class="bi bi-trash action-icon" title="Eliminar" onclick="eliminar(${id})"></i>
                 </div>
