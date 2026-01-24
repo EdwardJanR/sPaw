@@ -1,4 +1,4 @@
-async function subirImagenCloudinary(file) {
+/*async function subirImagenCloudinary(file) {
   const CLOUD_NAME = "dehyt5u4e";
   const UPLOAD_PRESET = "servicios_preset";
 
@@ -22,187 +22,76 @@ async function subirImagenCloudinary(file) {
   }
 
   return data.secure_url || data.url;
-}
+}*/
 
-async function guardarInformacion() {
-  limpiarValidaciones();
 
-  let nombreServicio = document.getElementById("nombreServicio").value.trim();
-  let descripcionServicio = document
-    .getElementById("descripcionServicio")
-    .value.trim();
-  let imgServicio = document.getElementById("imgServicio");
-  let precioPequeno = document.getElementById("precioPequeno").value.trim();
-  let precioMediano = document.getElementById("precioMediano").value.trim();
-  let precioGrande = document.getElementById("precioGrande").value.trim();
-  let duracionPequeno = document.getElementById("duracionPequeno").value.trim();
-  let duracionMediano = document.getElementById("duracionMediano").value.trim();
-  let duracionGrande = document.getElementById("duracionGrande").value.trim();
-
-  if (
-    nombreServicio.length < 3 ||
-    !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s&\-()]+$/.test(nombreServicio)
-  ) {
-    mostrarValidaciones(
-      "nombreServicio",
-      "El nombre debe tener mínimo 3 caracteres y solo puede contener letras, espacios, &, -, ()",
-    );
-    return;
-  }
-
-  if (descripcionServicio.length < 10) {
-    mostrarValidaciones(
-      "descripcionServicio",
-      "La descripción debe tener mínimo 10 caracteres",
-    );
-    return;
-  }
-
-  if (!/^\d+(\.\d{1,2})?$/.test(precioPequeno)) {
-    mostrarValidaciones("precioPequeno", "Por favor ingresa un precio válido");
-    return;
-  }
-
-  if (!/^\d+(\.\d{1,2})?$/.test(precioMediano)) {
-    mostrarValidaciones("precioMediano", "Por favor ingresa un precio válido");
-    return;
-  }
-
-  if (!/^\d+(\.\d{1,2})?$/.test(precioGrande)) {
-    mostrarValidaciones("precioGrande", "Por favor ingresa un precio válido");
-    return;
-  }
-
-  if (!/^\d+$/.test(duracionPequeno)) {
-    mostrarValidaciones(
-      "duracionPequeno",
-      "La duración debe ser un número en minutos",
-    );
-    return;
-  }
-
-  if (!/^\d+$/.test(duracionMediano)) {
-    mostrarValidaciones(
-      "duracionMediano",
-      "La duración debe ser un número en minutos",
-    );
-    return;
-  }
-
-  if (!/^\d+$/.test(duracionGrande)) {
-    mostrarValidaciones(
-      "duracionGrande",
-      "La duración debe ser un número en minutos",
-    );
-    return;
-  }
-
-  if (!imgServicio.files.length) {
-    mostrarValidaciones("imgServicio", "Por favor seleccionar una imagen");
-    return;
-  }
-
-  try {
-    const archivoImagen = imgServicio.files[0];
-
-    limpiarAlertas();
-    mostrarAlerta("Subiendo imagen...", "info");
-
-    const imageUrl = await subirImagenCloudinary(archivoImagen);
-
-    limpiarAlertas();
-
-    if (!imageUrl) {
-      limpiarAlertas();
-      mostrarAlerta(
-        "No se pudo subir la imagen. Intenta nuevamente.",
-        "danger",
-      );
-      return;
-    }
-
-    const infoServicios = {
-      nombre: nombreServicio,
-      descripcion: descripcionServicio,
-      imagen: imageUrl,
-      precioPequeno,
-      duracionPequeno,
-      precioMediano,
-      duracionMediano,
-      precioGrande,
-      duracionGrande,
-    };
-
-    let listaServicios =
-      JSON.parse(localStorage.getItem("listaServicios")) || [];
-    listaServicios.push(infoServicios);
-    localStorage.setItem("listaServicios", JSON.stringify(listaServicios));
-
-    mostrarAlerta(
-      "Todos los campos son válidos. Enviando formulario...",
-      "success",
-    );
-
-    limpiarFormulario();
-    actualizarServicios();
-  } catch (error) {
-    limpiarAlertas();
-    mostrarAlerta("Ocurrió un error inesperado.", "danger");
-    console.error(error);
-  }
-}
-
-function actualizarServicios() {
+async function actualizarServicios() {
   const contenedor = document.getElementById("servicios_Basicos");
   if (!contenedor) return;
 
-  const servicios = JSON.parse(localStorage.getItem("listaServicios")) || [];
-  contenedor.innerHTML = "";
+  try {
+    // Llamado al endpoint del backend
+    const response = await fetch('http://localhost:8080/servicio');
+    
+    if (!response.ok) {
+      throw new Error('Error al obtener los servicios');
+    }
+    
+    const servicios = await response.json();
+    contenedor.innerHTML = "";
 
-  servicios.forEach((p) => {
-    const col = document.createElement("div");
-    col.className = "col-12 col-md-6 col-lg-4 d-flex justify-content-center";
+    servicios.forEach((p) => {
+      const col = document.createElement("div");
+      col.className = "col-12 col-md-6 col-lg-4 d-flex justify-content-center";
 
-    col.innerHTML = `
-      <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column align-items-center justify-content-between text-center">
+      col.innerHTML = `
+        <div class="card-servicio rounded-5 p-4 h-100 d-flex flex-column align-items-center justify-content-between text-center">
 
-        <div class="dog-mask mb-3">
-          <img src="${p.imagen}" class="img-básicos" alt="Imagen perro">
+          <div class="dog-mask mb-3">
+            <img src="${p.imagen || 'default-image.jpg'}" class="img-básicos" alt="Imagen perro">
+          </div>
+
+          <h3 class="tercertitulo">
+            ${p.nombre}
+          </h3>
+
+          <p class="descripcion">
+            ${p.descripcion}
+          </p>
+
+          <p class="fw-bold">Tamaño:</p>
+
+          <div class="d-flex justify-content-center gap-2 mb-3">
+            <button class="btn-size" onclick="seleccionarPrecio(this, ${p.precioTamPequeno})">
+              Pequeño
+            </button>
+            <button class="btn-size" onclick="seleccionarPrecio(this, ${p.precioTamMediano})">
+              Mediano
+            </button>
+            <button class="btn-size" onclick="seleccionarPrecio(this, ${p.precioTamGrande})">
+              Grande
+            </button>
+          </div>
+
+          <p class="precio-final fw-bold fs-4">$<span>—</span></p>
+
+          <button class="boton-login btn-agenda" onclick="agendar()">
+            ¡Agenda ahora!
+          </button>
+
         </div>
+      `;
 
-        <h3 class="tercertitulo">
-          ${p.nombre}
-        </h3>
-
-        <p class="descripcion">
-          ${p.descripcion}
-        </p>
-
-        <p class="fw-bold">Tamaño:</p>
-
-        <div class="d-flex justify-content-center gap-2 mb-3">
-          <button class="btn-size" onclick="seleccionarPrecio(this, ${p.precioPequeno})">
-            Pequeño
-          </button>
-          <button class="btn-size" onclick="seleccionarPrecio(this, ${p.precioMediano})">
-            Mediano
-          </button>
-          <button class="btn-size" onclick="seleccionarPrecio(this, ${p.precioGrande})">
-            Grande
-          </button>
-        </div>
-
-        <p class="precio-final fw-bold fs-4">$<span>—</span></p>
-
-        <button class="boton-login btn-agenda" onclick="agendar()">
-          ¡Agenda ahora!
-        </button>
-
+      contenedor.appendChild(col);
+    });
+  } catch (error) {
+    console.error('Error al cargar los servicios:', error);
+    contenedor.innerHTML = `
+      <div class="col-12 text-center">
+        <p class="text-danger">Error al cargar los servicios. Por favor, intenta nuevamente.</p>
       </div>
     `;
-
-    contenedor.appendChild(col);
-  });
+  }
 }
 
 function mostrarAlerta(mensaje, tipo = "success") {
@@ -281,6 +170,5 @@ function seleccionarPrecio(btn, precio) {
   const spanPrecio = card.querySelector(".precio-final span");
   spanPrecio.textContent = precio.toLocaleString("es-CO");
 }
-
 
 actualizarServicios();

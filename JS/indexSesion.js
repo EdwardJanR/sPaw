@@ -56,20 +56,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 0);
   }
 
-  const botonesAgenda = document.querySelectorAll(".btn-agenda");
 
-  if (botonesAgenda.length) {
-    botonesAgenda.forEach(boton => {
-      boton.addEventListener("click", () => {
+  // Llamado a botón agendar
+  document.addEventListener("click", (e) => {
+    const boton = e.target.closest(".btn-agenda");
+    if (!boton) return;
 
-        if (usuarioActivo?.nombre) {
-          window.location.href = "../HTML/reservas.html";
-        } else {
-          window.location.href = "../HTML/inicioSesion.html";
-        }
-      });
-    });
-  }
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+
+    if (usuarioActivo?.nombre) {
+      window.location.href = "../HTML/reservas.html";
+    } else {
+      window.location.href = "../HTML/inicioSesion.html";
+    }
+  });
 
 });
 
