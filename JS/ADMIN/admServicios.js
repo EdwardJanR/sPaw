@@ -10,10 +10,14 @@ window.addEventListener('DOMContentLoaded', listarServicios);
 async function listarServicios() {
     const contenedor = document.getElementById('infoServicios');
     contenedor.innerHTML = `
-        <div class="loading">
-            <div class="spinner"></div>
-            <p>Cargando servicios...</p>
-        </div>
+        <tr>
+            <td colspan="7" class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+                <p class="mt-2">Cargando servicios...</p>
+            </td>
+        </tr>
     `;
  
     try {
@@ -41,16 +45,27 @@ async function listarServicios() {
         }
  
         todosLosServicios = await response.json();
+        
+        // 🔍 DEBUG: Ver qué está devolviendo el backend
+        console.log('Servicios recibidos:', todosLosServicios);
+        if (todosLosServicios.length > 0) {
+            console.log('Primer servicio:', todosLosServicios[0]);
+            console.log('Imagen del primer servicio:', todosLosServicios[0].imagen);
+        }
+        
         mostrarServicios(todosLosServicios);
        
     } catch (error) {
         console.error('Error al cargar servicios:', error);
         contenedor.innerHTML = `
-            <div class="error">
-                <h3><i class="bi bi-exclamation-triangle"></i> Error al cargar los datos</h3>
-                <p>${error.message}</p>
-                <p>Verifica que el backend esté ejecutándose en: ${API_URL}</p>
-            </div>
+            <tr>
+                <td colspan="7" class="text-center text-danger">
+                    <i class="bi bi-exclamation-triangle fs-1"></i>
+                    <p class="mt-2">Error al cargar los datos</p>
+                    <p>${error.message}</p>
+                    <p>Verifica que el backend esté ejecutándose en: ${API_URL}</p>
+                </td>
+            </tr>
         `;
     }
 }
@@ -63,9 +78,9 @@ function mostrarServicios(servicios) {
     if (!servicios || servicios.length === 0) {
         contenedor.innerHTML = `
             <tr>
-                <td colspan="7" class="no-data text-center">
-                    <i class="bi bi-inbox" style="font-size: 3em; color: #ccc;"></i>
-                    <p>No hay servicios registrados</p>
+                <td colspan="8" class="text-center">
+                    <i class="bi bi-inbox fs-1 text-muted"></i>
+                    <p class="mt-2">No hay servicios registrados</p>
                 </td>
             </tr>
         `;
@@ -77,14 +92,40 @@ function mostrarServicios(servicios) {
     servicios.forEach(s => {
         const id = s.idServicio || s.id;
 
+        // Manejar la imagen que viene como string base64
+        let imagenSrc = ''; 
+        if (s.imagen && s.imagen.length > 0) {
+            // Detectar si es string (base64) o array de bytes
+            if (typeof s.imagen === 'string') {
+                // Ya viene como base64 string del backend
+                let tipoImagen = 'jpeg';
+                if (s.imagen.startsWith('iVBORw0KGgo')) tipoImagen = 'png';
+                else if (s.imagen.startsWith('R0lGOD')) tipoImagen = 'gif';
+                else if (s.imagen.startsWith('UklGR')) tipoImagen = 'webp';
+                
+                imagenSrc = `data:image/${tipoImagen};base64,${s.imagen}`;
+            } else if (Array.isArray(s.imagen)) {
+                // Si viene como array de bytes, convertir a base64
+                const base64String = btoa(
+                    new Uint8Array(s.imagen).reduce((data, byte) => data + String.fromCharCode(byte), '')
+                );
+                imagenSrc = `data:image/jpeg;base64,${base64String}`;
+            }
+        }
+
         const fila = document.createElement('tr');
         fila.innerHTML = `
             <td><strong>#${id ?? '-'}</strong></td>
+            <td>
+                ${imagenSrc 
+                    ? `<img src="${imagenSrc}" alt="${s.nombre}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; cursor: pointer;" onclick="verImagenGrande('${imagenSrc}', '${s.nombre}')">` 
+                    : '<i class="bi bi-image text-muted fs-3"></i>'}
+            </td>
             <td>${s.nombre || ''}</td>
             <td>${s.descripcion || '-'}</td>
-            <td>$${s.precioTamPequeno || '-'}</td>
-            <td>$${s.precioTamMediano || '-'}</td>
-            <td>$${s.precioTamGrande || '-'}</td>
+            <td>${s.precioTamPequeno || '-'}</td>
+            <td>${s.precioTamMediano || '-'}</td>
+            <td>${s.precioTamGrande || '-'}</td>
             <td>
                 <div class="action-icons">
                     <i class="bi bi-pencil action-icon" title="Editar" onclick="editarServicio(${id})"></i>
@@ -96,76 +137,97 @@ function mostrarServicios(servicios) {
     });
 }
 
+// Función para ver imagen en grande
+function verImagenGrande(imagenSrc, nombre) {
+    Swal.fire({
+        title: nombre,
+        imageUrl: imagenSrc,
+        imageAlt: nombre,
+        imageWidth: 400,
+        imageHeight: 400,
+        confirmButtonColor: '#e97502',
+        confirmButtonText: 'Cerrar'
+    });
+}
 
+// ✅ FUNCIÓN PARA GUARDAR SERVICIO CON IMAGEN
 async function guardarServicio() {
     const form = document.getElementById('formServicios');
-    const idServicio = form.dataset.editando;
 
     const nombre = document.getElementById('nombreServicio').value.trim();
     const descripcion = document.getElementById('descripcionServicio').value.trim();
     const precioTamPequeno = document.getElementById('precioPequeno').value;
     const precioTamMediano = document.getElementById('precioMediano').value;
     const precioTamGrande = document.getElementById('precioGrande').value;
+    const archivoImagen = document.getElementById('imgServicio').files[0];
 
     if (!nombre || !descripcion || !precioTamPequeno || !precioTamMediano || !precioTamGrande) {
         mostrarAlerta('error', 'Todos los campos son obligatorios');
         return;
     }
 
-    const servicio = {
-        nombre,
-        descripcion,
-        precioTamPequeno: Number(precioTamPequeno),
-        precioTamMediano: Number(precioTamMediano),
-        precioTamGrande: Number(precioTamGrande)
-    };
-
     const jwtData = localStorage.getItem('jwt');
     if (!jwtData) {
         mostrarAlerta('error', 'Debes iniciar sesión');
         return;
     }
-
     const { token } = JSON.parse(jwtData);
 
-    const url = idServicio
-        ? `${API_URL}/actualizar/${idServicio}`
-        : `${API_URL}/crear`;
+    // Validar tamaño de imagen (máximo 5MB)
+    if (archivoImagen && archivoImagen.size > 5 * 1024 * 1024) {
+        mostrarAlerta('error', 'La imagen es demasiado grande. Máximo 5MB');
+        return;
+    }
 
-    const method = idServicio ? 'PUT' : 'POST';
+    // 🔥 IMPORTANTE: Usar FormData para enviar archivos
+    const formData = new FormData();
+    formData.append('nombre', nombre);
+    formData.append('descripcion', descripcion);
+    formData.append('precioTamPequeno', precioTamPequeno);
+    formData.append('precioTamMediano', precioTamMediano);
+    formData.append('precioTamGrande', precioTamGrande);
+    
+    // Solo agregar imagen si se seleccionó
+    if (archivoImagen) {
+        console.log('Archivo seleccionado:', archivoImagen.name, 'Tipo:', archivoImagen.type, 'Tamaño:', archivoImagen.size);
+        formData.append('imagen', archivoImagen);
+    }
 
     try {
-        const response = await fetch(url, {
-            method,
-            headers: {
-                'Content-Type': 'application/json',
+        const response = await fetch(`${API_URL}/crearConImagen`, {
+            method: 'POST',
+            headers: { 
                 'Authorization': `Bearer ${token}`
+                // ⚠️ NO incluir 'Content-Type' cuando usas FormData
             },
-            body: JSON.stringify(servicio)
+            body: formData
         });
 
         if (!response.ok) {
-            throw new Error(await response.text());
+            if (response.status === 403) {
+                mostrarAlerta('error', 'Sesión expirada. Por favor vuelve a iniciar sesión');
+                setTimeout(() => {
+                    // Redirigir al login o limpiar sesión
+                    localStorage.removeItem('jwt');
+                    window.location.reload();
+                }, 2000);
+                return;
+            }
+            const errorText = await response.text();
+            throw new Error(errorText || `Error ${response.status}`);
         }
 
-        mostrarAlerta(
-            'exito',
-            idServicio
-                ? 'Servicio actualizado correctamente'
-                : 'Servicio creado correctamente'
-        );
-
+        mostrarAlerta('exito', 'Servicio creado correctamente');
         form.reset();
-        delete form.dataset.editando;
         listarServicios();
 
     } catch (error) {
-        console.error(error);
-        mostrarAlerta('error', error.message);
+        console.error('Error al guardar:', error);
+        mostrarAlerta('error', 'Error al crear servicio: ' + error.message);
     }
 }
 
-
+// ✅ FUNCIÓN PARA EDITAR SERVICIO
 async function editarServicio(id) {
     try {
         const jwtData = localStorage.getItem('jwt');
@@ -181,6 +243,7 @@ async function editarServicio(id) {
 
         const servicio = await response.json();
 
+        // Llenar el formulario
         document.getElementById('nombreServicio').value = servicio.nombre;
         document.getElementById('descripcionServicio').value = servicio.descripcion;
         document.getElementById('precioPequeno').value = servicio.precioTamPequeno;
@@ -190,15 +253,11 @@ async function editarServicio(id) {
         const form = document.getElementById('formServicios');
         form.dataset.editando = servicio.idServicio;
 
-        // 🔄 Cambiar a modo edición
+        // Cambiar a modo edición
         cambiarModoFormulario('edicion');
 
-        // 🎯 Foco automático en el nombre
-        const inputNombre = document.getElementById('nombreServicio');
-        inputNombre.focus();
-
-        // 📍 Scroll suave hasta el campo
-        inputNombre.scrollIntoView({
+        // Scroll suave hasta el formulario
+        document.getElementById('tituloFormulario').scrollIntoView({
             behavior: 'smooth',
             block: 'center'
         });
@@ -208,8 +267,87 @@ async function editarServicio(id) {
     }
 }
 
+// ✅ FUNCIÓN PARA ACTUALIZAR SERVICIO (CORREGIDA)
+async function confirmarActualizacion() {
+    const form = document.getElementById('formServicios');
+    const idServicio = form.dataset.editando;
 
-/* Cambiar modo del formulario (crear/editar) */
+    if (!idServicio) {
+        mostrarAlerta('error', 'No hay servicio seleccionado para actualizar');
+        return;
+    }
+
+    const nombre = document.getElementById('nombreServicio').value.trim();
+    const descripcion = document.getElementById('descripcionServicio').value.trim();
+    const precioTamPequeno = document.getElementById('precioPequeno').value;
+    const precioTamMediano = document.getElementById('precioMediano').value;
+    const precioTamGrande = document.getElementById('precioGrande').value;
+    const archivoImagen = document.getElementById('imgServicio').files[0];
+
+    if (!nombre || !descripcion || !precioTamPequeno || !precioTamMediano || !precioTamGrande) {
+        mostrarAlerta('error', 'Todos los campos son obligatorios');
+        return;
+    }
+
+    const jwtData = localStorage.getItem('jwt');
+    if (!jwtData) {
+        mostrarAlerta('error', 'Debes iniciar sesión');
+        return;
+    }
+
+    const { token } = JSON.parse(jwtData);
+
+    // 🔥 CAMBIO IMPORTANTE: Usar FormData en lugar de JSON
+    const formData = new FormData();
+    formData.append('nombre', nombre);
+    formData.append('descripcion', descripcion);
+    formData.append('precioTamPequeno', precioTamPequeno);
+    formData.append('precioTamMediano', precioTamMediano);
+    formData.append('precioTamGrande', precioTamGrande);
+    
+    // Solo agregar imagen si se seleccionó una nueva
+    if (archivoImagen) {
+        formData.append('imagen', archivoImagen);
+    }
+
+    try {
+        // 🔥 CAMBIO IMPORTANTE: Usar endpoint /actualizarConImagen
+        const response = await fetch(`${API_URL}/actualizarConImagen/${idServicio}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
+                // ⚠️ NO incluir 'Content-Type' cuando usas FormData
+            },
+            body: formData
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
+
+        mostrarAlerta('exito', 'Servicio actualizado correctamente');
+        
+        form.reset();
+        delete form.dataset.editando;
+        cambiarModoFormulario('crear');
+        listarServicios();
+
+    } catch (error) {
+        console.error('Error al actualizar:', error);
+        mostrarAlerta('error', 'Error al actualizar: ' + error.message);
+    }
+}
+
+// ✅ FUNCIÓN PARA CANCELAR EDICIÓN
+function cancelarEdicion() {
+    const form = document.getElementById('formServicios');
+    form.reset();
+    delete form.dataset.editando;
+    cambiarModoFormulario('crear');
+}
+
+// Cambiar modo del formulario (crear/editar)
 function cambiarModoFormulario(modo) {
     const titulo = document.getElementById('tituloFormulario');
     const btnGuardar = document.getElementById('btnGuardar');
@@ -229,9 +367,9 @@ function cambiarModoFormulario(modo) {
     }
 }
 
+// ✅ FUNCIÓN PARA ELIMINAR SERVICIO
 async function eliminarServicio(idServicio, nombreServicio) {
-
-    // 🔴 Confirmación antes de eliminar
+    // Confirmación antes de eliminar
     const confirmacion = await mostrarAlerta(
         'confirmar',
         `¿Estás seguro de eliminar el servicio <b>${nombreServicio}</b>?<br>
@@ -241,7 +379,7 @@ async function eliminarServicio(idServicio, nombreServicio) {
 
     if (!confirmacion.isConfirmed) return;
 
-    // 🔐 Obtener JWT
+    // Obtener JWT
     const jwtData = localStorage.getItem('jwt');
     if (!jwtData) {
         mostrarAlerta('error', 'Debes iniciar sesión para eliminar servicios');
@@ -251,31 +389,29 @@ async function eliminarServicio(idServicio, nombreServicio) {
     const { token } = JSON.parse(jwtData);
 
     try {
-        const response = await fetch(
-            `${API_URL}/eliminar/${idServicio}`,
-            {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+        const response = await fetch(`${API_URL}/eliminar/${idServicio}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
-        );
+        });
 
         if (!response.ok) {
-            throw new Error(await response.text());
+            const errorText = await response.text();
+            throw new Error(errorText);
         }
 
-        //Éxito
+        // Éxito
         mostrarAlerta(
             'exito',
             `El servicio <b>${nombreServicio}</b> fue eliminado correctamente`
         );
 
-        //Recargar tabla
+        // Recargar tabla
         listarServicios();
 
     } catch (error) {
-        console.error(error);
+        console.error('Error al eliminar:', error);
         mostrarAlerta(
             'error',
             error.message || 'No se pudo eliminar el servicio'
@@ -283,7 +419,7 @@ async function eliminarServicio(idServicio, nombreServicio) {
     }
 }
 
-
+// ✅ FUNCIÓN PARA MOSTRAR ALERTAS
 function mostrarAlerta(tipo, mensaje, opciones = {}) {
     if (opciones.campoId) {
         const field = document.getElementById(opciones.campoId);
