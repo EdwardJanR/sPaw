@@ -1,22 +1,24 @@
+/* Ojo */
 .pass-toggle-btn {
-    position: absolute !important;
-    top: 50% !important;
-    right: 10px !important;
-    transform: translateY(-50%) !important;
-    z-index: 5;
-    padding: 8px 12px !important;
-    border: none !important;
-    background: transparent !important;
-    color: #6c757d 
+  position: absolute !important;
+  right: 1rem;
+  /* right: 10px !important; */
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  padding: 0;
+  /* padding: 8px 12px !important; */
+  border: none !important;
+  background: transparent !important;
+  z-index: 5;
+  color: #6c757d; 
+  line-height: 1;
 }
 
 .entrada {
     padding-right: 45px;
 }
 
-
 /* INPUTS INICIO DE SESIÓN */
-
 
 @media (min-width: 768px) {
     #formInicioSesion .form-floating {
@@ -31,8 +33,6 @@
         bottom: -18px;
     }
 }
-
-    
 
 /* INPUT */
 #formInicioSesion .form-floating > .form-control {
@@ -114,28 +114,9 @@
   position: relative;
 }
 
-/* Ojo */
-.pass-toggle-btn {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 0;
-  border: none;
-  background: transparent;
-  z-index: 5;
-}
-
 /* Reservar espacio SIEMPRE */
 #password {
   padding-right: 3rem !important;
-}
-
-.pass-toggle-btn {
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 0;
-  line-height: 1;
 }
 
 /* Conservar el color de texto y fondo en los campos del formulario */
