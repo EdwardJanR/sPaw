@@ -344,7 +344,6 @@ async function validaciones() {
 
 async function registrarUsuarioBackend(datosUsuario) {
     try {
-        console.log('Enviando datos de usuario:', datosUsuario);
 
         const response = await fetch(`${API_URL}/auth/registro`, {
             method: 'POST',
@@ -370,10 +369,9 @@ async function registrarUsuarioBackend(datosUsuario) {
         const responseData = await response.json();
         console.log('Respuesta del servidor:', responseData);
         
-        // Extraer el ID del usuario de la respuesta
+
         let usuarioId;
-        
-        // Diferentes formas en que podría venir el ID
+
         if (responseData.idUsuario) {
             usuarioId = responseData.idUsuario;
         } else if (responseData.id) {
@@ -383,14 +381,13 @@ async function registrarUsuarioBackend(datosUsuario) {
         } else if (responseData.usuario && responseData.usuario.id) {
             usuarioId = responseData.usuario.id;
         } else {
-            // Si el backend solo retorna texto, buscar por email
+
             console.warn('No se encontró ID en la respuesta, buscando por email...');
             usuarioId = await obtenerIdUsuarioPorEmail(datosUsuario.email);
         }
         
         console.log('ID de usuario extraído:', usuarioId);
-        
-        // Retornar objeto con el ID
+
         return {
             idUsuario: usuarioId,
             ...responseData
@@ -417,10 +414,11 @@ async function obtenerIdUsuarioPorEmail(email) {
     }
 }
 
-async function guardarMascotaParaUsuario(usuarioId, nombreMascota) {
+async function guardarMascotaParaUsuario(usuarioId, nombreMascota, tamanoMascota) {
     try {
         const mascotaData = {
             nombreMascota: nombreMascota,
+            tamanoMascota: tamanoMascota
         };
 
         console.log(`Enviando mascota para usuario ${usuarioId}:`, mascotaData);
@@ -468,7 +466,7 @@ async function guardarMascotasParaUsuario(usuarioId) {
 
     for (const nombreMascota of nombresMascotas) {
         try {
-            const resultado = await guardarMascotaParaUsuario(usuarioId, nombreMascota);
+            const resultado = await guardarMascotaParaUsuario(usuarioId, nombreMascota, tamanoMascota);
             if (resultado) {
                 mascotasGuardadas++;
                 console.log(`Mascota guardada: ${nombreMascota}`);

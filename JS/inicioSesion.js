@@ -1,7 +1,6 @@
 const SPAWBK_API_URL = 'http://localhost:8080/auth';
 
 
-
 document.getElementById("mostrarPass").addEventListener("click", function () {
   const pass = document.getElementById("password");
   const eyeIcon = document.getElementById("eyeIcon");
