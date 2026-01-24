@@ -3,7 +3,7 @@ class HeaderAdmin extends HTMLElement {
         this.innerHTML = `
             <nav class="navbar navbar-expand-lg menu">
                 <div class="container-fluid d-flex align-items-center">
-                    <a class="navbar-brand d-flex align-items-center" href="../index.html">
+                    <a class="navbar-brand d-flex align-items-center" href="../../index.html">
                         <img class="logo" src="../../IMG/logo-row-02.png" alt="logo-sPaw">
                     </a>
 
@@ -19,11 +19,26 @@ class HeaderAdmin extends HTMLElement {
                             <li class="nav-item"><a class="nav-link" href="../servicios.html">Servicios</a></li>
                             <li class="nav-item"><a class="nav-link" href="../contactenos.html">Contáctanos</a></li>
                         </ul>
-                        <a href="../inicioSesion.html" class="boton-login">Iniciar Sesión</a>
+                        <a href="../inicioSesion.html" class="boton-login" id="btnLogin">Iniciar Sesión</a>
                     </div>
                 </div>
             </nav>
         `;
+
+        this.setActiveLink();
+    }
+
+    setActiveLink() {
+        const path = window.location.pathname;
+        const currentPage = path.split("/").pop();
+        const links = this.querySelectorAll(".nav-link");
+
+        links.forEach(link => {
+            const linkPage = link.getAttribute("href").split("/").pop();
+            if (linkPage === currentPage) {
+                link.classList.add("active");
+            }
+        });
     }
 }
 
