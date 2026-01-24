@@ -17,27 +17,36 @@ function inicializarFormateoPrecios() {
     camposPrecios.forEach(campoId => {
         const input = document.getElementById(campoId);
         
-        // Evento para formatear mientras se escribe
-        input.addEventListener('input', function(e) {
-            let valor = e.target.value;
-            
+        // ✅ FUNCIÓN AUXILIAR PARA FORMATEAR
+        const formatearValor = (valor) => {
             // Remover todo excepto números
             valor = valor.replace(/\D/g, '');
             
-            // Si no hay valor, dejar vacío
             if (!valor) {
-                e.target.value = '';
-                return;
+                return '';
             }
             
-            // Convertir a número y formatear
             const numero = parseInt(valor);
-            
-            // Formatear con separadores de miles
-            const formatoConPuntos = new Intl.NumberFormat('es-CO').format(numero);
-            
-            // Actualizar el valor del input
-            e.target.value = formatoConPuntos;
+            return new Intl.NumberFormat('es-CO').format(numero);
+        };
+        
+        // Evento para formatear mientras se escribe
+        input.addEventListener('input', function(e) {
+            e.target.value = formatearValor(e.target.value);
+        });
+        
+        // ✅ AGREGADO: Evento change para capturar autocompletado del navegador
+        input.addEventListener('change', function(e) {
+            e.target.value = formatearValor(e.target.value);
+        });
+        
+        // ✅ AGREGADO: Detectar autocompletado del navegador con animationstart
+        input.addEventListener('animationstart', function(e) {
+            if (e.animationName === 'onAutoFillStart') {
+                setTimeout(() => {
+                    e.target.value = formatearValor(e.target.value);
+                }, 100);
+            }
         });
         
         // Evento para quitar formato al hacer foco (para editar más fácil)
@@ -50,19 +59,7 @@ function inicializarFormateoPrecios() {
         
         // Evento para volver a formatear al perder el foco
         input.addEventListener('blur', function(e) {
-            let valor = e.target.value;
-            
-            // Remover todo excepto números
-            valor = valor.replace(/\D/g, '');
-            
-            if (!valor) {
-                e.target.value = '';
-                return;
-            }
-            
-            const numero = parseInt(valor);
-            const formatoConPuntos = new Intl.NumberFormat('es-CO').format(numero);
-            e.target.value = formatoConPuntos;
+            e.target.value = formatearValor(e.target.value);
         });
     });
 }
