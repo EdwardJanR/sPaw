@@ -16,7 +16,7 @@
 
 <body class="d-flex flex-column min-vh-100">
     <header>
-        <header-component></header-component>
+        <header-admin></header-admin>
     </header>
     <main class="flex-grow-1">
         <div class="container py-4">
@@ -43,6 +43,9 @@
             <!-- Controles -->
             <div class="controls-section w-100">
                 <div class="row justify-content-center align-items-center g-3">
+                    <h3 class="mt-3 mb-3 subtitulo" id="tituloFormulario">
+                        Información de Usuarios
+                    </h3>                    
                     <!-- Recargar Usuarios -->
                     <div class="col-12 col-md-auto d-flex justify-content-center">
                         <button class="btn-reload px-4" onclick="cargarUsuarios()">
@@ -78,7 +81,7 @@
     <div class="footer-copy text-center py-2">
         ©2025 sPaw. Todos los derechos reservados
     </div>
-    <script src="../../components/header.js"></script>
+    <script src="../../components/headerAdmin.js"></script>
     <script src="../../components/footer.js"></script>
 
 
@@ -87,5 +90,6 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../JS/ADMIN/admClientes.js"></script>    
+    <script src="../../JS/indexSesionAdm.js"></script>
 </body>
 </html>

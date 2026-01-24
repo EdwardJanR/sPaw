@@ -1,6 +1,7 @@
 const API_URL = 'http://localhost:8080';
 let contadorMascotas = 1;
 const MAX_MASCOTAS = 4;
+let sizeBubbleTimeout = null;
 
 const input = document.getElementById("contrasenaUsuario");
 const bubble = document.getElementById("passwordBubble");
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
     activarTogglePassword("confirmarContraUsuario", "togglePassword2");
 });
 
+
 function activarTogglePassword(inputId, toggleId) {
     const input = document.getElementById(inputId);
     const toggle = document.getElementById(toggleId);
@@ -61,39 +63,6 @@ function activarTogglePassword(inputId, toggleId) {
             toggle.classList.add("bi-eye-slash");
         }
     });
-}
-
-function mostrarAlerta(mensaje, tipo) {
-    const alertContainer = document.getElementById('alertContainer');
-
-    alertContainer.innerHTML = '';
-
-    const alerta = document.createElement('div');
-    alerta.className = `alert alert-${tipo} alert-dismissible fade show`;
-    alerta.role = 'alert';
-    alerta.innerHTML = `
-        <div class="d-flex align-items-center">
-            <div class="flex-grow-1">
-                ${mensaje}
-            </div>
-            <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    `;
-
-    alertContainer.appendChild(alerta);
-
-    if (tipo === 'success') {
-        setTimeout(() => {
-            if (alerta.parentNode === alertContainer) {
-                alerta.classList.remove('show');
-                setTimeout(() => {
-                    if (alerta.parentNode === alertContainer) {
-                        alerta.remove();
-                    }
-                }, 300);
-            }
-        }, 5000);
-    }
 }
 
 function mostrarValidaciones(id, mensaje) {
@@ -154,7 +123,7 @@ function agregarCampoMascota() {
     const camposActuales = contarCamposMascota();
 
     if (camposActuales >= MAX_MASCOTAS) {
-        mostrarAlerta('<strong>Límite alcanzado:</strong> Solo puedes registrar hasta 4 mascotas.', 'warning');
+        mostrarAlerta('info', `Límite alcanzado:</strong> Solo puedes registrar hasta 4 mascotas.`);
         return;
     }
 
@@ -168,11 +137,22 @@ function agregarCampoMascota() {
     nuevoDiv.id = `mascotaContainer${contadorMascotas}`;
 
     nuevoDiv.innerHTML = `
-        <div class="form-floating w-100 w-md-50 m-3">
+    <div class="form-floating w-100 w-md-50 m-3">
             <input type="text" class="form-control entrada" id="mascota${contadorMascotas}Usuario" placeholder="">
-            <label for="mascota${contadorMascotas}Usuario">Ingresa el nombre de tu mascota (opcional)</label>
+            <label for="mascota${contadorMascotas}Usuario">Nombre de tu mascota</label>
         </div>
-        <div class="w-100 w-md-50 m-3 d-flex align-items-center justify-content-center justify-content-md-start">
+
+        <div class="form-floating w-100 w-md-40 m-3">
+            <select class="form-select entrada" id="tamanoMascota${contadorMascotas}">
+                <option value="" disabled selected>Selecciona tamaño</option>
+                <option value="Pequeno">Pequeño</option>
+                <option value="Mediano">Mediano</option>
+                <option value="Grande">Grande</option>
+            </select>
+            <label for="tamanoMascota${contadorMascotas}">Tamaño</label>
+        </div>
+
+                <div class="w-100 w-md-50 m-3 d-flex align-items-center justify-content-center justify-content-md-start">
             <button type="button" class="btn-eliminar-mascota" onclick="eliminarCampoMascota(${contadorMascotas})">
                 <i class="bi bi-trash"></i> Eliminar
             </button>        
@@ -277,15 +257,12 @@ async function validaciones() {
         return false;
     }
 
-
     const btnRegistro = document.getElementById('btnRegistro');
     const textoOriginal = btnRegistro.innerHTML;
     btnRegistro.disabled = true;
     btnRegistro.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registrando...';
 
     try {
-        mostrarAlerta('<strong>Registrando usuario...</strong>', 'info');
-
         const usuarioGuardado = await registrarUsuarioBackend({
             nombre: nombreUsuario,
             apellido: apellidosUsuario,
@@ -303,26 +280,10 @@ async function validaciones() {
         }
 
         if (mascota1Usuario.length > 0) {
-            mostrarAlerta('<strong>Usuario registrado. Guardando mascotas...</strong>', 'info');
-
             const mascotasGuardadas = await guardarMascotasParaUsuario(usuarioId);
-
-            mostrarAlerta(
-                `<strong>¡Registro exitoso!</strong><br>
-                Usuario: ${nombreUsuario} ${apellidosUsuario}<br>
-                Email: ${correoUsuario}<br>
-                Mascotas registradas: ${mascotasGuardadas}<br>
-                <small>Redirigiendo a inicio de sesión...</small>`,
-                'success'
-            );
+            mostrarAlerta('exito', `Usuario <strong>${nombreUsuario} ${apellidosUsuario}</strong> creado exitosamente.<br>Email: <strong>${correoUsuario}</strong>.<br>Mascotas registradas: <strong>${mascotasGuardadas}</strong`);
         } else {
-            mostrarAlerta(
-                `<strong>¡Registro exitoso!</strong><br>
-                Usuario: ${nombreUsuario} ${apellidosUsuario}<br>
-                Email: ${correoUsuario}<br>
-                <small>Redirigiendo a inicio de sesión...</small>`,
-                'success'
-            );
+            mostrarAlerta('exito', `Usuario <strong>${nombreUsuario} ${apellidosUsuario}</strong> creado exitosamente.<br>Email: <strong>${correoUsuario}</strong>.<br>Mascotas registradas: <strong>${mascotasGuardadas}</strong`);
         }
 
         limpiarFormulario();
@@ -333,13 +294,64 @@ async function validaciones() {
 
     } catch (error) {
         console.error('Error en el registro:', error);
-        mostrarAlerta(`<strong>Error de registro:</strong> ${error.message}`, 'danger');
+        mostrarAlerta('error', `<strong>Error de registro:</strong> ${error.message}`);
 
         btnRegistro.disabled = false;
         btnRegistro.innerHTML = textoOriginal;
     }
 
     return true;
+}
+
+function mostrarAlerta(tipo, mensaje, opciones = {}) {
+    if (opciones.campoId) {
+        const field = document.getElementById(opciones.campoId);
+        if (!field) return;
+        const formFloating = field.closest('.form-floating');
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message text-danger mt-1 small';
+        errorElement.textContent = mensaje;
+        formFloating.appendChild(errorElement);
+        field.classList.add('is-invalid');
+        return;
+    }
+
+    if (tipo === 'confirmar') {
+        return Swal.fire({
+            icon: 'warning',
+            title: '¿Confirmar?',
+            html: mensaje,
+            showCancelButton: true,
+            confirmButtonColor: '#e97502',
+            cancelButtonColor: '#2ab7ae',
+            confirmButtonText: opciones.botonConfirmar || 'Sí',
+            cancelButtonText: 'Cancelar'
+        });
+    }
+
+    const config = {
+        html: mensaje,
+        confirmButtonColor: '#e97502'
+    };
+
+    if (tipo === 'exito') {
+        config.icon = 'success';
+        config.title = '¡Éxito!';
+        config.timer = opciones.duracion || 2000;
+        config.showConfirmButton = false;
+        config.timerProgressBar = true;
+    } else if (tipo === 'error') {
+        config.icon = 'error';
+        config.title = 'Error';
+        config.confirmButtonText = 'Entendido';
+    } else if (tipo === 'info') {
+        config.icon = 'info';
+        config.title = 'Información';
+    }
+
+    if (opciones.titulo) config.title = opciones.titulo;
+
+    Swal.fire(config);
 }
 
 async function registrarUsuarioBackend(datosUsuario) {
@@ -368,7 +380,7 @@ async function registrarUsuarioBackend(datosUsuario) {
 
         const responseData = await response.json();
         console.log('Respuesta del servidor:', responseData);
-        
+
 
         let usuarioId;
 
@@ -385,7 +397,7 @@ async function registrarUsuarioBackend(datosUsuario) {
             console.warn('No se encontró ID en la respuesta, buscando por email...');
             usuarioId = await obtenerIdUsuarioPorEmail(datosUsuario.email);
         }
-        
+
         console.log('ID de usuario extraído:', usuarioId);
 
         return {
@@ -398,6 +410,8 @@ async function registrarUsuarioBackend(datosUsuario) {
         throw error;
     }
 }
+
+
 
 async function obtenerIdUsuarioPorEmail(email) {
     try {
@@ -414,65 +428,62 @@ async function obtenerIdUsuarioPorEmail(email) {
     }
 }
 
+
 async function guardarMascotaParaUsuario(usuarioId, nombreMascota, tamanoMascota) {
-    try {
-        const mascotaData = {
-            nombreMascota: nombreMascota,
-            tamanoMascota: tamanoMascota
-        };
+    const mascotaData = {
+        nombreMascota,
+        tamanoMascota
+    };
 
-        console.log(`Enviando mascota para usuario ${usuarioId}:`, mascotaData);
+    const response = await fetch(`${API_URL}/usuarios/${usuarioId}/mascotas`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(mascotaData)
+    });
 
-        const response = await fetch(`${API_URL}/usuarios/${usuarioId}/mascotas`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(mascotaData)
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error('Error del servidor al guardar mascota:', errorText);
-            throw new Error(`Error al guardar mascota: ${errorText}`);
-        }
-
-        const usuarioActualizado = await response.json();
-        console.log('Usuario actualizado con mascota:', usuarioActualizado);
-
-        return usuarioActualizado;
-
-    } catch (error) {
-        console.error('Error guardando mascota individual:', error);
-        throw error;
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText);
     }
+
+    return await response.json();
 }
+
 
 async function guardarMascotasParaUsuario(usuarioId) {
     let mascotasGuardadas = 0;
+    const mascotas = [];
 
-    const nombresMascotas = [];
     for (let i = 1; i <= contadorMascotas; i++) {
-        const mascotaInput = document.getElementById(`mascota${i}Usuario`);
-        if (mascotaInput) {
-            const nombreMascota = mascotaInput.value.trim();
-            if (nombreMascota.length > 0) {
-                nombresMascotas.push(nombreMascota);
+        const nombreInput = document.getElementById(`mascota${i}Usuario`);
+        const tamanoSelect = document.getElementById(`tamanoMascota${i}`);
+
+        if (nombreInput && tamanoSelect) {
+            const nombreMascota = nombreInput.value.trim();
+            const tamanoMascota = tamanoSelect.value;
+
+            if (nombreMascota.length > 0 && tamanoMascota) {
+                mascotas.push({ nombreMascota, tamanoMascota });
             }
         }
     }
 
-    console.log(`Guardando ${nombresMascotas.length} mascotas para usuario ID:`, usuarioId);
+    console.log(`Guardando ${mascotas.length} mascotas para usuario ID:`, usuarioId);
 
-    for (const nombreMascota of nombresMascotas) {
+    for (const mascota of mascotas) {
         try {
-            const resultado = await guardarMascotaParaUsuario(usuarioId, nombreMascota, tamanoMascota);
+            const resultado = await guardarMascotaParaUsuario(
+                usuarioId,
+                mascota.nombreMascota,
+                mascota.tamanoMascota
+            );
+
             if (resultado) {
                 mascotasGuardadas++;
-                console.log(`Mascota guardada: ${nombreMascota}`);
+                console.log(`Mascota guardada: ${mascota.nombreMascota}`);
             }
         } catch (error) {
-            console.error(`Error guardando mascota ${nombreMascota}:`, error);
+            console.error(`Error guardando mascota ${mascota.nombreMascota}:`, error);
         }
     }
 
@@ -481,12 +492,30 @@ async function guardarMascotasParaUsuario(usuarioId) {
 }
 
 
+function toggleSizeBubble(bubbleId) {
+    const bubble = document.getElementById(bubbleId);
+    if (!bubble) return;
+
+    const isVisible = bubble.style.display === "block";
 
 
+    document.querySelectorAll(".size-bubble").forEach(b => b.style.display = "none");
 
+    if (sizeBubbleTimeout) {
+        clearTimeout(sizeBubbleTimeout);
+    }
 
+    if (!isVisible) {
+        bubble.style.display = "block";
 
+        sizeBubbleTimeout = setTimeout(() => {
+            bubble.style.display = "none";
+        }, 10000);
+    }
+}
 
-
-
-
+document.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("size-info-icon")) {
+        document.querySelectorAll(".size-bubble").forEach(b => b.style.display = "none");
+    }
+});

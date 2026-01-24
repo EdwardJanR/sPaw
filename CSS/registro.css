@@ -185,6 +185,71 @@ input[type="password"] {
     font-size: 1rem;
 }
 
+/* Select cerrado */
+.form-select.entrada {
+    color: #ffffff;
+    background-color: transparent;
+    border-color: #ffffff;
+}
+
+/* Select enfocado */
+.form-select.entrada:focus {
+    color: #ffffff;
+    background-color: transparent;
+    border-color: #ffffff;
+    box-shadow: none;
+}
+
+/* Opciones del dropdown */
+.form-select.entrada option {
+    color: #ffffff;                 /* texto blanco */
+    background-color: #2AB7AE;      /* RGB(42, 183, 174) */
+}
+
+/* Placeholder */
+.form-select.entrada option[value=""] {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hover (cuando el navegador lo permite) */
+.form-select.entrada option:hover,
+.form-select.entrada option:checked {
+    background-color: #239e97; /* un poco más oscuro para contraste */
+}
+
+/* Estilos para la información de tamaño de mascota */
+.size-info-icon {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 3;
+}
+
+.size-info-icon:hover {
+    opacity: 0.8;
+}
+
+/* Bubble */
+.size-bubble {
+    display: none;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background-color: #2AB7AE;
+    color: #ffffff;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    width: 220px;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+
 @media (max-width: 767px) {
     .form-registro .form-floating {
         height: 62px;
@@ -249,10 +314,9 @@ select:-webkit-autofill {
 .password-bubble {
     position: absolute;
 
-    top: 50%;
-    transform: translateY(-50%);
-
-    right: calc(100% + 20px);
+    bottom: calc(100% + 16px); 
+    left: 50%;
+    transform: translateX(-50%);
 
     width: 220px;
     padding: 14px 16px;
@@ -273,8 +337,9 @@ select:-webkit-autofill {
     display: none;
     z-index: 1000;
 
-    animation: bubbleIn 0.25s ease-out;
+    animation: bubbleInTop 0.25s ease-out;
 }
+
 
 .password-bubble::before {
     content: "⚠️ Requisitos de contraseña";
@@ -292,25 +357,27 @@ select:-webkit-autofill {
     height: 14px;
 
     background: #ffffff;
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 
-    right: -7px;
-    top: 50%;
-    transform: translateY(-50%) rotate(45deg);
+    left: 50%;
+    bottom: -7px;
+    transform: translateX(-50%) rotate(45deg);
 
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: -3px 3px 8px rgba(0, 0, 0, 0.08);
 }
 
+
 /* ANIMACIÓN */
-@keyframes bubbleIn {
+@keyframes bubbleInTop {
     from {
         opacity: 0;
-        transform: translateY(-50%) scale(0.96);
+        transform: translateX(-50%) translateY(6px) scale(0.96);
     }
     to {
         opacity: 1;
-        transform: translateY(-50%) scale(1);
+        transform: translateX(-50%) translateY(0) scale(1);
     }
 }
+
 

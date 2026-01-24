@@ -28,11 +28,18 @@
 }
 
 .controls-section {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 90%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
 }
+
 
 .btn-reload {
     background: #2AB7AE;
@@ -65,11 +72,15 @@
 }
 
 .table-container {
-    background: white;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 90%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
 }
 
 .custom-table {
@@ -204,4 +215,37 @@
         min-width: 600px;
     }
 }
+.form-floating > label::after {
+    background-color: transparent !important;
+}
 
+textarea.entrada:focus {
+    background-color: #2ab7ae !important;
+}
+
+.entrada:focus {
+    background-color: #2ab7ae !important;
+}
+/* Sobrescribir el estilo de autocompletado del navegador */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #2AB7AE inset !important;
+    box-shadow: 0 0 0 30px #2AB7AE inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.entrada:-webkit-autofill,
+.entrada:-webkit-autofill:hover,
+.entrada:-webkit-autofill:focus,
+.entrada:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #2AB7AE inset !important;
+    box-shadow: 0 0 0 30px #2AB7AE inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+}

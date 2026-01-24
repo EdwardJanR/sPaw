@@ -82,3 +82,4 @@ function mostrarAlerta(mensaje, tipo = 'success') {
         setTimeout(() => alerta.remove(), 150);
     }, 5000);
 }
+
