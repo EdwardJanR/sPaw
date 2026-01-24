@@ -1,6 +1,7 @@
 const API_URL = 'http://localhost:8080';
 let contadorMascotas = 1;
 const MAX_MASCOTAS = 4;
+let sizeBubbleTimeout = null;
 
 const input = document.getElementById("contrasenaUsuario");
 const bubble = document.getElementById("passwordBubble");
@@ -41,6 +42,8 @@ document.addEventListener('DOMContentLoaded', function () {
     activarTogglePassword("confirmarContraUsuario", "togglePassword2");
 });
 
+
+//Función que activa el icono para revisar el password
 function activarTogglePassword(inputId, toggleId) {
     const input = document.getElementById(inputId);
     const toggle = document.getElementById(toggleId);
@@ -63,39 +66,8 @@ function activarTogglePassword(inputId, toggleId) {
     });
 }
 
-function mostrarAlerta(mensaje, tipo) {
-    const alertContainer = document.getElementById('alertContainer');
 
-    alertContainer.innerHTML = '';
-
-    const alerta = document.createElement('div');
-    alerta.className = `alert alert-${tipo} alert-dismissible fade show`;
-    alerta.role = 'alert';
-    alerta.innerHTML = `
-        <div class="d-flex align-items-center">
-            <div class="flex-grow-1">
-                ${mensaje}
-            </div>
-            <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    `;
-
-    alertContainer.appendChild(alerta);
-
-    if (tipo === 'success') {
-        setTimeout(() => {
-            if (alerta.parentNode === alertContainer) {
-                alerta.classList.remove('show');
-                setTimeout(() => {
-                    if (alerta.parentNode === alertContainer) {
-                        alerta.remove();
-                    }
-                }, 300);
-            }
-        }, 5000);
-    }
-}
-
+//Función que realiza las validaciones de la información ingresada en el formulario
 function mostrarValidaciones(id, mensaje) {
     const field = document.getElementById(id);
     if (!field) return;
@@ -116,11 +88,15 @@ function mostrarValidaciones(id, mensaje) {
     field.classList.add('is-invalid');
 }
 
+
+//Función que deshabilita los mensajes de error en ingreso de datos en formulario
 function limpiarValidaciones() {
     document.querySelectorAll('.error-message').forEach(error => error.remove());
     document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
 }
 
+
+//Función para limpiar campos del formulario
 function limpiarFormulario() {
     const form = document.getElementById("formRegistro");
     if (form) {
@@ -140,6 +116,8 @@ function limpiarFormulario() {
     }
 }
 
+
+//Función que cuenta los campos habilitados con datos de la mascota
 function contarCamposMascota() {
     let count = 1;
     for (let i = 2; i <= contadorMascotas; i++) {
@@ -150,11 +128,13 @@ function contarCamposMascota() {
     return count;
 }
 
+
+//Función que habilita más campos para ingresar datos de mascota
 function agregarCampoMascota() {
     const camposActuales = contarCamposMascota();
 
     if (camposActuales >= MAX_MASCOTAS) {
-        mostrarAlerta('<strong>Límite alcanzado:</strong> Solo puedes registrar hasta 4 mascotas.', 'warning');
+        mostrarAlerta('info', `Límite alcanzado:</strong> Solo puedes registrar hasta 4 mascotas.`);
         return;
     }
 
@@ -168,11 +148,22 @@ function agregarCampoMascota() {
     nuevoDiv.id = `mascotaContainer${contadorMascotas}`;
 
     nuevoDiv.innerHTML = `
-        <div class="form-floating w-100 w-md-50 m-3">
+       <div class="form-floating w-100 w-md-50 m-3">
             <input type="text" class="form-control entrada" id="mascota${contadorMascotas}Usuario" placeholder="">
-            <label for="mascota${contadorMascotas}Usuario">Ingresa el nombre de tu mascota (opcional)</label>
+            <label for="mascota${contadorMascotas}Usuario">Nombre de tu mascota</label>
         </div>
-        <div class="w-100 w-md-50 m-3 d-flex align-items-center justify-content-center justify-content-md-start">
+
+        <div class="form-floating w-100 w-md-40 m-3">
+            <select class="form-select entrada" id="tamanoMascota${contadorMascotas}">
+                <option value="" disabled selected>Selecciona tamaño</option>
+                <option value="Pequeno">Pequeño</option>
+                <option value="Mediano">Mediano</option>
+                <option value="Grande">Grande</option>
+            </select>
+            <label for="tamanoMascota${contadorMascotas}">Tamaño</label>
+        </div>
+
+                <div class="w-100 w-md-50 m-3 d-flex align-items-center justify-content-center justify-content-md-start">
             <button type="button" class="btn-eliminar-mascota" onclick="eliminarCampoMascota(${contadorMascotas})">
                 <i class="bi bi-trash"></i> Eliminar
             </button>        
@@ -189,6 +180,8 @@ function agregarCampoMascota() {
     }
 }
 
+
+//Función que elimina un campos para ingresar datos de mascota
 function eliminarCampoMascota(numero) {
     const container = document.getElementById(`mascotaContainer${numero}`);
     if (container) {
@@ -201,6 +194,8 @@ function eliminarCampoMascota(numero) {
     }
 }
 
+
+//Función que valida la información ingresada en los campos del formulario
 async function validaciones() {
     limpiarValidaciones();
 
@@ -277,15 +272,12 @@ async function validaciones() {
         return false;
     }
 
-
     const btnRegistro = document.getElementById('btnRegistro');
     const textoOriginal = btnRegistro.innerHTML;
     btnRegistro.disabled = true;
     btnRegistro.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registrando...';
 
     try {
-        mostrarAlerta('<strong>Registrando usuario...</strong>', 'info');
-
         const usuarioGuardado = await registrarUsuarioBackend({
             nombre: nombreUsuario,
             apellido: apellidosUsuario,
@@ -303,26 +295,10 @@ async function validaciones() {
         }
 
         if (mascota1Usuario.length > 0) {
-            mostrarAlerta('<strong>Usuario registrado. Guardando mascotas...</strong>', 'info');
-
             const mascotasGuardadas = await guardarMascotasParaUsuario(usuarioId);
-
-            mostrarAlerta(
-                `<strong>¡Registro exitoso!</strong><br>
-                Usuario: ${nombreUsuario} ${apellidosUsuario}<br>
-                Email: ${correoUsuario}<br>
-                Mascotas registradas: ${mascotasGuardadas}<br>
-                <small>Redirigiendo a inicio de sesión...</small>`,
-                'success'
-            );
+            mostrarAlerta('exito', `Usuario <strong>${nombreUsuario} ${apellidosUsuario}</strong> creado exitosamente.<br>Email: <strong>${correoUsuario}</strong>.<br>Mascotas registradas: <strong>${mascotasGuardadas}</strong`);
         } else {
-            mostrarAlerta(
-                `<strong>¡Registro exitoso!</strong><br>
-                Usuario: ${nombreUsuario} ${apellidosUsuario}<br>
-                Email: ${correoUsuario}<br>
-                <small>Redirigiendo a inicio de sesión...</small>`,
-                'success'
-            );
+            mostrarAlerta('exito', `Usuario <strong>${nombreUsuario} ${apellidosUsuario}</strong> creado exitosamente.<br>Email: <strong>${correoUsuario}</strong>.<br>Mascotas registradas: <strong>${mascotasGuardadas}</strong`);
         }
 
         limpiarFormulario();
@@ -333,7 +309,7 @@ async function validaciones() {
 
     } catch (error) {
         console.error('Error en el registro:', error);
-        mostrarAlerta(`<strong>Error de registro:</strong> ${error.message}`, 'danger');
+        mostrarAlerta('error', `<strong>Error de registro:</strong> ${error.message}`);
 
         btnRegistro.disabled = false;
         btnRegistro.innerHTML = textoOriginal;
@@ -342,6 +318,61 @@ async function validaciones() {
     return true;
 }
 
+
+//Función para activar la ventana de alerta
+function mostrarAlerta(tipo, mensaje, opciones = {}) {
+    if (opciones.campoId) {
+        const field = document.getElementById(opciones.campoId);
+        if (!field) return;
+        const formFloating = field.closest('.form-floating');
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message text-danger mt-1 small';
+        errorElement.textContent = mensaje;
+        formFloating.appendChild(errorElement);
+        field.classList.add('is-invalid');
+        return;
+    }
+
+    if (tipo === 'confirmar') {
+        return Swal.fire({
+            icon: 'warning',
+            title: '¿Confirmar?',
+            html: mensaje,
+            showCancelButton: true,
+            confirmButtonColor: '#e97502',
+            cancelButtonColor: '#2ab7ae',
+            confirmButtonText: opciones.botonConfirmar || 'Sí',
+            cancelButtonText: 'Cancelar'
+        });
+    }
+
+    const config = {
+        html: mensaje,
+        confirmButtonColor: '#e97502'
+    };
+
+    if (tipo === 'exito') {
+        config.icon = 'success';
+        config.title = '¡Éxito!';
+        config.timer = opciones.duracion || 2000;
+        config.showConfirmButton = false;
+        config.timerProgressBar = true;
+    } else if (tipo === 'error') {
+        config.icon = 'error';
+        config.title = 'Error';
+        config.confirmButtonText = 'Entendido';
+    } else if (tipo === 'info') {
+        config.icon = 'info';
+        config.title = 'Información';
+    }
+
+    if (opciones.titulo) config.title = opciones.titulo;
+
+    Swal.fire(config);
+}
+
+
+//Función que registra usuario en backend
 async function registrarUsuarioBackend(datosUsuario) {
     try {
         console.log('Enviando datos de usuario:', datosUsuario);
@@ -402,6 +433,8 @@ async function registrarUsuarioBackend(datosUsuario) {
     }
 }
 
+
+//Función que obtiene el id del usuario por su email registrado
 async function obtenerIdUsuarioPorEmail(email) {
     try {
         const response = await fetch(`${API_URL}/usuarios`);
@@ -417,64 +450,64 @@ async function obtenerIdUsuarioPorEmail(email) {
     }
 }
 
-async function guardarMascotaParaUsuario(usuarioId, nombreMascota) {
-    try {
-        const mascotaData = {
-            nombreMascota: nombreMascota,
-        };
 
-        console.log(`Enviando mascota para usuario ${usuarioId}:`, mascotaData);
+//Función que guarda la mascota obligatoria para el usuario
+async function guardarMascotaParaUsuario(usuarioId, nombreMascota, tamanoMascota) {
+    const mascotaData = {
+        nombreMascota,
+        tamanoMascota
+    };
 
-        const response = await fetch(`${API_URL}/usuarios/${usuarioId}/mascotas`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(mascotaData)
-        });
+    const response = await fetch(`${API_URL}/usuarios/${usuarioId}/mascotas`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(mascotaData)
+    });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error('Error del servidor al guardar mascota:', errorText);
-            throw new Error(`Error al guardar mascota: ${errorText}`);
-        }
-
-        const usuarioActualizado = await response.json();
-        console.log('Usuario actualizado con mascota:', usuarioActualizado);
-
-        return usuarioActualizado;
-
-    } catch (error) {
-        console.error('Error guardando mascota individual:', error);
-        throw error;
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText);
     }
+
+    return await response.json();
 }
 
+
+//Funcipón que guarda las mascotas opciones del usuario
 async function guardarMascotasParaUsuario(usuarioId) {
     let mascotasGuardadas = 0;
+    const mascotas = [];
 
-    const nombresMascotas = [];
     for (let i = 1; i <= contadorMascotas; i++) {
-        const mascotaInput = document.getElementById(`mascota${i}Usuario`);
-        if (mascotaInput) {
-            const nombreMascota = mascotaInput.value.trim();
-            if (nombreMascota.length > 0) {
-                nombresMascotas.push(nombreMascota);
+        const nombreInput = document.getElementById(`mascota${i}Usuario`);
+        const tamanoSelect = document.getElementById(`tamanoMascota${i}`);
+
+        if (nombreInput && tamanoSelect) {
+            const nombreMascota = nombreInput.value.trim();
+            const tamanoMascota = tamanoSelect.value;
+
+            if (nombreMascota.length > 0 && tamanoMascota) {
+                mascotas.push({ nombreMascota, tamanoMascota });
             }
         }
     }
 
-    console.log(`Guardando ${nombresMascotas.length} mascotas para usuario ID:`, usuarioId);
+    console.log(`Guardando ${mascotas.length} mascotas para usuario ID:`, usuarioId);
 
-    for (const nombreMascota of nombresMascotas) {
+    for (const mascota of mascotas) {
         try {
-            const resultado = await guardarMascotaParaUsuario(usuarioId, nombreMascota);
+            const resultado = await guardarMascotaParaUsuario(
+                usuarioId,
+                mascota.nombreMascota,
+                mascota.tamanoMascota
+            );
+
             if (resultado) {
                 mascotasGuardadas++;
-                console.log(`Mascota guardada: ${nombreMascota}`);
+                console.log(`Mascota guardada: ${mascota.nombreMascota}`);
             }
         } catch (error) {
-            console.error(`Error guardando mascota ${nombreMascota}:`, error);
+            console.error(`Error guardando mascota ${mascota.nombreMascota}:`, error);
         }
     }
 
@@ -483,12 +516,32 @@ async function guardarMascotasParaUsuario(usuarioId) {
 }
 
 
+//Función que activa el bubble para especificar el rango de tamaños
+function toggleSizeBubble(bubbleId) {
+    const bubble = document.getElementById(bubbleId);
+    if (!bubble) return;
 
+    const isVisible = bubble.style.display === "block";
 
+    // Ocultar cualquier bubble abierta
+    document.querySelectorAll(".size-bubble").forEach(b => b.style.display = "none");
 
+    if (sizeBubbleTimeout) {
+        clearTimeout(sizeBubbleTimeout);
+    }
 
+    if (!isVisible) {
+        bubble.style.display = "block";
 
+        sizeBubbleTimeout = setTimeout(() => {
+            bubble.style.display = "none";
+        }, 10000);
+    }
+}
 
-
-
-
+// Cerrar al hacer click fuera
+document.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("size-info-icon")) {
+        document.querySelectorAll(".size-bubble").forEach(b => b.style.display = "none");
+    }
+});
