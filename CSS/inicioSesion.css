@@ -83,11 +83,6 @@
   padding-right: 3rem !important; /* deja espacio para el ojo */
 }
 
-/*OJO EN ROJO CUANDO HAY ERROR*/
-/* .form-control.is-invalid ~ .toggle-password {
-    color: #dc3545;
-} */
- 
 /* Ojo normal */
 #eyeIcon {
   color: white;

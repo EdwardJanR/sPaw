@@ -6,14 +6,13 @@ const input = document.getElementById("contrasenaUsuario");
 const bubble = document.getElementById("passwordBubble");
 let timeoutBubble = null;
 
+// Tiempo de retardo de burbuja de password
 if (input && bubble) {
     input.addEventListener("focus", () => {
         bubble.style.display = "block";
-
         if (timeoutBubble) {
             clearTimeout(timeoutBubble);
         }
-
         timeoutBubble = setTimeout(() => {
             bubble.style.display = "none";
         }, 10000);
@@ -21,50 +20,11 @@ if (input && bubble) {
 
     input.addEventListener("blur", () => {
         bubble.style.display = "none";
-
         if (timeoutBubble) {
             clearTimeout(timeoutBubble);
         }
     });
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    const btnRegistro = document.getElementById('btnRegistro');
-
-    if (btnRegistro) {
-        btnRegistro.addEventListener('click', async function (e) {
-            e.preventDefault();
-            await validaciones();
-        });
-    }
-    activarTogglePassword("contrasenaUsuario", "togglePassword1");
-    activarTogglePassword("confirmarContraUsuario", "togglePassword2");
-});
-
-function activarTogglePassword(inputId, toggleId) {
-    const input = document.getElementById(inputId);
-    const toggle = document.getElementById(toggleId);
-
-    toggle.classList.add("bi-eye");
-    toggle.classList.remove("bi-eye-slash");
-
-    toggle.addEventListener("click", () => {
-        const mostrando = input.type === "text";
-
-        if (mostrando) {
-            input.type = "password";
-            toggle.classList.remove("bi-eye-slash");
-            toggle.classList.add("bi-eye");
-        } else {
-            input.type = "text";
-            toggle.classList.remove("bi-eye");
-            toggle.classList.add("bi-eye-slash");
-        }
-    });
-}
-
-activarTogglePassword("contrasenaUsuario", "togglePassword1");
-activarTogglePassword("confirmarContraUsuario", "togglePassword2");
 
 function validaciones() {
 
@@ -123,9 +83,9 @@ function validaciones() {
             
     registroUsuario();
 
-    /*setTimeout(() => {
+    setTimeout(() => {
         document.getElementById('formRegistro').submit();
-    }, 1500);*/        
+    }, 1500);        
 
     limpiarFormulario();
 
@@ -135,19 +95,36 @@ function validaciones() {
     }, 3000);
 
     return true;
-
 }
+
+// function mostrarValidaciones(id, mensaje) {
+//     const field = document.getElementById(id);
+//     const formFloating = field.closest('.form-floating');
+    
+//     const errorElement = document.createElement('div');
+//     errorElement.className = 'error-message text-danger mt-1 small';
+//     errorElement.textContent = mensaje;
+//     formFloating.appendChild(errorElement);  
+//     field.classList.add('is-invalid');
+// }
 
 function mostrarValidaciones(id, mensaje) {
     const field = document.getElementById(id);
+    if (!field) return;
+
     const formFloating = field.closest('.form-floating');
-    
-    const errorElement = document.createElement('div');
-    errorElement.className = 'error-message text-danger mt-1 small';
-    errorElement.textContent = mensaje;
-    
-    formFloating.appendChild(errorElement);
-    
+    if (!formFloating) return;
+
+    const errorExistente = formFloating.querySelector('.error-message');
+    if (errorExistente) {
+        errorExistente.textContent = mensaje;
+    } else {
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message text-danger mt-1 small';
+        errorElement.textContent = mensaje;
+        formFloating.appendChild(errorElement);
+    }
+
     field.classList.add('is-invalid');
 }
 
@@ -188,31 +165,6 @@ function mostrarAlerta(mensaje, tipo) {
             }
         }, 5000);
     }
-}
-
-function mostrarValidaciones(id, mensaje) {
-    const field = document.getElementById(id);
-    if (!field) return;
-
-    const formFloating = field.closest('.form-floating');
-    if (!formFloating) return;
-
-    const errorExistente = formFloating.querySelector('.error-message');
-    if (errorExistente) {
-        errorExistente.textContent = mensaje;
-    } else {
-        const errorElement = document.createElement('div');
-        errorElement.className = 'error-message text-danger mt-1 small';
-        errorElement.textContent = mensaje;
-        formFloating.appendChild(errorElement);
-    }
-
-    field.classList.add('is-invalid');
-}
-
-function limpiarValidaciones() {
-    document.querySelectorAll('.error-message').forEach(error => error.remove());
-    document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
 }
 
 function limpiarFormulario() {
@@ -576,16 +528,6 @@ async function guardarMascotasParaUsuario(usuarioId) {
     return mascotasGuardadas;
 }
 
-
-
-
-
-
-
-
-
-
-
 // Germán
 // Quitar mensaje de advertencia al diligenciar campos de formulario
 function validarCampo(campo) {
@@ -603,7 +545,6 @@ function validarCampo(campo) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const campos = [
     "nombreUsuario",
     "apellidosUsuario",
@@ -630,3 +571,46 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+
+// Password Cambio de icono de ojo a slash
+document.getElementById("mostrarPass1").addEventListener("click", function () {
+  const input = document.getElementById("contrasenaUsuario");
+  const icon = document.getElementById("togglePassword1");
+
+  const isPassword = input.type === "password";
+
+  // Cambiar tipo de input
+  input.type = isPassword ? "text" : "password";
+
+  // Cambiar icono 
+  icon.classList.toggle("bi-eye", !isPassword);
+  icon.classList.toggle("bi-eye-slash", isPassword);
+});
+
+// Confirmar Password Cambio de icono de ojo a slash
+document.getElementById("mostrarPass2").addEventListener("click", function () {
+  const input = document.getElementById("confirmarContraUsuario");
+  const icon = document.getElementById("togglePassword2");
+
+  const isPassword = input.type === "password";
+
+  // Cambiar tipo de input
+  input.type = isPassword ? "text" : "password";
+
+  // Cambiar icono (ojo ↔ ojo con slash)
+  icon.classList.toggle("bi-eye", !isPassword);
+  icon.classList.toggle("bi-eye-slash", isPassword);
+});
+
+// Función de cambio de icono de ojo password (visible- no visible)
+function togglePassword(input, icon) {
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    }
+}

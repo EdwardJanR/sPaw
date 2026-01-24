@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
         allowInput: false,
         disableMobile: false,
 
-
         // Germán
         onChange: function (selectedDates, dateStr) {
             const fechaInput = document.getElementById("fechaReserva");
@@ -100,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
             mostrarVal('fechaReserva', 'Por favor selecciona una fecha para la reserva');
             return false;
         }
-
         if (horaReserva < "08:00" || horaReserva > "18:00" || horaReserva === "") {
             mostrarVal('horaReserva', 'Debe seleccionar una hora entre 08:00 AM y 06:00 PM');
             return false;
@@ -864,24 +862,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // function mostrarVal(id, mensaje) {
-    //     const field = document.getElementById(id);
-    //     const formFloating = field.closest('.form-floating');
-
-    //     const errorElement = document.createElement('div');
-    //     errorElement.className = 'error-message text-danger mt-1 small';
-    //     errorElement.textContent = mensaje;
-
-    //     formFloating.appendChild(errorElement);
-
-    //     field.classList.add('is-invalid');
-    // }
-
-    // function limpiarVal() {
-    //     document.querySelectorAll('.error-message').forEach(error => error.remove());
-    //     document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
-    // }
-
     function mostrarAlerta(tipo, mensaje, opciones = {}) {
         if (opciones.campoId) {
             const field = document.getElementById(opciones.campoId);
@@ -972,3 +952,44 @@ function nuevaReserva() {
 
     seccion.scrollIntoView({ behavior: "smooth" });
 }
+
+// Germán
+// Quitar mensaje de advertencia al diligenciar campos de formulario
+function validarCampo(campo) {
+  if (campo.checkValidity() && campo.value.trim() !== "") {
+    campo.classList.remove("is-invalid");
+    campo.classList.add("is-valid");
+
+    // elimina mensaje de error si existe
+    const error = campo
+      .closest(".form-floating")
+      ?.querySelector(".error-message");
+
+    if (error) error.remove();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const campos = [
+    "nombreMascota",
+    "tamanoMascota",
+    "nombreGroomer",
+    "nombreServicio",
+    "fechaReserva",
+    "horaReserva"
+  ];
+
+  campos.forEach(id => {
+    const campo = document.getElementById(id);
+
+    if (!campo) return;
+
+    // Para inputs de texto y password
+    campo.addEventListener("input", () => validarCampo(campo));
+
+    // Por si alguno es select
+    campo.addEventListener("change", () => validarCampo(campo));
+  });
+
+});

@@ -51,28 +51,38 @@
                         <div
                             class="d-flex flex-column flex-md-row w-100 w-lg-75 align-items-center justify-content-center px-3 my-lg-1">
                             <div class="form-floating w-100 w-md-50 m-3">
+                                <!-- Password -->
                                 <input type="password" class="form-control entrada" id="contrasenaUsuario"
                                     placeholder="">
+                                <!-- Ojo de Password -->
+                                <button type="button"
+                                    class="btn pass-toggle-btn position-absolute top-50 end-0 translate-middle-y me-3"
+                                    id="mostrarPass1" title="Mostrar/Ocultar contraseña">
+                                    <i class="bi bi-eye password-toggle" id="togglePassword1"></i>
+                                </button>
                                 <label for="contrasenaUsuario">Ingresa tu contraseña</label>
-                                <!--Ojo de Password-->
-                                <i class="bi bi-eye password-toggle" id="togglePassword1"></i>
-                                <div id="passwordBubble" class="password-bubble">
+                                <!-- <div id="passwordBubble" class="password-bubble">
                                     • Mínimo 8 caracteres<br>
                                     • Una mayúscula<br>
                                     • Una minúscula<br>
                                     • Un número<br>
                                     • Un carácter especial
-                                </div>
+                                </div> -->
                             </div>
-                            <div class=" form-floating w-100 w-md-50 m-3">
+                            <!-- Confirmación de Password -->
+                            <div class="form-floating w-100 w-md-50 m-3">
                                 <input type="password" class="form-control entrada" id="confirmarContraUsuario"
                                     placeholder="">
+                                <!-- Ojo de confirmar Password -->
+                                <button type="button"
+                                    class="btn pass-toggle-btn position-absolute top-50 end-0 translate-middle-y me-3"
+                                    id="mostrarPass2" title="Mostrar/Ocultar contraseña">
+                                    <i class="bi bi-eye password-toggle" id="togglePassword2"></i>
+                                </button>
                                 <label for="confirmarContraUsuario">Confirma tu contraseña</label>
-                                <!--Ojo de confirmación de Password-->
-                                <i class="bi bi-eye password-toggle" id="togglePassword2"></i>
                             </div>
                         </div>
-
+                        <!-- Mascota -->
                         <div class="d-flex flex-column flex-md-row w-100 w-lg-75 align-items-center px-3 my-lg-1">
                             <div class="form-floating w-100 w-md-50 m-3">
                                 <input type="text" class="form-control entrada" id="mascota1Usuario" placeholder="">
@@ -86,41 +96,20 @@
                                 </button>
                             </div>
                         </div>
-                        <!--Div campos mascota 3 y 4-->
-                        <div class="d-flex flex-column flex-md-row w-100 w-lg-75 align-items-center px-3 my-lg-1">
-                            <div class="form-floating w-100 w-md-50 m-3">
-                                <input type="text" class="form-control entrada" id="mascota3Usuario" placeholder="">
-                                <label for="mascota3Usuario">Ingresa el nombre de tu mascota</label>
-                            </div>
-                            <div class=" form-floating w-100 w-md-50 m-3">
-                                <input type="text" class="form-control entrada" id="mascota4Usuario" placeholder="">
-                                <label for="mascota4Usuario">Ingresa el nombre de tu mascota</label>
-                            </div>
 
-                        </div>
-                        <!-- Div Boton de registro-->
+                        <!-- Boton de registro-->
                         <div class="form-floating d-flex justify-content-center">
-                            <button type="button" onclick="validaciones()" class="boton-login mt-2">Regístrame</button>
+                            <button type="button" onclick="validaciones()" class="boton-login mt-2"
+                                id=btnRegistro>Regístrame</button>
                         </div>
                         <!--Mensaje de registro-->
                         <div class="form-floating d-flex justify-content-center parrafo">
-                            <p class="mt-3">Si ya tienes cuenta registrada, inicia sesión <a href="./inicioSesion.html">aquí</a></p>
+                            <p class="mt-3">Si ya tienes cuenta registrada, inicia sesión <a
+                                    href="./inicioSesion.html">aquí</a></p>
                         </div>
                     </div>
-
-                    <!-- Boton de registro-->
-                    <div class="form-floating d-flex justify-content-center">
-                        <button type="button" class="boton-login mt-2" id=btnRegistro>Regístrame</button>
-                    </div>
-
-                    <!--Menasaje de registro-->
-                    <div class="form-floating d-flex justify-content-center parrafo">
-                        <p class="mt-3">Si ya tienes cuenta registrada, inicia sesión <a
-                                href="./inicioSesion.html">aquí</a></p>
-                    </div>
-            </div>
-            </form>
-            <div id="alertContainer"></div>
+                </form>
+                <div id="alertContainer"></div>
         </section>
         <footer class="footer-custom py-5">
             <footer-component></footer-component>

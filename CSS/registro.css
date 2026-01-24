@@ -131,6 +131,27 @@ input[type="password"] {
     color: #dc3545;
 }
 
+.pass-toggle-btn,
+.pass-toggle-btn:focus,
+.pass-toggle-btn:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.password-toggle {
+   outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important; 
+}
+.pass-toggle-btn:focus-visible {
+  outline: none;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
 /* MENSAJE ERROR */
 .form-registro .error-message {
     position: absolute;
@@ -311,34 +332,25 @@ select:-webkit-autofill {
     position: relative;
 }
 
-/* advertencia de contraseña */
+/* Inicio Burbuja de advertencia de contraseña */
 .password-bubble {
     position: absolute;
-
     top: 50%;
     transform: translateY(-50%);
-
     right: calc(100% + 20px);
-
     width: 220px;
     padding: 14px 16px;
-
     background: #ffffff;
     color: #333;
-
     border-radius: 16px;
     border: 1px solid rgba(0, 0, 0, 0.08);
-
     box-shadow:
         0 18px 40px rgba(0, 0, 0, 0.18),
         0 4px 10px rgba(0, 0, 0, 0.08);
-
     font-size: 13.5px;
     line-height: 1.45;
-
     display: none;
     z-index: 1000;
-
     animation: bubbleIn 0.25s ease-out;
 }
 
@@ -353,18 +365,14 @@ select:-webkit-autofill {
 .password-bubble::after {
     content: "";
     position: absolute;
-
     width: 14px;
     height: 14px;
-
     background: #ffffff;
     border-right: 1px solid rgba(0, 0, 0, 0.08);
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-
     right: -7px;
     top: 50%;
     transform: translateY(-50%) rotate(45deg);
-
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.08);
 }
 
@@ -379,6 +387,7 @@ select:-webkit-autofill {
         transform: translateY(-50%) scale(1);
     }
 }
+/* Fin Burbuja de advertencia de contraseña */
 
 .form-registro input,
 .form-registro select,
@@ -393,24 +402,10 @@ select:-webkit-autofill {
   color: #ffffff !important;
 }
 
-.form-registro input:focus,
-.form-registro select:focus,
-.form-registro textarea:focus {
-  color: #ffffff !important;
-}
-
 /* Validación Bootstrap */
 .form-registro .form-control.is-valid,
 .form-registro .form-control.is-invalid,
 .form-registro .form-select.is-valid,
 .form-registro .form-select.is-invalid {
-  color: #fff !important;
-}
-
-/* Validación Bootstrap */
-.form-control .form-control.is-valid,
-.form-control .form-control.is-invalid,
-.form-control .form-select.is-valid,
-.form-control .form-select.is-invalid {
   color: #fff !important;
 }
