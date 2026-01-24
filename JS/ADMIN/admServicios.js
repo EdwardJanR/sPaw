@@ -5,7 +5,74 @@ const API_URL = 'http://localhost:8080/servicio';
 let todosLosServicios = [];
 
 // Cuando se cargue la página, listar los servicios
-window.addEventListener('DOMContentLoaded', listarServicios);
+window.addEventListener('DOMContentLoaded', () => {
+    listarServicios();
+    inicializarFormateoPrecios();
+});
+
+// ✅ FUNCIÓN PARA FORMATEAR PRECIOS EN TIEMPO REAL
+function inicializarFormateoPrecios() {
+    const camposPrecios = ['precioPequeno', 'precioMediano', 'precioGrande'];
+    
+    camposPrecios.forEach(campoId => {
+        const input = document.getElementById(campoId);
+        
+        // Evento para formatear mientras se escribe
+        input.addEventListener('input', function(e) {
+            let valor = e.target.value;
+            
+            // Remover todo excepto números
+            valor = valor.replace(/\D/g, '');
+            
+            // Si no hay valor, dejar vacío
+            if (!valor) {
+                e.target.value = '';
+                return;
+            }
+            
+            // Convertir a número y formatear
+            const numero = parseInt(valor);
+            
+            // Formatear con separadores de miles
+            const formatoConPuntos = new Intl.NumberFormat('es-CO').format(numero);
+            
+            // Actualizar el valor del input
+            e.target.value = formatoConPuntos;
+        });
+        
+        // Evento para quitar formato al hacer foco (para editar más fácil)
+        input.addEventListener('focus', function(e) {
+            let valor = e.target.value;
+            // Remover puntos para edición
+            valor = valor.replace(/\./g, '');
+            e.target.value = valor;
+        });
+        
+        // Evento para volver a formatear al perder el foco
+        input.addEventListener('blur', function(e) {
+            let valor = e.target.value;
+            
+            // Remover todo excepto números
+            valor = valor.replace(/\D/g, '');
+            
+            if (!valor) {
+                e.target.value = '';
+                return;
+            }
+            
+            const numero = parseInt(valor);
+            const formatoConPuntos = new Intl.NumberFormat('es-CO').format(numero);
+            e.target.value = formatoConPuntos;
+        });
+    });
+}
+
+// ✅ FUNCIÓN AUXILIAR PARA OBTENER VALOR NUMÉRICO DE UN INPUT FORMATEADO
+function obtenerValorNumerico(inputId) {
+    const valor = document.getElementById(inputId).value;
+    // Remover puntos y convertir a número
+    return valor.replace(/\./g, '');
+}
 
 async function listarServicios() {
     const contenedor = document.getElementById('infoServicios');
@@ -113,6 +180,17 @@ function mostrarServicios(servicios) {
             }
         }
 
+        // Formatear precios con separadores de miles y decimales
+        const formatearPrecio = (precio) => {
+            if (!precio && precio !== 0) return '-';
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(precio);
+        };
+
         const fila = document.createElement('tr');
         fila.innerHTML = `
             <td><strong>#${id ?? '-'}</strong></td>
@@ -123,9 +201,9 @@ function mostrarServicios(servicios) {
             </td>
             <td>${s.nombre || ''}</td>
             <td>${s.descripcion || '-'}</td>
-            <td>${s.precioTamPequeno || '-'}</td>
-            <td>${s.precioTamMediano || '-'}</td>
-            <td>${s.precioTamGrande || '-'}</td>
+            <td>${formatearPrecio(s.precioTamPequeno)}</td>
+            <td>${formatearPrecio(s.precioTamMediano)}</td>
+            <td>${formatearPrecio(s.precioTamGrande)}</td>
             <td>
                 <div class="action-icons">
                     <i class="bi bi-pencil action-icon" title="Editar" onclick="editarServicio(${id})"></i>
@@ -156,9 +234,12 @@ async function guardarServicio() {
 
     const nombre = document.getElementById('nombreServicio').value.trim();
     const descripcion = document.getElementById('descripcionServicio').value.trim();
-    const precioTamPequeno = document.getElementById('precioPequeno').value;
-    const precioTamMediano = document.getElementById('precioMediano').value;
-    const precioTamGrande = document.getElementById('precioGrande').value;
+    
+    // Obtener valores numéricos sin formato
+    const precioTamPequeno = obtenerValorNumerico('precioPequeno');
+    const precioTamMediano = obtenerValorNumerico('precioMediano');
+    const precioTamGrande = obtenerValorNumerico('precioGrande');
+    
     const archivoImagen = document.getElementById('imgServicio').files[0];
 
     if (!nombre || !descripcion || !precioTamPequeno || !precioTamMediano || !precioTamGrande) {
@@ -243,12 +324,19 @@ async function editarServicio(id) {
 
         const servicio = await response.json();
 
-        // Llenar el formulario
+        // Llenar el formulario con valores formateados
         document.getElementById('nombreServicio').value = servicio.nombre;
         document.getElementById('descripcionServicio').value = servicio.descripcion;
-        document.getElementById('precioPequeno').value = servicio.precioTamPequeno;
-        document.getElementById('precioMediano').value = servicio.precioTamMediano;
-        document.getElementById('precioGrande').value = servicio.precioTamGrande;
+        
+        // Formatear los precios al cargar en el formulario
+        const formatearParaInput = (precio) => {
+            if (!precio && precio !== 0) return '';
+            return new Intl.NumberFormat('es-CO').format(precio);
+        };
+        
+        document.getElementById('precioPequeno').value = formatearParaInput(servicio.precioTamPequeno);
+        document.getElementById('precioMediano').value = formatearParaInput(servicio.precioTamMediano);
+        document.getElementById('precioGrande').value = formatearParaInput(servicio.precioTamGrande);
 
         const form = document.getElementById('formServicios');
         form.dataset.editando = servicio.idServicio;
@@ -279,9 +367,12 @@ async function confirmarActualizacion() {
 
     const nombre = document.getElementById('nombreServicio').value.trim();
     const descripcion = document.getElementById('descripcionServicio').value.trim();
-    const precioTamPequeno = document.getElementById('precioPequeno').value;
-    const precioTamMediano = document.getElementById('precioMediano').value;
-    const precioTamGrande = document.getElementById('precioGrande').value;
+    
+    // Obtener valores numéricos sin formato
+    const precioTamPequeno = obtenerValorNumerico('precioPequeno');
+    const precioTamMediano = obtenerValorNumerico('precioMediano');
+    const precioTamGrande = obtenerValorNumerico('precioGrande');
+    
     const archivoImagen = document.getElementById('imgServicio').files[0];
 
     if (!nombre || !descripcion || !precioTamPequeno || !precioTamMediano || !precioTamGrande) {

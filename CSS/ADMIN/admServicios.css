@@ -4,7 +4,6 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Nunito", sans-serif;
 }
 
 /* =====================
@@ -32,55 +31,92 @@
 }
 
 /* =====================
+   FORMULARIO
+===================== */
+.subtitulo {
+  color: #1e2a2a;
+  font-weight: 600;
+}
+
+.entrada {
+  border-radius: 6px;
+  border: 2px solid #dee2e6;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.entrada:focus {
+  border-color: #2AB7AE;
+  box-shadow: 0 0 0 0.2rem rgba(42, 183, 174, 0.25);
+}
+
+.contacto.container {
+  max-width: 1300px;
+}
+
+/* =====================
    CONTROLES (tarjetón largo)
 ===================== */
 .controls-section {
   background: white;
   padding: 1.5rem;
-  border-radius: 14px;
+  border-radius: 8px;
   margin-bottom: 1.5rem;
-  box-shadow: 0 3px 14px rgba(0,0,0,0.10);
-  width: 95%;
-  max-width: 1400px;
-  margin: 20px auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 90%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
 }
 
 .btn-reload {
   background: #2AB7AE;
   color: white;
   border: none;
-  padding: 12px 28px;
-  border-radius: 30px;
+  padding: 12px 22px;
+  border-radius: 6px;
   font-weight: 600;
-  display: inline-flex;
+  transition: all 0.3s;
+  display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(42,183,174,0.35);
-  transition: 0.2s;
+  justify-content: center;
+}
+
+.btn-reload:hover {
+  background: #239d95;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(42, 183, 174, 0.3);
 }
 
 .stats-badge {
   background: #2AB7AE;
   color: white;
-  padding: 12px 28px;
-  border-radius: 30px;
+  padding: 10px 18px;
+  border-radius: 20px;
   font-weight: 600;
-  box-shadow: 0 4px 14px rgba(42,183,174,0.35);
+  display: inline-block;
 }
 
 /* =====================
    TABLA
 ===================== */
 .table-container {
-  width: 95%;
-  max-width: 1400px;
-  margin: 30px auto;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 90%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
 }
 
 .custom-table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 14px;
+  border-collapse: collapse;
+  margin: 0;
 }
 
 .custom-table thead {
@@ -89,27 +125,29 @@
 }
 
 .custom-table thead th {
-  padding: 18px 22px;
-  text-align: center;
+  padding: 18px 20px;
+  text-align: left;
   font-weight: 600;
+  border: none;
+  font-size: 16px;
 }
 
 .custom-table tbody tr {
-  background: white;
-  border-radius: 14px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border-bottom: 1px solid #e9ecef;
+  transition: all 0.2s;
+}
+
+.custom-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.custom-table tbody tr:hover {
+  background: #f8f9fa;
 }
 
 .custom-table tbody td {
-  padding: 18px 22px;
-  text-align: center;
+  padding: 18px 20px;
   color: #1e2a2a;
-}
-
-/* SIN hover raro */
-.custom-table tbody tr:hover {
-  background: white;
-  transform: none;
 }
 
 /* =====================
@@ -117,15 +155,14 @@
 ===================== */
 .action-icons {
   display: flex;
-  justify-content: center;
-  gap: 14px;
+  gap: 10px;
 }
 
 .action-icon {
   cursor: pointer;
   color: #6c757d;
-  font-size: 1.4em;
-  transition: 0.2s;
+  font-size: 1.2em;
+  transition: all 0.2s;
 }
 
 .action-icon:hover {
@@ -137,7 +174,36 @@
    RESPONSIVE
 ===================== */
 @media (max-width: 768px) {
-  .custom-table {
-    min-width: 1100px;
+  .table-container {
+    overflow-x: auto;
   }
+
+  .custom-table {
+    min-width: 900px;
+  }
+
+  .controls-section {
+    padding: 1rem;
+  }
+
+  .btn-reload {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+
+  .stats-badge {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+}
+.form-floating > label::after {
+    background-color: transparent !important;
+}
+
+textarea.entrada:focus {
+    background-color: #2ab7ae !important;
+}
+
+.entrada:focus {
+    background-color: #2ab7ae !important;
 }
