@@ -330,6 +330,10 @@ async function eliminar(id) {
 async function guardarInformacion() {
     // Limpiar mensajes de error previos
     limpiarErrores();
+
+    if (!validarFormularioGroomer()) {
+        return; // ⛔ detiene el guardado
+    }    
     
     // Obtener valores del formulario
     const nombre = document.getElementById('nombreGroomer').value.trim();
@@ -500,4 +504,51 @@ function mostrarAlerta(tipo, mensaje, opciones = {}) {
     if (opciones.titulo) config.title = opciones.titulo;
  
     Swal.fire(config);
+}
+
+function validarFormularioGroomer() {
+    const nombre = document.getElementById("nombreGroomer");
+    const apellido = document.getElementById("apellidoGroomer");
+    const telefono = document.getElementById("telefonoGroomer");
+    const correo = document.getElementById("correoGroomer");
+
+    if (!nombre.value.trim()) {
+        mostrarError("El nombre es obligatorio", nombre);
+        return false;
+    }
+
+    if (!apellido.value.trim()) {
+        mostrarError("El apellido es obligatorio", apellido);
+        return false;
+    }
+
+    if (!telefono.value.trim()) {
+        mostrarError("El teléfono es obligatorio", telefono);
+        return false;
+    }
+
+    if (!correo.value.trim()) {
+        mostrarError("El correo es obligatorio", correo);
+        return false;
+    }
+
+    // Validación básica de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(correo.value)) {
+        mostrarError("El correo no tiene un formato válido", correo);
+        return false;
+    }
+
+    return true; // ✔ todo OK
+}
+
+function mostrarError(mensaje, input) {
+    Swal.fire({
+        icon: "warning",
+        title: "Campo requerido",
+        text: mensaje,
+        confirmButtonColor: "#2AB7AE"
+    }).then(() => {
+        input.focus();
+    });
 }

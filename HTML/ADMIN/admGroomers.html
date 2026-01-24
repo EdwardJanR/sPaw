@@ -40,55 +40,48 @@
                     Ingresar Groomer
                 </h3>
                 <form id="formGroomer" onsubmit="event.preventDefault();">
-                    <div class="row g-4">
-                        <div class="col-md-12 mt-4">
-                            <div class="form-floating">
-                                <input type="text" class="form-control entrada" id="nombreGroomer" placeholder="">
-                                <label for="nombreGroomer">Nombre del groomer</label>
-                            </div>
+                    <div class="inputs-grid">
+                        <div class="form-floating input-groomer">
+                            <input type="text" class="form-control entrada" id="nombreGroomer" placeholder="">
+                            <label for="nombreGroomer">Nombre</label>
                         </div>
 
-                        <div class="col-md-12 mt-4">
-                            <div class="form-floating">
-                                <input type="text" class="form-control entrada" id="apellidoGroomer" placeholder="">
-                                <label for="apellidoGroomer">Apellido del groomer</label>
-                            </div>
+                        <div class="form-floating input-groomer">
+                            <input type="text" class="form-control entrada" id="apellidoGroomer" placeholder="">
+                            <label for="apellidoGroomer">Apellido</label>
                         </div>
 
-                        <div class="col-md-12 mt-4">
-                            <div class="form-floating">
-                                <input type="number" class="form-control entrada" id="telefonoGroomer" placeholder="">
-                                <label for="telefonoGroomer">Teléfono del groomer</label>
-                            </div>
+                        <div class="form-floating input-groomer">
+                            <input type="tel" class="form-control entrada" id="telefonoGroomer" placeholder="">
+                            <label for="telefonoGroomer">Teléfono</label>
                         </div>
 
-                        <div class="col-md-12 mt-4">
-                            <div class="form-floating">
-                                <input type="email" class="form-control entrada" id="correoGroomer" placeholder="">
-                                <label for="correoGroomer">Correo del groomer</label>
-                            </div>
+                        <div class="form-floating input-groomer">
+                            <input type="email" class="form-control entrada" id="correoGroomer" placeholder="">
+                            <label for="correoGroomer">Correo</label>
                         </div>
+                    </div>
 
-                        <div class="container text-center my-5 mb-3">
-                            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                                <!-- Botón para GUARDAR (crear nuevo) -->
-                                <button class="boton-login" type="button" onclick="guardarInformacion()"
-                                    id="btnGuardar">
-                                    <i class="bi bi-plus-circle"></i> Guardar Groomer
-                                </button>
 
-                                <!-- Botón para ACTUALIZAR (modificar existente) - Oculto por defecto -->
-                                <button class="boton-login" type="button" onclick="confirmarActualizacion()"
-                                    id="btnActualizar" style="display: none;">
-                                    <i class="bi bi-pencil-square"></i> Actualizar Groomer
-                                </button>
+                    <div class="container text-center my-5 mb-3">
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <!-- Botón para GUARDAR (crear nuevo) -->
+                            <button class="boton-login" type="button" onclick="guardarInformacion()"
+                                id="btnGuardar">
+                                <i class="bi bi-plus-circle"></i> Guardar Groomer
+                            </button>
 
-                                <!-- Botón para CANCELAR edición -->
-                                <button class="boton-login" type="button" onclick="cancelarEdicion()"
-                                    id="btnCancelar" style="display: none;">
-                                    <i class="bi bi-x-circle"></i> Cancelar
-                                </button>
-                            </div>
+                            <!-- Botón para ACTUALIZAR (modificar existente) - Oculto por defecto -->
+                            <button class="boton-login" type="button" onclick="confirmarActualizacion()"
+                                id="btnActualizar" style="display: none;">
+                                <i class="bi bi-pencil-square"></i> Actualizar Groomer
+                            </button>
+
+                            <!-- Botón para CANCELAR edición -->
+                            <button class="boton-login" type="button" onclick="cancelarEdicion()"
+                                id="btnCancelar" style="display: none;">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </button>
                         </div>
                     </div>
                 </form>
