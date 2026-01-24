@@ -185,6 +185,71 @@ input[type="password"] {
     font-size: 1rem;
 }
 
+/* Select cerrado */
+.form-select.entrada {
+    color: #ffffff;
+    background-color: transparent;
+    border-color: #ffffff;
+}
+
+/* Select enfocado */
+.form-select.entrada:focus {
+    color: #ffffff;
+    background-color: transparent;
+    border-color: #ffffff;
+    box-shadow: none;
+}
+
+/* Opciones del dropdown */
+.form-select.entrada option {
+    color: #ffffff;                 /* texto blanco */
+    background-color: #2AB7AE;      /* RGB(42, 183, 174) */
+}
+
+/* Placeholder */
+.form-select.entrada option[value=""] {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hover (cuando el navegador lo permite) */
+.form-select.entrada option:hover,
+.form-select.entrada option:checked {
+    background-color: #239e97; /* un poco más oscuro para contraste */
+}
+
+/* Estilos para la información de tamaño de mascota */
+.size-info-icon {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 3;
+}
+
+.size-info-icon:hover {
+    opacity: 0.8;
+}
+
+/* Bubble */
+.size-bubble {
+    display: none;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background-color: #2AB7AE;
+    color: #ffffff;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    width: 220px;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+
 @media (max-width: 767px) {
     .form-registro .form-floating {
         height: 62px;
