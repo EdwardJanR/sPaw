@@ -65,6 +65,7 @@ function mostrarReservas(reservas) {
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Cliente</th>
                         <th>Fecha</th>
                         <th>Hora inicio</th>
                         <th>Hora final</th>
@@ -78,6 +79,12 @@ function mostrarReservas(reservas) {
                     ${reservas.map(reserva => `
                         <tr>
                             <td><strong>#${reserva.idReserva}</strong></td>
+                            <td>
+                                <i class="bi bi-person-circle"></i>
+                                ${reserva.mascota?.usuario
+                                ? `${reserva.mascota.usuario.nombre} ${reserva.mascota.usuario.apellido}`
+                                : 'No asignado'}
+                            </td>                            
                             <td>${reserva.fecha}</td>
                             <td>${reserva.horaInicio}</td>
                             <td>${reserva.horaFinal}</td>
