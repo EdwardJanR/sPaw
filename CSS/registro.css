@@ -46,7 +46,7 @@ input[type="password"] {
 
 @media (min-width: 768px) {
     .form-registro .column-form > .d-flex {
-        max-width: 900px;   
+        max-width: 900px;
         margin-left: auto;
         margin-right: auto;
     }
@@ -74,7 +74,7 @@ input[type="password"] {
     height: 38px !important;
     padding-top: 1.1rem !important;
     padding-bottom: 0.25rem !important;
-    padding-right: 70px !important; 
+    padding-right: 70px !important;
 }
 
 /*FLOATING ACTIVO */
@@ -87,7 +87,7 @@ input[type="password"] {
 .form-registro .password-toggle {
     position: absolute;
     right: 15px;
-    bottom: 0.1rem; 
+    bottom: 0.1rem;
     cursor: pointer;
     font-size: 1.2rem;
     z-index: 5;
@@ -103,8 +103,8 @@ input[type="password"] {
 .form-registro .error-message {
     position: absolute;
     left: 0;
-    top: 78%;          
-    margin-top: 6px;    
+    top: 78%;
+    margin-top: 6px;
     font-size: 0.81rem;
     color: #dc3545;
     line-height: 1.2;
@@ -233,23 +233,6 @@ input[type="password"] {
     opacity: 0.8;
 }
 
-/* Bubble */
-.size-bubble {
-    display: none;
-    position: absolute;
-    top: 110%;
-    right: 0;
-    background-color: #2AB7AE;
-    color: #ffffff;
-    padding: 12px 14px;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    width: 220px;
-    z-index: 10;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-
 @media (max-width: 767px) {
     .form-registro .form-floating {
         height: 62px;
@@ -281,7 +264,7 @@ input[type="password"] {
         min-height: 62px;
         justify-content: center !important; /* En móvil centrado */
     }
-    
+
     .form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center button {
         margin-top: -12px;
     }
@@ -298,6 +281,7 @@ input[type="password"] {
     left: 50%;
     transform: translateX(-50%);
     width: 220px;
+    height: auto;
     padding: 14px 16px;
     background: #ffffff;
     color: #333;
@@ -327,8 +311,8 @@ input[type="password"] {
     content: "";
     position: absolute;
 
-    width: 14px;
-    height: 14px;
+    width: 1.4px;
+    height: 1.4px;
 
     background: #ffffff;
     border-left: 1px solid rgba(0, 0, 0, 0.08);
@@ -356,7 +340,7 @@ input[type="password"] {
 
 /* Inicio Burbuja de tamaño de perro */
 /* Burbuja de tamaño de mascota */
-/* .size-bubble {
+.size-bubble {
     display: none;
     position: absolute;
     top: 110%;
@@ -369,18 +353,17 @@ input[type="password"] {
     width: 220px;
     z-index: 10;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-} */
+}
 
 .size-bubble {
     position: absolute;
-    /* bottom: calc(90% + 16px); */
-    left: 50%;
-    top: -200%;
-    left: calc(80% + 16px);
-    /* transform: translateY(-50%); */
+    bottom: calc(90% + 16px);
+    left: calc(50% + 16px);
     right: 1.2rem;
+    top: -200%;
     transform: translateX(-50%);
-    width: 10px;
+    /* transform: translateY(-10%); */
+    width: 220px;
     padding: 14px 16px;
     background: #ffffff;
     color: #333;
@@ -389,14 +372,13 @@ input[type="password"] {
     box-shadow:
         0 18px 40px rgba(0, 0, 0, 0.18),
         0 4px 10px rgba(0, 0, 0, 0.08);
-
     font-size: 13.5px;
     line-height: 1.45;
     display: none;
-    cursor: pointer;
-    pointer-events: none !important;
-    z-index: 1;
+    z-index: 1000;
     animation: bubbleInTop 0.25s ease-out;
+    /* cursor: pointer;
+    pointer-events: none !important; */
 }
 
 
@@ -412,8 +394,8 @@ input[type="password"] {
     content: "";
     position: absolute;
 
-    width: 14px;
-    height: 14px;
+    width: 1.4px;
+    height: 1.4px;
 
     background: #ffffff;
     border-left: 1px solid rgba(0, 0, 0, 0.08);

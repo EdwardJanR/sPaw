@@ -66,11 +66,7 @@ function mostrarVal(f, m) {
 function limpiarVal() {
    
     document.querySelectorAll('.error-message').forEach(error => error.remove());
-    
- 
     document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
-    
-
     document.querySelectorAll('.has-error').forEach(container => container.classList.remove('has-error'));
 }
 

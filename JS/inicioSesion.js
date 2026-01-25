@@ -144,7 +144,6 @@ function limpiarFormulario() {
   document.getElementById("formInicioSesion").reset();
 }
 
-// Germán
 // Quitar mensaje de advertencia al diligenciar campos de formulario
 function validarCampo(campo) {
   if (campo.checkValidity() && campo.value.trim() !== "") {

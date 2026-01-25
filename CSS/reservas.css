@@ -137,6 +137,9 @@
           border: 2px solid var(--color-verde) !important;
           color: white !important;
           border-radius: 10px;
+          margin-bottom: 0.5rem;
+          position: relative;
+          z-index: 1;
         }
 
         .form-reserva .form-floating>.form-control:not(:placeholder-shown),
@@ -172,6 +175,24 @@
           opacity: 1 !important;
         }
 
+        .form-reserva .error-message {
+          position: absolute !important;
+          bottom: -24px;
+          /* ← Debajo del input */
+          left: 0;
+          right: 0;
+          font-size: 0.8rem;
+          color: #dc3545 !important;
+          background: rgba(220, 53, 69, 0.1);
+          padding: 2px 8px;
+          border-radius: 4px;
+          opacity: 0;
+          transform: translateY(5px);
+          transition: all 0.2s ease;
+          pointer-events: none;
+          z-index: 2;
+        }
+
         .form-reserva input[type="text"].flatpickr-input {
           background-color: var(--color-verde) !important;
           color: white !important;
@@ -198,133 +219,140 @@
         /* Germán */
 
         /* Germán */
-/* Contenedor del formulario */
-.form-reserva {
-    max-width: 400px;
-    margin: 0 auto;
-}
+        /* Contenedor del formulario */
+        .form-reserva {
+          max-width: 400px;
+          margin: 0 auto;
+        }
 
-#formReserva .form-floating,
-.form-reserva .form-floating {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto 1rem;
-}
+        #formReserva .form-floating,
+        .form-reserva .form-floating {
+          position: relative;
+          width: 100%;
+          max-width: 100%;
+          margin: 0 auto 1rem;
+        }
 
-.form-reserva .form-control,
-.form-reserva .form-select {
-    width: 100%; 
-    margin: 0 auto 1rem;   
-}
+        .form-reserva .form-control,
+        .form-reserva .form-select {
+          width: 100%;
+          margin: 0 auto 1rem;
+        }
 
-/* Label */
-#formReserva .form-floating > label {
-  padding: 0 0.75rem;
-  font-size: 1.1rem;
-  top: 0.35rem;
-  color: #fff;
-  pointer-events: none;
-  transition: transform 0.2s ease;
-}
+        /* Label */
+        #formReserva .form-floating>label {
+          padding: 0 0.75rem;
+          font-size: 1.1rem;
+          top: 0.35rem;
+          color: #fff;
+          pointer-events: none;
+          transition: transform 0.2s ease;
+        }
 
-/* Label flotante activo */
-#formReserva .form-floating > .form-control:not(:placeholder-shown) ~ label,
-#formReserva .form-floating > .form-select:not(:invalid) ~ label {
-  transform: scale(.85) translateY(-0.5rem);
-}
+        /* Label flotante activo */
+        #formReserva .form-floating>.form-control:not(:placeholder-shown)~label,
+        #formReserva .form-floating>.form-select:not(:invalid)~label {
+          transform: scale(.85) translateY(-0.5rem);
+        }
 
-/* Inputs y selects */
-#formReserva .form-floating > .form-control,
-#formReserva .form-floating > .form-select {
-  height: 38px;
-  width: 400px;
-  padding: 1.1rem 3rem 0.25rem 0.75rem; /* espacio para iconos */
-  background-color: var(--verde);
-  border: 2px solid var(--verde);
-  color: #fff;
-  border-radius: 10px;
-}
+        /* Inputs y selects */
+        #formReserva .form-floating>.form-control,
+        #formReserva .form-floating>.form-select {
+          height: 38px;
+          width: 400px;
+          padding: 1.1rem 3rem 0.25rem 0.75rem;
+          /* espacio para iconos */
+          background-color: var(--verde);
+          border: 2px solid var(--verde);
+          color: #fff;
+          border-radius: 10px;
+        }
 
-/* Foco */
-#formReserva .form-floating > .form-control:focus,
-#formReserva .form-floating > .form-select:focus {
-  border-color: #fff;
-  box-shadow: 0 0 0 3px rgba(255,255,255,.2);
-}
+        /* Foco */
+        #formReserva .form-floating>.form-control:focus,
+        #formReserva .form-floating>.form-select:focus {
+          border-color: #fff;
+          box-shadow: 0 0 0 3px rgba(255, 255, 255, .2);
+        }
 
-/* Iconos de validación de Bootstrap (Error/ Check) */
+        /* Iconos de validación de Bootstrap (Error/ Check) */
 
-/* Select base */
-#formReserva select.form-select {
-  padding-right: 4.75rem !important; /* espacio real para 2 iconos */
-  background-repeat: no-repeat;
-  background-size: 1rem, 1.3rem;
-}
+        /* Select base */
+        #formReserva select.form-select {
+          padding-right: 4.75rem !important;
+          /* espacio real para 2 iconos */
+          background-repeat: no-repeat;
+          background-size: 1rem, 1.3rem;
+        }
 
-/* Reubicación de íconos y puntero (Select con validación) */
-#formReserva select.form-select.is-valid,
-#formReserva select.form-select.is-invalid {
-  background-position:
-    right 2.75rem center,  /* icono check / error */
-    right 0.9rem center;   /* flecha select */
-}
+        /* Reubicación de íconos y puntero (Select con validación) */
+        #formReserva select.form-select.is-valid,
+        #formReserva select.form-select.is-invalid {
+          background-position:
+            right 2.75rem center,
+            /* icono check / error */
+            right 0.9rem center;
+          /* flecha select */
+        }
 
-#formReserva .form-select {
-  background-repeat: no-repeat;
-}
-#formReserva .form-select {
-  background-repeat: no-repeat;
-  background-size: 1rem, 0.75rem;
-}
-#formReserva select.form-select.is-valid,
-#formReserva select.form-select.is-invalid {
-  background-position:
-    right 2.5rem center,
-    right 0.75rem center;
-}
+        #formReserva .form-select {
+          background-repeat: no-repeat;
+        }
 
-/* ELIMINAR COMPLETAMENTE FOCUS / ACTIVE DEL BOTÓN OJO */
-button.pass-toggle-btn,
-button.pass-toggle-btn:focus,
-button.pass-toggle-btn:focus-visible,
-button.pass-toggle-btn:active,
-button.pass-toggle-btn:active:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  background-color: transparent !important;
-}
+        #formReserva .form-select {
+          background-repeat: no-repeat;
+          background-size: 1rem, 0.75rem;
+        }
 
-/* Germán */
-/* Conservar el color de texto y fondo en los campos del formulario */
-/* Texto siempre blanco en inputs y textarea */
-#formReserva input,
-#formReserva textarea,
-#formReserva select {
-  color: #fff !important;
-  caret-color: #fff !important; /* Color del puntero seleccionador */
-}
+        #formReserva select.form-select.is-valid,
+        #formReserva select.form-select.is-invalid {
+          background-position:
+            right 2.5rem center,
+            right 0.75rem center;
+        }
 
-/* Texto blanco de inputs en autofill */
-#formReserva input:-webkit-autofill,
-#form-reserva input:-webkit-autofill:hover,
-#form-reserva input:-webkit-autofill:focus,
-#formReserva textarea:-webkit-autofill,
-#formReserva select:-webkit-autofill {
-  -webkit-text-fill-color: #fff !important;
-  caret-color: #fff !important;
-  box-shadow: 0 0 0 30px #2ab7ae inset !important;
-  background-color: #2ab7ae !important;
-  transition: background-color 9999s ease-in-out 0s;
-}
+        /* ELIMINAR COMPLETAMENTE FOCUS / ACTIVE DEL BOTÓN OJO */
+        button.pass-toggle-btn,
+        button.pass-toggle-btn:focus,
+        button.pass-toggle-btn:focus-visible,
+        button.pass-toggle-btn:active,
+        button.pass-toggle-btn:active:focus {
+          outline: none !important;
+          box-shadow: none !important;
+          background-color: transparent !important;
+        }
 
-input:-webkit-autofill {
-  animation-name: autofillFix;
-  animation-duration: 0.01s;
-}
+        /* Germán */
+        /* Conservar el color de texto y fondo en los campos del formulario */
+        /* Texto siempre blanco en inputs y textarea */
+        #formReserva input,
+        #formReserva textarea,
+        #formReserva select {
+          color: #fff !important;
+          caret-color: #fff !important;
+          /* Color del puntero seleccionador */
+        }
 
-/* Ocultar icono de error de Bootstrap */
-/* .form-control.is-invalid,
+        /* Texto blanco de inputs en autofill */
+        #formReserva input:-webkit-autofill,
+        #form-reserva input:-webkit-autofill:hover,
+        #form-reserva input:-webkit-autofill:focus,
+        #formReserva textarea:-webkit-autofill,
+        #formReserva select:-webkit-autofill {
+          -webkit-text-fill-color: #fff !important;
+          caret-color: #fff !important;
+          box-shadow: 0 0 0 30px #2ab7ae inset !important;
+          background-color: #2ab7ae !important;
+          transition: background-color 9999s ease-in-out 0s;
+        }
+
+        input:-webkit-autofill {
+          animation-name: autofillFix;
+          animation-duration: 0.01s;
+        }
+
+        /* Ocultar icono de error de Bootstrap */
+        /* .form-control.is-invalid,
 .form-select.is-invalid {
   background-image: none !important;
 } */
