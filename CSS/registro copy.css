@@ -1,4 +1,3 @@
-
 /* Ocultar el ojo que trae el navegador */
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
@@ -33,7 +32,7 @@ input[type="password"] {
 }
 
 
-.container-registro{
+.container-registro {
     border: 0.5px dotted #9CECE6;
     box-shadow: 2px 2px 20px rgba(240, 148, 58, 0.3);
     background-color: #E6FAF9;
@@ -45,32 +44,15 @@ input[type="password"] {
 
 
 @media (min-width: 768px) {
-    .form-registro .column-form > .d-flex {
-        max-width: 900px;   
+    .form-registro .column-form>.d-flex {
+        max-width: 900px;
         margin-left: auto;
         margin-right: auto;
-        /* width: 80%;
-        height: 62px;
-        margin: 0 auto; */
-    }
-    .form-registro .error-message {
-        bottom: -18px;
-    }
-    .form-registro .password-toggle {
-        bottom: 0.55rem;
     }
 }
-
-@media (max-width: 576px) {
-  .error-message {
-    margin-top: 0.6rem;
-    font-size: 0.85rem;
-  }
-}
-
 
 /* Altura  */
-.form-registro .form-floating > .form-control {
+.form-registro .form-floating>.form-control {
     height: 38px !important;
     padding-top: 1.1rem !important;
     padding-bottom: 0.25rem !important;
@@ -87,77 +69,25 @@ input[type="password"] {
 }
 
 /* INPUT */
-.form-registro .form-floating > .form-control {
+.form-registro .form-floating>.form-control {
     height: 38px !important;
     padding-top: 1.1rem !important;
     padding-bottom: 0.25rem !important;
-    padding-right: 70px !important; 
+    padding-right: 70px !important;
 }
 
 /*FLOATING ACTIVO */
-.form-registro .form-floating > .form-control:focus,
-.form-registro .form-floating > .form-control:not(:placeholder-shown) {
+.form-registro .form-floating>.form-control:focus,
+.form-registro .form-floating>.form-control:not(:placeholder-shown) {
     padding-top: 1.35rem !important;
-}
-
-.form-registro .password-toggle {
-    position: absolute;
-    right: 15px;
-    bottom: 0.1rem; 
-    cursor: pointer;
-    font-size: 1.2rem;
-    z-index: 5;
-    color: #FFFFFF;
-    color: #FFF;
-}
-
-/* OJO PASSWORD */
-.password-toggle {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 1.2rem;
-}
-
-/* OJO BLANCO */
-.form-registro .form-control ~ .password-toggle {
-    color: #FFF;
-}
-
-/*OJO EN ROJO CUANDO HAY ERROR*/
-.form-registro .form-control.is-invalid ~ .password-toggle {
-    color: #dc3545;
-}
-
-.pass-toggle-btn,
-.pass-toggle-btn:focus,
-.pass-toggle-btn:active {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
-  background-color: transparent !important;
-}
-
-.password-toggle {
-   outline: none !important;
-  box-shadow: none !important;
-  background-color: transparent !important; 
-}
-.pass-toggle-btn:focus-visible {
-  outline: none;
-  box-shadow: none !important;
-  background-color: transparent !important;
 }
 
 /* MENSAJE ERROR */
 .form-registro .error-message {
     position: absolute;
     left: 0;
-    top: 78%;          
-    margin-top: 6px;    
+    top: 78%;
+    margin-top: 6px;
     font-size: 0.81rem;
     color: #dc3545;
     line-height: 1.2;
@@ -237,74 +167,94 @@ input[type="password"] {
     margin-right: 0.4rem;
     font-size: 1rem;
 }
-/* Password con check y botón de ojo */
-.form-floating input[type="password"].is-valid {
-  background-position: right 2.4rem center;
-  padding-right: 4.5rem; /* espacio para check + ojo */
+
+/* Select cerrado */
+.form-select.entrada {
+    color: #ffffff;
+    background-color: transparent;
+    border-color: #ffffff;
 }
 
-.form-floating > .form-control:focus {
-  background-position: right 3.25rem center;
+/* Select enfocado */
+.form-select.entrada:focus {
+    color: #ffffff;
+    background-color: transparent;
+    border-color: #ffffff;
+    box-shadow: none;
 }
 
-.pass-toggle-btn {
-  position: absolute;
-  right: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 4;
+/* Opciones del dropdown */
+.form-select.entrada option {
+    color: #ffffff;
+    /* texto blanco */
+    background-color: #2AB7AE;
+    /* RGB(42, 183, 174) */
 }
 
-.pass-toggle-btn i {
-  line-height: 1;
-  font-size: 1.1rem;
+/* Placeholder */
+.form-select.entrada option[value=""] {
+    color: rgba(255, 255, 255, 0.7);
 }
 
-.form-floating input[type="password"].is-valid,
-.form-floating input[type="password"].is-invalid {
-  background-image: none !important;
-  padding-right: 3.5rem !important;
+/* Hover (cuando el navegador lo permite) */
+.form-select.entrada option:hover,
+.form-select.entrada option:checked {
+    background-color: #239e97;
+    /* un poco más oscuro para contraste */
 }
 
-.entrada.is-valid,
-.entrada.is-invalid {
-  background-image: none !important;
-  padding-right: 3.5rem !important;
+/* Estilos para la información de tamaño de mascota */
+.size-info-icon {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 3;
 }
 
-.error-message {
-  margin-top: 0.35rem;
-  line-height: 1.2;
-}
-
-.form-floating {
-  transition: padding 0.2s ease;
-}
-
-/* Alineación vertical: centrar botones con el input de mascota */
-.form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center {
-    align-items: center !important;
-    min-height: 72px;
-    display: flex !important;
-    justify-content: flex-start !important; /* Alinear a la izquierda */
-}
-
-.form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center button {
-    margin-top: -17px; /* Ajuste para centrar con el input */
+.size-info-icon:hover {
+    opacity: 0.8;
 }
 
 @media (max-width: 767px) {
-    .form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center {
-        min-height: 62px;
-        justify-content: center !important; /* En móvil centrado */
+    .form-registro .form-floating {
+        height: 62px;
     }
-    
-    .form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center button {
+
+    .form-registro .password-toggle {
+        bottom: 0.55rem;
+    }
+
+    .form-registro .error-message {
+        bottom: -18px;
+    }
+}
+
+/* Alineación vertical: centrar botones con el input de mascota */
+.form-registro .column-form>div>.w-100.w-md-50.m-3.d-flex.align-items-center {
+    align-items: center !important;
+    min-height: 72px;
+    display: flex !important;
+    justify-content: flex-start !important;
+    /* Alinear a la izquierda */
+}
+
+.form-registro .column-form>div>.w-100.w-md-50.m-3.d-flex.align-items-center button {
+    margin-top: -17px;
+    /* Ajuste para centrar con el input */
+}
+
+@media (max-width: 767px) {
+    .form-registro .column-form>div>.w-100.w-md-50.m-3.d-flex.align-items-center {
+        min-height: 62px;
+        justify-content: center !important;
+        /* En móvil centrado */
+    }
+
+    .form-registro .column-form>div>.w-100.w-md-50.m-3.d-flex.align-items-center button {
         margin-top: -12px;
     }
 }
@@ -317,7 +267,8 @@ input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 select:-webkit-autofill {
 
-    -webkit-text-fill-color: #ffffff !important; /* texto blanco */
+    -webkit-text-fill-color: #ffffff !important;
+    /* texto blanco */
     caret-color: #ffffff;
 
     -webkit-box-shadow: 0 0 0 30px #2ab7ae inset !important;
@@ -335,9 +286,9 @@ select:-webkit-autofill {
 /* Inicio Burbuja de advertencia de contraseña */
 .password-bubble {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: calc(100% + 20px);
+    bottom: calc(100% + 16px);
+    left: 50%;
+    transform: translateX(-50%);
     width: 220px;
     padding: 14px 16px;
     background: #ffffff;
@@ -347,12 +298,14 @@ select:-webkit-autofill {
     box-shadow:
         0 18px 40px rgba(0, 0, 0, 0.18),
         0 4px 10px rgba(0, 0, 0, 0.08);
+
     font-size: 13.5px;
     line-height: 1.45;
     display: none;
     z-index: 1000;
-    animation: bubbleIn 0.25s ease-out;
+    animation: bubbleInTop 0.25s ease-out;
 }
+
 
 .password-bubble::before {
     content: "⚠️ Requisitos de contraseña";
@@ -365,41 +318,124 @@ select:-webkit-autofill {
 .password-bubble::after {
     content: "";
     position: absolute;
+
     width: 14px;
     height: 14px;
+
     background: #ffffff;
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    right: -7px;
-    top: 50%;
-    transform: translateY(-50%) rotate(45deg);
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.08);
+
+    left: 50%;
+    bottom: -7px;
+    transform: translateX(-50%) rotate(45deg);
+
+    box-shadow: -3px 3px 8px rgba(0, 0, 0, 0.08);
 }
 
+/* Fin Burbuja de advertencia de contraseña */
+
+/* Inicio Burbuja de tamaño de perro */
+/* Burbuja de tamaño de mascota */
+/* .size-bubble {
+    display: none;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background-color: #2AB7AE;
+    color: #ffffff;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    width: 220px;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+} */
+
+.size-bubble {
+    position: absolute;
+    /* bottom: calc(90% + 16px); */
+    left: 50%;
+    top: -200%;
+    left: calc(80% + 16px);
+    /* transform: translateY(-50%); */
+    right: 1.2rem;
+    transform: translateX(-50%);
+    width: 10px;
+    padding: 14px 16px;
+    background: #ffffff;
+    color: #333;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.18),
+        0 4px 10px rgba(0, 0, 0, 0.08);
+
+    font-size: 13.5px;
+    line-height: 1.45;
+    display: none;
+    cursor: pointer;
+    pointer-events: none !important;
+    z-index: 1;
+    animation: bubbleInTop 0.25s ease-out;
+}
+
+
+.size-bubble::before {
+    content: "⚠️ Diferencias de tamaño";
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #f08e3a;
+}
+
+.size-bubble::after {
+    content: "";
+    position: absolute;
+
+    width: 14px;
+    height: 14px;
+
+    background: #ffffff;
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    left: 50%;
+    bottom: -7px;
+    transform: translateX(-50%) rotate(45deg);
+
+    box-shadow: -3px 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Fin Burbuja de tamaño de perro */
+
 /* ANIMACIÓN */
-@keyframes bubbleIn {
+@keyframes bubbleInTop {
     from {
         opacity: 0;
-        transform: translateY(-50%) scale(0.96);
+        transform: translateX(-50%) translateY(6px) scale(0.96);
     }
+
     to {
         opacity: 1;
-        transform: translateY(-50%) scale(1);
+        transform: translateX(-50%) translateY(0) scale(1);
     }
 }
-/* Fin Burbuja de advertencia de contraseña */
+
+/* Conservar el color de texto y fondo en los campos del formulario */
 
 .form-registro input,
 .form-registro select,
 .form-registro textarea {
-  color: #ffffff !important;
-  caret-color: #ffffff;
+    color: #ffffff !important;
+    caret-color: #ffffff !important;
 }
 
 .form-registro input:focus,
 .form-registro select:focus,
 .form-registro textarea:focus {
-  color: #ffffff !important;
+    color: #ffffff !important;
+    caret-color: #ffffff !important;
 }
 
 /* Validación Bootstrap */
@@ -407,5 +443,69 @@ select:-webkit-autofill {
 .form-registro .form-control.is-invalid,
 .form-registro .form-select.is-valid,
 .form-registro .form-select.is-invalid {
-  color: #fff !important;
+    color: #fff !important;
+    caret-color: #ffffff !important;
+}
+
+/* Separar password toggle de Iconos de validación de Bootstrap (Error/ Check) */
+
+.form-registro .form-floating {
+    position: relative !important;
+}
+
+.form-registro .form-floating input[type="password"] {
+    padding-right: 5rem !important;
+    /* ← Espacio para toggle + check/error */
+}
+
+/* 3. TOGGLE PASSWORD - POSICIÓN FIJA (más a la derecha) */
+.form-registro .password-toggle {
+    right: 1.8rem center !important;
+    /* ← Toggle LEJOS del borde */
+    position: absolute !important;
+    top: 42% !important;
+    transform: translateY(-50%) !important;
+    /* ← CENTRA VERTICAL exacto */
+    bottom: 0.1rem;
+    width: 1.3rem !important;
+    /* Modificar la ubicación horizontal */
+    height: 2rem !important;
+    border: none !important;
+    background: transparent !important;
+    z-index: 10;
+}
+
+/* 4. ICONOS BOOTSTRAP VALIDACIÓN - Más cerca */
+.form-registro .form-floating input.is-valid {
+    background-position: right 2.4rem center !important;
+    /* ✓ Check */
+    top: 50% !important;
+}
+
+.form-registro .form-floating input.is-invalid {
+    background-position: right 2.4rem center !important;
+    /* ✗ Error */
+    top: 50% !important;
+}
+
+/*OJO EN ROJO CUANDO HAY ERROR*/
+.form-registro .form-control.is-invalid~.password-toggle {
+    color: #dc3545;
+}
+
+/* Icono de burbuja informativa de tamaño de perro */
+.form-registro .size-info-icon {
+    right: 1.8rem center !important;
+    /* ← Toggle LEJOS del borde */
+    position: absolute !important;
+    top: 42% !important;
+    transform: translateY(-50%) !important;
+    /* ← CENTRA VERTICAL exacto */
+    bottom: 0.1rem;
+    width: 3rem !important;
+    /* Modificar la ubicación horizontal */
+    height: 2rem !important;
+    border: none !important;
+    background: transparent !important;
+    z-index: 10;
 }
