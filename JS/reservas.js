@@ -35,18 +35,16 @@ document.addEventListener('DOMContentLoaded', function () {
         limpiarVal();
 
         const selectMascota = document.getElementById('nombreMascota');
-        const selectTamano = document.getElementById('tamanoMascota');
         const selectGroomer = document.getElementById('nombreGroomer');
         const selectServicio = document.getElementById('nombreServicio');
         const inputFecha = document.getElementById('fechaReserva');
         const selectHora = document.getElementById('horaReserva');
 
-        if (!selectMascota || !selectTamano || !selectGroomer || !selectServicio || !inputFecha || !selectHora) {
+        if (!selectMascota || !selectGroomer || !selectServicio || !inputFecha || !selectHora) {
             return false;
         }
 
         const nombreMascota = selectMascota.value.trim();
-        const tamanoMascota = selectTamano.value;
         const nombreGroomer = selectGroomer.value.trim();
         const nombreServicio = selectServicio.value.trim();
         const fechaReserva = inputFecha.value.trim();
@@ -56,10 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
             mostrarVal('nombreMascota', 'Por favor selecciona una mascota');
             return false;
         }
-        if (tamanoMascota === "") {
-            mostrarVal('tamanoMascota', 'Por favor selecciona el tamaño de la mascota');
-            return false;
-        }
+
         if (nombreGroomer === "") {
             mostrarVal('nombreGroomer', 'Por favor selecciona un groomer');
             return false;
@@ -83,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         procesarReserva({
             nombreMascota,
-            tamanoMascota,
             fechaReserva,
             horaReserva
         });
@@ -116,9 +110,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function fetchAutenticado(url, options = {}) {
         const token = obtenerToken();
-        console.log('=== fetchAutenticado DEBUG ===');
-        console.log('URL:', url);
-        console.log('Token:', token ? 'PRESENTE' : 'AUSENTE');
 
         const headers = {
             'Content-Type': 'application/json',
@@ -131,11 +122,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             const response = await fetch(url, { ...options, headers });
-            console.log('Response:', response.status, response.statusText);
 
             if (response.status === 403) {
                 const text = await response.text();
-
             }
 
             return response;
@@ -154,47 +143,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     async function obtenerUsuarioId() {
-        // 1. Intentar del localStorage primero
-        const usuarioIdStr = localStorage.getItem('usuarioId');
-        if (usuarioIdStr && usuarioIdStr !== 'undefined' && usuarioIdStr !== 'null') {
-            const id = parseInt(usuarioIdStr);
-            if (!isNaN(id) && id > 0) {
-                console.log("✅ UsuarioId de localStorage:", id);
-                return id;
-            }
+        const usuarioActivoStr = localStorage.getItem('usuarioActivo');
+
+        if (!usuarioActivoStr) return null;
+
+        try {
+            const usuarioActivo = JSON.parse(usuarioActivoStr);
+            return usuarioActivo.idUsuario || null;
+        } catch {
+            return null;
         }
-
-        // 2. Si no, buscar por email del JWT
-        const jwtStr = localStorage.getItem('jwt');
-        if (jwtStr) {
-            try {
-                const jwt = JSON.parse(jwtStr);
-                const email = jwt.usuario?.email;
-
-                if (email) {
-                    console.log("🔍 Buscando ID por email:", email);
-
-                    const response = await fetch(`${API_URL}/usuarios/email/${encodeURIComponent(email)}`, {
-                        headers: {
-                            'Authorization': `Bearer ${jwt.token}`
-                        }
-                    });
-
-                    if (response.ok) {
-                        const usuario = await response.json();
-                        console.log("✅ ID obtenido:", usuario.idUsuario);
-
-                        localStorage.setItem('usuarioId', usuario.idUsuario.toString());
-                        return usuario.idUsuario;
-                    }
-                }
-            } catch (e) {
-                console.error("Error:", e);
-            }
-        }
-
-        console.log("❌ No se pudo obtener usuarioId");
-        return null;
     }
 
     async function obtenerUsuarioIdPorEmail(email) {
@@ -224,6 +182,55 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    async function obtenerServicios() {
+        try {
+            const response = await fetch(`${API_URL}/servicio`);
+            if (response.ok) {
+                const servicios = await response.json();
+                return servicios;
+            } else {
+                console.log('Error obteniendo servicios:', response.status);
+                return [];
+            }
+        } catch (error) {
+            console.error('Error en obtenerServicios:', error);
+            return [];
+        }
+    }
+
+    async function obtenerGroomers() {
+        try {
+
+            const responseAuth = await fetchAutenticado(`${API_URL}/groomers`);
+
+            if (responseAuth.ok) {
+                const data = await responseAuth.json();
+                return data;
+            }
+
+            const response = await fetch(`${API_URL}/groomers`);
+
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            }
+
+            return [
+                { idGroomer: 1, nombre: 'Manuel', apellido: 'Miranda' },
+                { idGroomer: 2, nombre: 'Jorge', apellido: 'González' },
+                { idGroomer: 3, nombre: 'Sergio', apellido: 'Rincón' },
+                { idGroomer: 4, nombre: 'Sandra', apellido: 'López' },
+                { idGroomer: 5, nombre: 'Adriana', apellido: 'Ramírez' },
+                { idGroomer: 6, nombre: 'Diana', apellido: 'Ortega' }
+            ];
+
+        } catch (error) {
+            console.error('🚨 Error obtenerGroomers:', error);
+            return [];
+        }
+    }
+    //funciones para mostrar datos en el formulario
+
     async function cargarMascotasUsuario() {
         const usuarioId = await obtenerUsuarioId();
         if (!usuarioId) {
@@ -231,10 +238,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const mascotas = await obtenerMascotasUsuario(usuarioId);
-        console.log('📦 Mascotas obtenidas:', mascotas.length);
 
         if (mascotas.length === 0) {
-            console.log('ℹ️ No hay mascotas para mostrar');
+            console.log('No hay mascotas para mostrar');
             return;
         }
 
@@ -278,24 +284,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    async function obtenerServicios() {
-        try {
-            const response = await fetch(`${API_URL}/servicio`);
-            if (response.ok) {
-                const servicios = await response.json();
-                return servicios;
-            } else {
-                console.log('Error obteniendo servicios:', response.status);
-                return [];
-            }
-        } catch (error) {
-            console.error('Error en obtenerServicios:', error);
-            return [];
-        }
-    }
-
     async function cargarServicios() {
         try {
+            const selectServicio = document.getElementById('nombreServicio');
+
             const servicios = await obtenerServicios();
 
             if (!servicios || servicios.length === 0) {
@@ -303,7 +295,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            const selectServicio = document.getElementById('nombreServicio');
             if (!selectServicio) {
                 console.error('❌ Select de servicio no encontrado');
                 return;
@@ -332,39 +323,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    async function obtenerGroomers() {
-        try {
-            console.log('📡 Obteniendo groomers...');
-
-            const responseAuth = await fetchAutenticado(`${API_URL}/groomers`);
-
-            if (responseAuth.ok) {
-                const data = await responseAuth.json();
-                return data;
-            }
-
-            const response = await fetch(`${API_URL}/groomers`);
-
-            if (response.ok) {
-                const data = await response.json();
-                return data;
-            }
-
-            return [
-                { idGroomer: 1, nombre: 'Manuel', apellido: 'Miranda' },
-                { idGroomer: 2, nombre: 'Jorge', apellido: 'González' },
-                { idGroomer: 3, nombre: 'Sergio', apellido: 'Rincón' },
-                { idGroomer: 4, nombre: 'Sandra', apellido: 'López' },
-                { idGroomer: 5, nombre: 'Adriana', apellido: 'Ramírez' },
-                { idGroomer: 6, nombre: 'Diana', apellido: 'Ortega' }
-            ];
-
-        } catch (error) {
-            console.error('🚨 Error obtenerGroomers:', error);
-            return [];
-        }
-    }
-
     async function cargarGroomers() {
         try {
             const groomers = await obtenerGroomers();
@@ -386,6 +344,8 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error cargando groomers:', error);
         }
     }
+
+    // funciones para la reserva
 
     async function procesarReserva(datosReserva) {
         try {
@@ -477,16 +437,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const reservaGuardada = await response.json();
 
-
             mostrarAlerta('exito', '¡Reserva creada exitosamente!');
             limpiarFormulario();
-            await mostrarReservas();
+            await mostrarReservasUsuario();
 
         } catch (error) {
             mostrarAlerta('error', error.message);
         }
     }
 
+    //funcion para mostrar todas las reservas
     async function mostrarReservas() {
         try {
             const response = await fetchAutenticado(`${API_URL}/reservas`);
@@ -505,6 +465,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    //funcion para mostrar las card de las reservas del usuario
     async function mostrarReservasUsuario() {
         try {
             const usuarioId = await obtenerUsuarioId();
@@ -513,7 +474,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     '<div class="alert alert-warning">Debes iniciar sesión para ver tus reservas</div>';
                 return;
             }
-            console.log('👤 USUARIO: Obteniendo reservas para ID:', usuarioId);
 
             const response = await fetchAutenticado(`${API_URL}/reservas/usuario/${usuarioId}`);
 
@@ -589,6 +549,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+
+    //eliminar reserva
     document.addEventListener('click', async function (e) {
         const botonEliminar = e.target.closest('.eliminar-reserva');
 
@@ -649,6 +611,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+
+    //funciones de validacion y alertas
+
     function mostrarVal(id, mensaje) {
         const field = document.getElementById(id);
         const formFloating = field.closest('.form-floating');
@@ -666,7 +631,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.error-message').forEach(error => error.remove());
         document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
     }
-
+    // Alertas con SweetAlert
     function mostrarAlerta(tipo, mensaje, opciones = {}) {
         if (opciones.campoId) {
             const field = document.getElementById(opciones.campoId);
@@ -718,32 +683,10 @@ document.addEventListener('DOMContentLoaded', function () {
         Swal.fire(config);
     }
 
-    async function probarConexionBackend() {
-        try {
-            console.log('Probando conexión con el backend...');
-
-            const response = await fetch(`${API_URL}/servicio`);
-            console.log('Servicios disponibles:', response.ok ? 'CONECTADO' : 'ERROR');
-
-
-            const token = obtenerToken();
-            console.log('Token disponible:', token ? 'SÍ' : 'NO');
-
-            if (token) {
-                const usuarioId = await obtenerUsuarioId();
-                console.log('Usuario ID:', usuarioId);
-            }
-
-        } catch (error) {
-            console.error('Error en prueba de conexión:', error);
-        }
-    }
-
     function limpiarFormulario() {
         document.getElementById("formReserva").reset();
     }
-    
-    probarConexionBackend();
+
     cargarMascotasUsuario();
     cargarGroomers();
     cargarServicios();

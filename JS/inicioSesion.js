@@ -66,7 +66,6 @@ if (formInicioSesion) {
 
         console.log('✅ Datos de usuario recibidos:', usuario);
 
-
         const usuarioActivoData = {
           idUsuario: usuario.idUsuario,
           nombre: usuario.nombre,
@@ -76,8 +75,6 @@ if (formInicioSesion) {
 
         localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivoData));
         localStorage.setItem('jwt', JSON.stringify(data)); 
-        
-        console.log('⚠️ Usuario sin ID, se obtendrá después de la página de reservas');
 
         mostrarAlerta("<strong>¡Inicio de sesión exitoso!</strong>", "success");
 
@@ -96,7 +93,6 @@ if (formInicioSesion) {
     }
   });
 }
-
 
 function mostrarValidaciones(id, mensaje) {
   const field = document.getElementById(id);
@@ -119,7 +115,6 @@ function limpiarValidaciones() {
     .querySelectorAll(".is-invalid")
     .forEach((field) => field.classList.remove("is-invalid"));
 }
-
 
 function mostrarAlerta(mensaje, tipo) {
   const alertContainer = document.getElementById("alertContainer");
