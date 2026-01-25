@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (btnLogin && usuarioActivo?.nombre && jwt) {
     // Determinar si el usuario es administrador
-    const esAdmin = usuarioActivo.email === "german.cruz@email.com";    
+    const esAdmin = usuarioActivo.email === "german.cruz@email.com";
 
     // Generar el menú según el perfil del usuario
-    const opcionMenu = esAdmin 
+    const opcionMenu = esAdmin
       ? `<li>
           <a class="dropdown-item" href="../HTML/ADMIN/index.html" id="">
             Administración
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
             Mis reservas
           </a>
         </li>`;
-    
+
     btnLogin.outerHTML = `
       <div class="nav-item dropdown">
         <a class="boton-login dropdown-toggle d-flex align-items-center"
@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
           e.preventDefault();
           localStorage.removeItem("usuarioActivo");
           localStorage.removeItem("jwt");
+          localStorage.removeItem("usuarioId");
           window.location.href = "../index.html";
         });
       }
