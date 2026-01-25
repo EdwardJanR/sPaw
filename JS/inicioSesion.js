@@ -68,6 +68,7 @@ if (formInicioSesion) {
 
 
         const usuarioActivoData = {
+          idUsuario: usuario.idUsuario,
           nombre: usuario.nombre,
           apellido: usuario.apellido,
           email: usuario.email
