@@ -17,7 +17,6 @@ function inicializarFormateoPrecios() {
     camposPrecios.forEach(campoId => {
         const input = document.getElementById(campoId);
         
-        // ✅ FUNCIÓN AUXILIAR PARA FORMATEAR
         const formatearValor = (valor) => {
             // Remover todo excepto números
             valor = valor.replace(/\D/g, '');
@@ -35,12 +34,10 @@ function inicializarFormateoPrecios() {
             e.target.value = formatearValor(e.target.value);
         });
         
-        // ✅ AGREGADO: Evento change para capturar autocompletado del navegador
         input.addEventListener('change', function(e) {
             e.target.value = formatearValor(e.target.value);
         });
         
-        // ✅ AGREGADO: Detectar autocompletado del navegador con animationstart
         input.addEventListener('animationstart', function(e) {
             if (e.animationName === 'onAutoFillStart') {
                 setTimeout(() => {
@@ -64,7 +61,7 @@ function inicializarFormateoPrecios() {
     });
 }
 
-// ✅ FUNCIÓN AUXILIAR PARA OBTENER VALOR NUMÉRICO DE UN INPUT FORMATEADO
+// FUNCIÓN AUXILIAR PARA OBTENER VALOR NUMÉRICO DE UN INPUT FORMATEADO
 function obtenerValorNumerico(inputId) {
     const valor = document.getElementById(inputId).value;
     // Remover puntos y convertir a número
@@ -110,13 +107,6 @@ async function listarServicios() {
  
         todosLosServicios = await response.json();
         
-        // 🔍 DEBUG: Ver qué está devolviendo el backend
-        console.log('Servicios recibidos:', todosLosServicios);
-        if (todosLosServicios.length > 0) {
-            console.log('Primer servicio:', todosLosServicios[0]);
-            console.log('Imagen del primer servicio:', todosLosServicios[0].imagen);
-        }
-        
         mostrarServicios(todosLosServicios);
        
     } catch (error) {
@@ -156,28 +146,8 @@ function mostrarServicios(servicios) {
     servicios.forEach(s => {
         const id = s.idServicio || s.id;
 
-        // Manejar la imagen que viene como string base64
-        let imagenSrc = ''; 
-        if (s.imagen && s.imagen.length > 0) {
-            // Detectar si es string (base64) o array de bytes
-            if (typeof s.imagen === 'string') {
-                // Ya viene como base64 string del backend
-                let tipoImagen = 'jpeg';
-                if (s.imagen.startsWith('iVBORw0KGgo')) tipoImagen = 'png';
-                else if (s.imagen.startsWith('R0lGOD')) tipoImagen = 'gif';
-                else if (s.imagen.startsWith('UklGR')) tipoImagen = 'webp';
-                
-                imagenSrc = `data:image/${tipoImagen};base64,${s.imagen}`;
-            } else if (Array.isArray(s.imagen)) {
-                // Si viene como array de bytes, convertir a base64
-                const base64String = btoa(
-                    new Uint8Array(s.imagen).reduce((data, byte) => data + String.fromCharCode(byte), '')
-                );
-                imagenSrc = `data:image/jpeg;base64,${base64String}`;
-            }
-        }
+        let imagenSrc = s.imagen || ''; // Ya es una URL de Cloudinary
 
-        // Formatear precios con separadores de miles y decimales
         const formatearPrecio = (precio) => {
             if (!precio && precio !== 0) return '-';
             return new Intl.NumberFormat('es-CO', {
@@ -209,7 +179,7 @@ function mostrarServicios(servicios) {
             </td>
         `;
         contenedor.appendChild(fila);
-    });
+    });    
 }
 
 // Función para ver imagen en grande
@@ -225,7 +195,7 @@ function verImagenGrande(imagenSrc, nombre) {
     });
 }
 
-// ✅ FUNCIÓN PARA GUARDAR SERVICIO CON IMAGEN
+// FUNCIÓN PARA GUARDAR SERVICIO CON IMAGEN
 async function guardarServicio() {
     const form = document.getElementById('formServicios');
 
@@ -257,26 +227,39 @@ async function guardarServicio() {
         return;
     }
 
-    // 🔥 IMPORTANTE: Usar FormData para enviar archivos
-    const formData = new FormData();
-    formData.append('nombre', nombre);
-    formData.append('descripcion', descripcion);
-    formData.append('precioTamPequeno', precioTamPequeno);
-    formData.append('precioTamMediano', precioTamMediano);
-    formData.append('precioTamGrande', precioTamGrande);
-    
-    // Solo agregar imagen si se seleccionó
-    if (archivoImagen) {
-        console.log('Archivo seleccionado:', archivoImagen.name, 'Tipo:', archivoImagen.type, 'Tamaño:', archivoImagen.size);
-        formData.append('imagen', archivoImagen);
-    }
-
     try {
+        let imageUrl = null;
+
+        // Subir imagen a Cloudinary si existe
+        if (archivoImagen) {
+            mostrarAlerta("info", "Subiendo imagen...");
+            imageUrl = await subirImagenCloudinary(archivoImagen);
+            Swal.close();
+
+            if (!imageUrl) {
+                mostrarAlerta("error", "No se pudo subir la imagen. Intenta nuevamente.");
+                return;
+            }
+        }
+
+        // Enviar como FormData (tu backend usa @RequestParam)
+        const formData = new FormData();
+        formData.append('nombre', nombre);
+        formData.append('descripcion', descripcion);
+        formData.append('precioTamPequeno', precioTamPequeno);
+        formData.append('precioTamMediano', precioTamMediano);
+        formData.append('precioTamGrande', precioTamGrande);
+        
+        // ✅ Enviar la URL como string, NO como archivo
+        if (imageUrl) {
+            formData.append('imagen', imageUrl);
+        }
+
         const response = await fetch(`${API_URL}/crearConImagen`, {
             method: 'POST',
             headers: { 
                 'Authorization': `Bearer ${token}`
-                // ⚠️ NO incluir 'Content-Type' cuando usas FormData
+                // NO incluir 'Content-Type' cuando usas FormData
             },
             body: formData
         });
@@ -285,7 +268,6 @@ async function guardarServicio() {
             if (response.status === 403) {
                 mostrarAlerta('error', 'Sesión expirada. Por favor vuelve a iniciar sesión');
                 setTimeout(() => {
-                    // Redirigir al login o limpiar sesión
                     localStorage.removeItem('jwt');
                     window.location.reload();
                 }, 2000);
@@ -305,7 +287,94 @@ async function guardarServicio() {
     }
 }
 
-// ✅ FUNCIÓN PARA EDITAR SERVICIO
+// FUNCIÓN PARA ACTUALIZAR SERVICIO
+async function confirmarActualizacion() {
+    const form = document.getElementById('formServicios');
+    const idServicio = form.dataset.editando;
+
+    if (!idServicio) {
+        mostrarAlerta('error', 'No hay servicio seleccionado para actualizar');
+        return;
+    }
+
+    const nombre = document.getElementById('nombreServicio').value.trim();
+    const descripcion = document.getElementById('descripcionServicio').value.trim();
+    
+    const precioTamPequeno = obtenerValorNumerico('precioPequeno');
+    const precioTamMediano = obtenerValorNumerico('precioMediano');
+    const precioTamGrande = obtenerValorNumerico('precioGrande');
+    
+    const archivoImagen = document.getElementById('imgServicio').files[0];
+
+    if (!nombre || !descripcion || !precioTamPequeno || !precioTamMediano || !precioTamGrande) {
+        mostrarAlerta('error', 'Todos los campos son obligatorios');
+        return;
+    }
+
+    const jwtData = localStorage.getItem('jwt');
+    if (!jwtData) {
+        mostrarAlerta('error', 'Debes iniciar sesión');
+        return;
+    }
+
+    const { token } = JSON.parse(jwtData);
+
+    try {
+        let imageUrl = null;
+
+        // ✅ Subir nueva imagen si se seleccionó
+        if (archivoImagen) {
+            mostrarAlerta("info", "Subiendo imagen...");
+            imageUrl = await subirImagenCloudinary(archivoImagen);
+            Swal.close();
+
+            if (!imageUrl) {
+                mostrarAlerta("error", "No se pudo subir la imagen. Intenta nuevamente.");
+                return;
+            }
+        }
+
+        // ✅ Enviar como FormData (tu backend usa @RequestParam)
+        const formData = new FormData();
+        formData.append('nombre', nombre);
+        formData.append('descripcion', descripcion);
+        formData.append('precioTamPequeno', precioTamPequeno);
+        formData.append('precioTamMediano', precioTamMediano);
+        formData.append('precioTamGrande', precioTamGrande);
+        
+        // Solo incluir imagen si se subió una nueva
+        if (imageUrl) {
+            formData.append('imagen', imageUrl);
+        }
+
+        const response = await fetch(`${API_URL}/actualizarConImagen/${idServicio}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
+                // ⚠️ NO incluir 'Content-Type' cuando usas FormData
+            },
+            body: formData
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
+
+        mostrarAlerta('exito', 'Servicio actualizado correctamente');
+        
+        form.reset();
+        delete form.dataset.editando;
+        cambiarModoFormulario('crear');
+        listarServicios();
+
+    } catch (error) {
+        console.error('Error al actualizar:', error);
+        mostrarAlerta('error', 'Error al actualizar: ' + error.message);
+    }
+}
+
+// FUNCIÓN PARA EDITAR SERVICIO
 async function editarServicio(id) {
     try {
         const jwtData = localStorage.getItem('jwt');
@@ -352,82 +421,8 @@ async function editarServicio(id) {
     }
 }
 
-// ✅ FUNCIÓN PARA ACTUALIZAR SERVICIO (CORREGIDA)
-async function confirmarActualizacion() {
-    const form = document.getElementById('formServicios');
-    const idServicio = form.dataset.editando;
 
-    if (!idServicio) {
-        mostrarAlerta('error', 'No hay servicio seleccionado para actualizar');
-        return;
-    }
-
-    const nombre = document.getElementById('nombreServicio').value.trim();
-    const descripcion = document.getElementById('descripcionServicio').value.trim();
-    
-    // Obtener valores numéricos sin formato
-    const precioTamPequeno = obtenerValorNumerico('precioPequeno');
-    const precioTamMediano = obtenerValorNumerico('precioMediano');
-    const precioTamGrande = obtenerValorNumerico('precioGrande');
-    
-    const archivoImagen = document.getElementById('imgServicio').files[0];
-
-    if (!nombre || !descripcion || !precioTamPequeno || !precioTamMediano || !precioTamGrande) {
-        mostrarAlerta('error', 'Todos los campos son obligatorios');
-        return;
-    }
-
-    const jwtData = localStorage.getItem('jwt');
-    if (!jwtData) {
-        mostrarAlerta('error', 'Debes iniciar sesión');
-        return;
-    }
-
-    const { token } = JSON.parse(jwtData);
-
-    // 🔥 CAMBIO IMPORTANTE: Usar FormData en lugar de JSON
-    const formData = new FormData();
-    formData.append('nombre', nombre);
-    formData.append('descripcion', descripcion);
-    formData.append('precioTamPequeno', precioTamPequeno);
-    formData.append('precioTamMediano', precioTamMediano);
-    formData.append('precioTamGrande', precioTamGrande);
-    
-    // Solo agregar imagen si se seleccionó una nueva
-    if (archivoImagen) {
-        formData.append('imagen', archivoImagen);
-    }
-
-    try {
-        // 🔥 CAMBIO IMPORTANTE: Usar endpoint /actualizarConImagen
-        const response = await fetch(`${API_URL}/actualizarConImagen/${idServicio}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`
-                // ⚠️ NO incluir 'Content-Type' cuando usas FormData
-            },
-            body: formData
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(errorText);
-        }
-
-        mostrarAlerta('exito', 'Servicio actualizado correctamente');
-        
-        form.reset();
-        delete form.dataset.editando;
-        cambiarModoFormulario('crear');
-        listarServicios();
-
-    } catch (error) {
-        console.error('Error al actualizar:', error);
-        mostrarAlerta('error', 'Error al actualizar: ' + error.message);
-    }
-}
-
-// ✅ FUNCIÓN PARA CANCELAR EDICIÓN
+// FUNCIÓN PARA CANCELAR EDICIÓN
 function cancelarEdicion() {
     const form = document.getElementById('formServicios');
     form.reset();
@@ -455,7 +450,7 @@ function cambiarModoFormulario(modo) {
     }
 }
 
-// ✅ FUNCIÓN PARA ELIMINAR SERVICIO
+// FUNCIÓN PARA ELIMINAR SERVICIO
 async function eliminarServicio(idServicio, nombreServicio) {
     // Confirmación antes de eliminar
     const confirmacion = await mostrarAlerta(
@@ -507,7 +502,7 @@ async function eliminarServicio(idServicio, nombreServicio) {
     }
 }
 
-// ✅ FUNCIÓN PARA MOSTRAR ALERTAS
+// FUNCIÓN PARA MOSTRAR ALERTAS
 function mostrarAlerta(tipo, mensaje, opciones = {}) {
     if (opciones.campoId) {
         const field = document.getElementById(opciones.campoId);
@@ -557,4 +552,37 @@ function mostrarAlerta(tipo, mensaje, opciones = {}) {
     if (opciones.titulo) config.title = opciones.titulo;
  
     Swal.fire(config);
+}
+
+
+async function subirImagenCloudinary(file) {
+  const CLOUD_NAME = "dehyt5u4e";
+  const UPLOAD_PRESET = "servicios_preset";
+
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", UPLOAD_PRESET);
+
+  const response = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+    {
+      method: "POST",
+      body: formData,
+    },
+  );
+
+  const data = await response.json();
+
+  if (data.error) {
+    console.error("Cloudinary error:", data.error);
+    return null;
+  }
+
+  return data.secure_url || data.url;
+}
+
+
+function limpiarAlertas() {
+  const alertContainer = document.getElementById("alertContainer");
+  alertContainer.innerHTML = "";
 }

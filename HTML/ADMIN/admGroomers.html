@@ -42,50 +42,47 @@
                 <form id="formGroomer" onsubmit="event.preventDefault();">
                     <div class="inputs-grid">
                         <div class="form-floating input-groomer">
-                            <input type="text" class="form-control entrada" id="nombreGroomer" placeholder="">
+                            <input type="text" class="form-control form-control-lg entrada" id="nombreGroomer" placeholder="Nombre">
                             <label for="nombreGroomer">Nombre</label>
                         </div>
 
                         <div class="form-floating input-groomer">
-                            <input type="text" class="form-control entrada" id="apellidoGroomer" placeholder="">
+                            <input type="text" class="form-control form-control-lg entrada" id="apellidoGroomer" placeholder="Apellido">
                             <label for="apellidoGroomer">Apellido</label>
                         </div>
 
                         <div class="form-floating input-groomer">
-                            <input type="tel" class="form-control entrada" id="telefonoGroomer" placeholder="">
+                            <input type="tel" class="form-control form-control-lg entrada" id="telefonoGroomer" placeholder="Teléfono">
                             <label for="telefonoGroomer">Teléfono</label>
                         </div>
 
                         <div class="form-floating input-groomer">
-                            <input type="email" class="form-control entrada" id="correoGroomer" placeholder="">
+                            <input type="email" class="form-control form-control-lg entrada" id="correoGroomer" placeholder="Correo">
                             <label for="correoGroomer">Correo</label>
                         </div>
                     </div>
 
-
-                    <div class="container text-center my-5 mb-3">
+                    <div class="text-center mt-4">
                         <div class="d-flex justify-content-center gap-3 flex-wrap">
-                            <!-- Botón para GUARDAR (crear nuevo) -->
-                            <button class="boton-login" type="button" onclick="guardarInformacion()"
-                                id="btnGuardar">
+                            <button class="boton-login" type="button" onclick="guardarInformacion()" id="btnGuardar">
                                 <i class="bi bi-plus-circle"></i> Guardar Groomer
                             </button>
 
-                            <!-- Botón para ACTUALIZAR (modificar existente) - Oculto por defecto -->
                             <button class="boton-login" type="button" onclick="confirmarActualizacion()"
                                 id="btnActualizar" style="display: none;">
                                 <i class="bi bi-pencil-square"></i> Actualizar Groomer
                             </button>
 
-                            <!-- Botón para CANCELAR edición -->
-                            <button class="boton-login" type="button" onclick="cancelarEdicion()"
-                                id="btnCancelar" style="display: none;">
+                            <button class="boton-login" type="button" onclick="cancelarEdicion()" id="btnCancelar"
+                                style="display: none;">
                                 <i class="bi bi-x-circle"></i> Cancelar
                             </button>
                         </div>
                     </div>
                 </form>
+
             </div>
+            <!-- Empieza Seccion botones y tablas -->
             <!-- Sección para listar Groomers -->
             <div class="controls-section w-100">
                 <div class="row justify-content-center align-items-center g-3">
@@ -124,6 +121,7 @@
                     </tbody>
                 </table>
             </div>
+            <!-- Termina Seccion botones y tablas -->
         </div>
     </main>
 
