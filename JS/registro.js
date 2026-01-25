@@ -519,3 +519,67 @@ document.addEventListener("click", (e) => {
         document.querySelectorAll(".size-bubble").forEach(b => b.style.display = "none");
     }
 });
+
+// Quitar mensaje de advertencia al diligenciar campos de formulario
+function validarCampo(campo) {
+  if (campo.checkValidity() && campo.value.trim() !== "") {
+    campo.classList.remove("is-invalid");
+    campo.classList.add("is-valid");
+
+    // elimina mensaje de error si existe
+    const error = campo
+      .closest(".form-floating")
+      ?.querySelector(".error-message");
+
+    if (error) error.remove();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. FORM Y CAMPOS
+  const form = document.querySelector('#formRegistro');
+  const ids = ["nombreUsuario", "apellidosUsuario", "correoUsuario", "contrasenaUsuario", "confirmarContraUsuario", "telefonoUsuario", "mascota1Usuario", "mascota2Usuario", "mascota3Usuario", "mascota4Usuario"];
+  const campos = ids.map(id => document.getElementById(id)).filter(Boolean);
+
+  // 2. Validación en tiempo real
+  campos.forEach(campo => {
+    campo.addEventListener("input", () => validarCampo(campo));
+    campo.addEventListener("change", () => validarCampo(campo));
+  });
+
+  // 3. SUBMIT - SOLO PRIMERA ALERTA
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    
+    // LIMPIAR TODOS los errores previos
+    campos.forEach(campo => {
+      campo.classList.remove("is-invalid", "is-valid");
+      const contenedor = campo.closest(".form-floating");
+      const error = contenedor?.querySelector(".error-message");
+      if (error) error.remove();
+    });
+    
+    // MOSTRAR SOLO PRIMERA ALERTA
+    for (const campo of campos) {
+      if (!campo.checkValidity() || campo.value.trim() === "") {
+        campo.classList.add("is-invalid");
+        
+        // Crear mensaje error
+        const contenedor = campo.closest(".form-floating");
+        let error = contenedor?.querySelector(".error-message");
+        if (!error) {
+          error = document.createElement("div");
+          error.className = "error-message invalid-feedback d-block";
+          error.textContent = campo.validationMessage || "Este campo es requerido";
+          contenedor.appendChild(error);
+        }
+        
+        campo.focus();
+        campo.scrollIntoView({ behavior: 'smooth' });
+        return; 
+      }
+    }
+    
+    form.submit();
+  });
+});
