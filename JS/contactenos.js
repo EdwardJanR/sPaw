@@ -94,3 +94,43 @@ function mostrarAlerta(tipo, mensaje) {
         setTimeout(() => alerta.remove(), 150);
     }, 5000);
 }
+
+// Germán
+// Quitar mensaje de advertencia al diligenciar campos de formulario
+function validarCampo(campo) {
+  if (campo.checkValidity() && campo.value.trim() !== "") {
+    campo.classList.remove("is-invalid");
+    campo.classList.add("is-valid");
+
+    // elimina mensaje de error si existe
+    const error = campo
+      .closest(".form-floating")
+      ?.querySelector(".error-message");
+
+    if (error) error.remove();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const campos = [
+    "nombre",
+    "apellido",
+    "email",
+    "telefono",
+    "mensaje"
+  ];
+
+  campos.forEach(id => {
+    const campo = document.getElementById(id);
+
+    if (!campo) return;
+
+    // Para inputs de texto y password
+    campo.addEventListener("input", () => validarCampo(campo));
+
+    // Por si alguno es select
+    campo.addEventListener("change", () => validarCampo(campo));
+  });
+
+});

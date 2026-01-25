@@ -13,11 +13,16 @@ document.addEventListener('DOMContentLoaded', function () {
         allowInput: false,
         disableMobile: false,
 
-
-        onChange: function (selectedDates, dateStr, instance) {
-
-            document.getElementById('fechaReserva').dispatchEvent(new Event('input'));
-            document.getElementById('fechaReserva').dispatchEvent(new Event('change'));
+        // Check verde al seleccionar fecha
+        onChange: function (selectedDates, dateStr) {
+            const fechaInput = document.getElementById("fechaReserva");
+            if (dateStr) {
+                fechaInput.classList.remove("is-invalid");
+                fechaInput.classList.add("is-valid");
+            } else {
+                fechaInput.classList.remove("is-valid");
+                fechaInput.classList.add("is-invalid");
+            }
         }
     });
 
@@ -700,3 +705,44 @@ function nuevaReserva() {
 
     seccion.scrollIntoView({ behavior: "smooth" });
 }
+
+// Germán
+// Quitar mensaje de advertencia al diligenciar campos de formulario
+function validarCampo(campo) {
+  if (campo.checkValidity() && campo.value.trim() !== "") {
+    campo.classList.remove("is-invalid");
+    campo.classList.add("is-valid");
+
+    // elimina mensaje de error si existe
+    const error = campo
+      .closest(".form-floating")
+      ?.querySelector(".error-message");
+
+    if (error) error.remove();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const campos = [
+    "nombreMascota",
+    "tamanoMascota",
+    "nombreGroomer",
+    "nombreServicio",
+    "fechaReserva",
+    "horaReserva"
+  ];
+
+  campos.forEach(id => {
+    const campo = document.getElementById(id);
+
+    if (!campo) return;
+
+    // Para inputs de texto y password
+    campo.addEventListener("input", () => validarCampo(campo));
+
+    // Por si alguno es select
+    campo.addEventListener("change", () => validarCampo(campo));
+  });
+
+});

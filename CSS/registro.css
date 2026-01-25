@@ -287,25 +287,6 @@ input[type="password"] {
     }
 }
 
-/* Conservar el color de texto y fondo en los campos del formulario */
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
-
-    -webkit-text-fill-color: #ffffff !important; /* texto blanco */
-    caret-color: #ffffff;
-
-    -webkit-box-shadow: 0 0 0 30px #2ab7ae inset !important;
-    box-shadow: 0 0 0 30px #2ab7ae inset !important;
-
-    background-color: #2ab7ae !important;
-
-    transition: background-color 9999s ease-in-out 0s;
-}
-
 .form-floating {
     position: relative;
 }
@@ -313,30 +294,23 @@ select:-webkit-autofill {
 /* advertencia de contraseña */
 .password-bubble {
     position: absolute;
-
-    bottom: calc(100% + 16px); 
+    bottom: calc(100% + 16px);
     left: 50%;
     transform: translateX(-50%);
-
     width: 220px;
     padding: 14px 16px;
-
     background: #ffffff;
     color: #333;
-
     border-radius: 16px;
     border: 1px solid rgba(0, 0, 0, 0.08);
-
     box-shadow:
         0 18px 40px rgba(0, 0, 0, 0.18),
         0 4px 10px rgba(0, 0, 0, 0.08);
 
     font-size: 13.5px;
     line-height: 1.45;
-
     display: none;
     z-index: 1000;
-
     animation: bubbleInTop 0.25s ease-out;
 }
 
@@ -380,4 +354,181 @@ select:-webkit-autofill {
     }
 }
 
+/* Inicio Burbuja de tamaño de perro */
+/* Burbuja de tamaño de mascota */
+/* .size-bubble {
+    display: none;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background-color: #2AB7AE;
+    color: #ffffff;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    width: 220px;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+} */
 
+.size-bubble {
+    position: absolute;
+    /* bottom: calc(90% + 16px); */
+    left: 50%;
+    top: -200%;
+    left: calc(80% + 16px);
+    /* transform: translateY(-50%); */
+    right: 1.2rem;
+    transform: translateX(-50%);
+    width: 10px;
+    padding: 14px 16px;
+    background: #ffffff;
+    color: #333;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.18),
+        0 4px 10px rgba(0, 0, 0, 0.08);
+
+    font-size: 13.5px;
+    line-height: 1.45;
+    display: none;
+    cursor: pointer;
+    pointer-events: none !important;
+    z-index: 1;
+    animation: bubbleInTop 0.25s ease-out;
+}
+
+
+.size-bubble::before {
+    content: "⚠️ Diferencias de tamaño";
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #f08e3a;
+}
+
+.size-bubble::after {
+    content: "";
+    position: absolute;
+
+    width: 14px;
+    height: 14px;
+
+    background: #ffffff;
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    left: 50%;
+    bottom: -7px;
+    transform: translateX(-50%) rotate(45deg);
+
+    box-shadow: -3px 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Fin Burbuja de tamaño de perro */
+
+/* Conservar el color de texto y fondo en los campos del formulario */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+
+    -webkit-text-fill-color: #ffffff !important;
+    /* texto blanco */
+    caret-color: #ffffff;
+
+    -webkit-box-shadow: 0 0 0 30px #2ab7ae inset !important;
+    box-shadow: 0 0 0 30px #2ab7ae inset !important;
+
+    background-color: #2ab7ae !important;
+
+    transition: background-color 9999s ease-in-out 0s;
+}
+.form-registro input,
+.form-registro select,
+.form-registro textarea {
+    color: #ffffff !important;
+    caret-color: #ffffff !important;
+}
+
+.form-registro input:focus,
+.form-registro select:focus,
+.form-registro textarea:focus {
+    color: #ffffff !important;
+    caret-color: #ffffff !important;
+}
+
+/* Validación Bootstrap */
+.form-registro .form-control.is-valid,
+.form-registro .form-control.is-invalid,
+.form-registro .form-select.is-valid,
+.form-registro .form-select.is-invalid {
+    color: #fff !important;
+    caret-color: #ffffff !important;
+}
+
+/* Separar password toggle de Iconos de validación de Bootstrap (Error/ Check) */
+
+.form-registro .form-floating {
+    position: relative !important;
+}
+
+.form-registro .form-floating input[type="password"] {
+    padding-right: 5rem !important;
+    /* ← Espacio para toggle + check/error */
+}
+
+/* 3. TOGGLE PASSWORD - POSICIÓN FIJA (más a la derecha) */
+.form-registro .password-toggle {
+    right: 1.8rem center !important;
+    /* ← Toggle LEJOS del borde */
+    position: absolute !important;
+    top: 42% !important;
+    transform: translateY(-50%) !important;
+    /* ← CENTRA VERTICAL exacto */
+    bottom: 0.1rem;
+    width: 1.3rem !important;
+    /* Modificar la ubicación horizontal */
+    height: 2rem !important;
+    border: none !important;
+    background: transparent !important;
+    z-index: 10;
+}
+
+/* 4. ICONOS BOOTSTRAP VALIDACIÓN - Más cerca */
+.form-registro .form-floating input.is-valid {
+    background-position: right 2.4rem center !important;
+    /* ✓ Check */
+    top: 50% !important;
+}
+
+.form-registro .form-floating input.is-invalid {
+    background-position: right 2.4rem center !important;
+    /* ✗ Error */
+    top: 50% !important;
+}
+
+/*OJO EN ROJO CUANDO HAY ERROR*/
+.form-registro .form-control.is-invalid~.password-toggle {
+    color: #dc3545;
+}
+
+/* Icono de burbuja informativa de tamaño de perro */
+.form-registro .size-info-icon {
+    right: 1.8rem center !important;
+    /* ← Toggle LEJOS del borde */
+    position: absolute !important;
+    top: 42% !important;
+    transform: translateY(-50%) !important;
+    /* ← CENTRA VERTICAL exacto */
+    bottom: 0.1rem;
+    width: 3rem !important;
+    /* Modificar la ubicación horizontal */
+    height: 2rem !important;
+    border: none !important;
+    background: transparent !important;
+    z-index: 10;
+}
