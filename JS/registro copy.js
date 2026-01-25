@@ -1,20 +1,18 @@
 const API_URL = 'http://localhost:8080';
 let contadorMascotas = 1;
 const MAX_MASCOTAS = 4;
-let sizeBubbleTimeout = null;
 
 const input = document.getElementById("contrasenaUsuario");
 const bubble = document.getElementById("passwordBubble");
 let timeoutBubble = null;
 
+// Tiempo de retardo de burbuja de password
 if (input && bubble) {
     input.addEventListener("focus", () => {
         bubble.style.display = "block";
-
         if (timeoutBubble) {
             clearTimeout(timeoutBubble);
         }
-
         timeoutBubble = setTimeout(() => {
             bubble.style.display = "none";
         }, 10000);
@@ -22,52 +20,94 @@ if (input && bubble) {
 
     input.addEventListener("blur", () => {
         bubble.style.display = "none";
-
         if (timeoutBubble) {
             clearTimeout(timeoutBubble);
         }
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const btnRegistro = document.getElementById('btnRegistro');
+function validaciones() {
 
-    if (btnRegistro) {
-        btnRegistro.addEventListener('click', async function (e) {
-            e.preventDefault();
-            await validaciones();
-        });
+    limpiarValidaciones();
+
+    const nombreUsuario = document.getElementById("nombreUsuario").value.trim();
+    let apellidosUsuario = document.getElementById("apellidosUsuario").value.trim();
+    let correoUsuario = document.getElementById("correoUsuario").value.trim();
+    let contrasenaUsuario = document.getElementById("contrasenaUsuario").value.trim();
+    let confirmarContraUsuario = document.getElementById("confirmarContraUsuario").value.trim();
+    let telefonoUsuario = document.getElementById("telefonoUsuario").value.trim();
+    let mascota1Usuario = document.getElementById("mascota1Usuario").value.trim();
+    let mascota2Usuario = document.getElementById("mascota2Usuario").value.trim();
+    let mascota3Usuario = document.getElementById("mascota3Usuario").value.trim();
+    let mascota4Usuario = document.getElementById("mascota4Usuario").value.trim();
+
+    if (nombreUsuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombreUsuario)) {
+        mostrarValidaciones('nombreUsuario','El nombre debe ser alfabético y mínimo de dos caracteres.');
+        return false;
     }
-    activarTogglePassword("contrasenaUsuario", "togglePassword1");
-    activarTogglePassword("confirmarContraUsuario", "togglePassword2");
-});
 
+    if (apellidosUsuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(apellidosUsuario)) {
+        mostrarValidaciones('apellidosUsuario','Los apellidos deben ser alfabéticos y mínimo de dos caracteres.');
+        return false;
+    }
 
-//Función que activa el icono para revisar el password
-function activarTogglePassword(inputId, toggleId) {
-    const input = document.getElementById(inputId);
-    const toggle = document.getElementById(toggleId);
+    if (!/^\d{10}$/.test(telefonoUsuario)) {
+        mostrarValidaciones('telefonoUsuario','El teléfono debe contener 10 dígitos.');
+        return false;
+    }
 
-    toggle.classList.add("bi-eye");
-    toggle.classList.remove("bi-eye-slash");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(correoUsuario)) {
+        mostrarValidaciones('correoUsuario','Por favor ingresa un email válido.');
+        return false;
+    }
 
-    toggle.addEventListener("click", () => {
-        const mostrando = input.type === "text";
+    const regexContrasena = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+    if (!regexContrasena.test(contrasenaUsuario)) {
+        mostrarValidaciones(
+            'contrasenaUsuario', 'La contraseña debe tener mínimo: 8 caracteres, incluir una mayúscula, una minúscula, un número y un caracter especial.');
+        return false;
+    }
 
-        if (mostrando) {
-            input.type = "password";
-            toggle.classList.remove("bi-eye-slash");
-            toggle.classList.add("bi-eye");
-        } else {
-            input.type = "text";
-            toggle.classList.remove("bi-eye");
-            toggle.classList.add("bi-eye-slash");
-        }
-    });
+    if (contrasenaUsuario !== confirmarContraUsuario) {
+        mostrarValidaciones('confirmarContraUsuario','Las contraseñas no coinciden.');
+        return false;
+    }
+
+    if (mascota1Usuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(mascota1Usuario)) {
+        mostrarValidaciones('mascota1Usuario','El nombre debe ser alfabético y mínimo de dos caracteres.');
+        return false;
+    }
+
+    mostrarAlerta('<strong>¡Éxito!</strong> Todos los campos son válidos. Enviando formulario...','success');
+            
+    registroUsuario();
+
+    setTimeout(() => {
+        document.getElementById('formRegistro').submit();
+    }, 1500);        
+
+    limpiarFormulario();
+
+    //Redirecciona el usuario a inicio de sesión
+    setTimeout(() => {
+      window.location.href = "../HTML/inicioSesion.html";
+    }, 3000);
+
+    return true;
 }
 
+// function mostrarValidaciones(id, mensaje) {
+//     const field = document.getElementById(id);
+//     const formFloating = field.closest('.form-floating');
+    
+//     const errorElement = document.createElement('div');
+//     errorElement.className = 'error-message text-danger mt-1 small';
+//     errorElement.textContent = mensaje;
+//     formFloating.appendChild(errorElement);  
+//     field.classList.add('is-invalid');
+// }
 
-//Función que realiza las validaciones de la información ingresada en el formulario
 function mostrarValidaciones(id, mensaje) {
     const field = document.getElementById(id);
     if (!field) return;
@@ -88,14 +128,45 @@ function mostrarValidaciones(id, mensaje) {
     field.classList.add('is-invalid');
 }
 
-//Función que deshabilita los mensajes de error en ingreso de datos en formulario
 function limpiarValidaciones() {
+
     document.querySelectorAll('.error-message').forEach(error => error.remove());
     document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
 }
 
+function mostrarAlerta(mensaje, tipo) {
+    const alertContainer = document.getElementById('alertContainer');
 
-//Función para limpiar campos del formulario
+    alertContainer.innerHTML = '';
+
+    const alerta = document.createElement('div');
+    alerta.className = `alert alert-${tipo} alert-dismissible fade show`;
+    alerta.role = 'alert';
+    alerta.innerHTML = `
+        <div class="d-flex align-items-center">
+            <div class="flex-grow-1">
+                ${mensaje}
+            </div>
+            <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    `;
+
+    alertContainer.appendChild(alerta);
+
+    if (tipo === 'success') {
+        setTimeout(() => {
+            if (alerta.parentNode === alertContainer) {
+                alerta.classList.remove('show');
+                setTimeout(() => {
+                    if (alerta.parentNode === alertContainer) {
+                        alerta.remove();
+                    }
+                }, 300);
+            }
+        }, 5000);
+    }
+}
+
 function limpiarFormulario() {
     const form = document.getElementById("formRegistro");
     if (form) {
@@ -115,8 +186,6 @@ function limpiarFormulario() {
     }
 }
 
-
-//Función que cuenta los campos habilitados con datos de la mascota
 function contarCamposMascota() {
     let count = 1;
     for (let i = 2; i <= contadorMascotas; i++) {
@@ -127,13 +196,11 @@ function contarCamposMascota() {
     return count;
 }
 
-
-//Función que habilita más campos para ingresar datos de mascota
 function agregarCampoMascota() {
     const camposActuales = contarCamposMascota();
 
     if (camposActuales >= MAX_MASCOTAS) {
-        mostrarAlerta('info', `Límite alcanzado:</strong> Solo puedes registrar hasta 4 mascotas.`);
+        mostrarAlerta('<strong>Límite alcanzado:</strong> Solo puedes registrar hasta 4 mascotas.', 'warning');
         return;
     }
 
@@ -147,22 +214,11 @@ function agregarCampoMascota() {
     nuevoDiv.id = `mascotaContainer${contadorMascotas}`;
 
     nuevoDiv.innerHTML = `
-       <div class="form-floating w-100 w-md-50 m-3">
+        <div class="form-floating w-100 w-md-50 m-3">
             <input type="text" class="form-control entrada" id="mascota${contadorMascotas}Usuario" placeholder="">
-            <label for="mascota${contadorMascotas}Usuario">Nombre de tu mascota</label>
+            <label for="mascota${contadorMascotas}Usuario">Ingresa el nombre de tu mascota (opcional)</label>
         </div>
-
-        <div class="form-floating w-100 w-md-40 m-3">
-            <select class="form-select entrada" id="tamanoMascota${contadorMascotas}">
-                <option value="" disabled selected>Selecciona tamaño</option>
-                <option value="Pequeno">Pequeño</option>
-                <option value="Mediano">Mediano</option>
-                <option value="Grande">Grande</option>
-            </select>
-            <label for="tamanoMascota${contadorMascotas}">Tamaño</label>
-        </div>
-
-                <div class="w-100 w-md-50 m-3 d-flex align-items-center justify-content-center justify-content-md-start">
+        <div class="w-100 w-md-50 m-3 d-flex align-items-center justify-content-center justify-content-md-start">
             <button type="button" class="btn-eliminar-mascota" onclick="eliminarCampoMascota(${contadorMascotas})">
                 <i class="bi bi-trash"></i> Eliminar
             </button>        
@@ -179,8 +235,6 @@ function agregarCampoMascota() {
     }
 }
 
-
-//Función que elimina un campos para ingresar datos de mascota
 function eliminarCampoMascota(numero) {
     const container = document.getElementById(`mascotaContainer${numero}`);
     if (container) {
@@ -193,8 +247,6 @@ function eliminarCampoMascota(numero) {
     }
 }
 
-
-//Función que valida la información ingresada en los campos del formulario
 async function validaciones() {
     limpiarValidaciones();
 
@@ -271,12 +323,15 @@ async function validaciones() {
         return false;
     }
 
+
     const btnRegistro = document.getElementById('btnRegistro');
     const textoOriginal = btnRegistro.innerHTML;
     btnRegistro.disabled = true;
     btnRegistro.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registrando...';
 
     try {
+        mostrarAlerta('<strong>Registrando usuario...</strong>', 'info');
+
         const usuarioGuardado = await registrarUsuarioBackend({
             nombre: nombreUsuario,
             apellido: apellidosUsuario,
@@ -294,10 +349,26 @@ async function validaciones() {
         }
 
         if (mascota1Usuario.length > 0) {
+            mostrarAlerta('<strong>Usuario registrado. Guardando mascotas...</strong>', 'info');
+
             const mascotasGuardadas = await guardarMascotasParaUsuario(usuarioId);
-            mostrarAlerta('exito', `Usuario <strong>${nombreUsuario} ${apellidosUsuario}</strong> creado exitosamente.<br>Email: <strong>${correoUsuario}</strong>.<br>Mascotas registradas: <strong>${mascotasGuardadas}</strong`);
+
+            mostrarAlerta(
+                `<strong>¡Registro exitoso!</strong><br>
+                Usuario: ${nombreUsuario} ${apellidosUsuario}<br>
+                Email: ${correoUsuario}<br>
+                Mascotas registradas: ${mascotasGuardadas}<br>
+                <small>Redirigiendo a inicio de sesión...</small>`,
+                'success'
+            );
         } else {
-            mostrarAlerta('exito', `Usuario <strong>${nombreUsuario} ${apellidosUsuario}</strong> creado exitosamente.<br>Email: <strong>${correoUsuario}</strong>.<br>Mascotas registradas: <strong>${mascotasGuardadas}</strong`);
+            mostrarAlerta(
+                `<strong>¡Registro exitoso!</strong><br>
+                Usuario: ${nombreUsuario} ${apellidosUsuario}<br>
+                Email: ${correoUsuario}<br>
+                <small>Redirigiendo a inicio de sesión...</small>`,
+                'success'
+            );
         }
 
         limpiarFormulario();
@@ -308,7 +379,7 @@ async function validaciones() {
 
     } catch (error) {
         console.error('Error en el registro:', error);
-        mostrarAlerta('error', `<strong>Error de registro:</strong> ${error.message}`);
+        mostrarAlerta(`<strong>Error de registro:</strong> ${error.message}`, 'danger');
 
         btnRegistro.disabled = false;
         btnRegistro.innerHTML = textoOriginal;
@@ -317,61 +388,6 @@ async function validaciones() {
     return true;
 }
 
-
-//Función para activar la ventana de alerta
-function mostrarAlerta(tipo, mensaje, opciones = {}) {
-    if (opciones.campoId) {
-        const field = document.getElementById(opciones.campoId);
-        if (!field) return;
-        const formFloating = field.closest('.form-floating');
-        const errorElement = document.createElement('div');
-        errorElement.className = 'error-message text-danger mt-1 small';
-        errorElement.textContent = mensaje;
-        formFloating.appendChild(errorElement);
-        field.classList.add('is-invalid');
-        return;
-    }
-
-    if (tipo === 'confirmar') {
-        return Swal.fire({
-            icon: 'warning',
-            title: '¿Confirmar?',
-            html: mensaje,
-            showCancelButton: true,
-            confirmButtonColor: '#e97502',
-            cancelButtonColor: '#2ab7ae',
-            confirmButtonText: opciones.botonConfirmar || 'Sí',
-            cancelButtonText: 'Cancelar'
-        });
-    }
-
-    const config = {
-        html: mensaje,
-        confirmButtonColor: '#e97502'
-    };
-
-    if (tipo === 'exito') {
-        config.icon = 'success';
-        config.title = '¡Éxito!';
-        config.timer = opciones.duracion || 2000;
-        config.showConfirmButton = false;
-        config.timerProgressBar = true;
-    } else if (tipo === 'error') {
-        config.icon = 'error';
-        config.title = 'Error';
-        config.confirmButtonText = 'Entendido';
-    } else if (tipo === 'info') {
-        config.icon = 'info';
-        config.title = 'Información';
-    }
-
-    if (opciones.titulo) config.title = opciones.titulo;
-
-    Swal.fire(config);
-}
-
-
-//Función que registra usuario en backend
 async function registrarUsuarioBackend(datosUsuario) {
     try {
         console.log('Enviando datos de usuario:', datosUsuario);
@@ -432,8 +448,6 @@ async function registrarUsuarioBackend(datosUsuario) {
     }
 }
 
-
-//Función que obtiene el id del usuario por su email registrado
 async function obtenerIdUsuarioPorEmail(email) {
     try {
         const response = await fetch(`${API_URL}/usuarios`);
@@ -449,101 +463,70 @@ async function obtenerIdUsuarioPorEmail(email) {
     }
 }
 
+async function guardarMascotaParaUsuario(usuarioId, nombreMascota) {
+    try {
+        const mascotaData = {
+            nombreMascota: nombreMascota,
+        };
 
-//Función que guarda la mascota obligatoria para el usuario
-async function guardarMascotaParaUsuario(usuarioId, nombreMascota, tamanoMascota) {
-    const mascotaData = {
-        nombreMascota,
-        tamanoMascota
-    };
+        console.log(`Enviando mascota para usuario ${usuarioId}:`, mascotaData);
 
-    const response = await fetch(`${API_URL}/usuarios/${usuarioId}/mascotas`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(mascotaData)
-    });
+        const response = await fetch(`${API_URL}/usuarios/${usuarioId}/mascotas`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(mascotaData)
+        });
 
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText);
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Error del servidor al guardar mascota:', errorText);
+            throw new Error(`Error al guardar mascota: ${errorText}`);
+        }
+
+        const usuarioActualizado = await response.json();
+        console.log('Usuario actualizado con mascota:', usuarioActualizado);
+
+        return usuarioActualizado;
+
+    } catch (error) {
+        console.error('Error guardando mascota individual:', error);
+        throw error;
     }
-
-    return await response.json();
 }
 
-
-//Funcipón que guarda las mascotas opciones del usuario
 async function guardarMascotasParaUsuario(usuarioId) {
     let mascotasGuardadas = 0;
-    const mascotas = [];
 
+    const nombresMascotas = [];
     for (let i = 1; i <= contadorMascotas; i++) {
-        const nombreInput = document.getElementById(`mascota${i}Usuario`);
-        const tamanoSelect = document.getElementById(`tamanoMascota${i}`);
-
-        if (nombreInput && tamanoSelect) {
-            const nombreMascota = nombreInput.value.trim();
-            const tamanoMascota = tamanoSelect.value;
-
-            if (nombreMascota.length > 0 && tamanoMascota) {
-                mascotas.push({ nombreMascota, tamanoMascota });
+        const mascotaInput = document.getElementById(`mascota${i}Usuario`);
+        if (mascotaInput) {
+            const nombreMascota = mascotaInput.value.trim();
+            if (nombreMascota.length > 0) {
+                nombresMascotas.push(nombreMascota);
             }
         }
     }
 
-    console.log(`Guardando ${mascotas.length} mascotas para usuario ID:`, usuarioId);
+    console.log(`Guardando ${nombresMascotas.length} mascotas para usuario ID:`, usuarioId);
 
-    for (const mascota of mascotas) {
+    for (const nombreMascota of nombresMascotas) {
         try {
-            const resultado = await guardarMascotaParaUsuario(
-                usuarioId,
-                mascota.nombreMascota,
-                mascota.tamanoMascota
-            );
-
+            const resultado = await guardarMascotaParaUsuario(usuarioId, nombreMascota);
             if (resultado) {
                 mascotasGuardadas++;
-                console.log(`Mascota guardada: ${mascota.nombreMascota}`);
+                console.log(`Mascota guardada: ${nombreMascota}`);
             }
         } catch (error) {
-            console.error(`Error guardando mascota ${mascota.nombreMascota}:`, error);
+            console.error(`Error guardando mascota ${nombreMascota}:`, error);
         }
     }
 
     console.log(`Total mascotas guardadas: ${mascotasGuardadas}`);
     return mascotasGuardadas;
 }
-
-
-//Función que activa el bubble para especificar el rango de tamaños
-function toggleSizeBubble(bubbleId) {
-    const bubble = document.getElementById(bubbleId);
-    if (!bubble) return;
-
-    const isVisible = bubble.style.display === "block";
-
-    // Ocultar cualquier bubble abierta
-    document.querySelectorAll(".size-bubble").forEach(b => b.style.display = "none");
-
-    if (sizeBubbleTimeout) {
-        clearTimeout(sizeBubbleTimeout);
-    }
-
-    if (!isVisible) {
-        bubble.style.display = "block";
-
-        sizeBubbleTimeout = setTimeout(() => {
-            bubble.style.display = "none";
-        }, 10000);
-    }
-}
-
-// Cerrar al hacer click fuera
-document.addEventListener("click", (e) => {
-    if (!e.target.classList.contains("size-info-icon")) {
-        document.querySelectorAll(".size-bubble").forEach(b => b.style.display = "none");
-    }
-});
 
 // Germán
 // Quitar mensaje de advertencia al diligenciar campos de formulario
@@ -589,7 +572,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-// Mostrar sólo la primera alerta de validación
 form.addEventListener("submit", e => {
   e.preventDefault();
 
@@ -602,92 +584,45 @@ form.addEventListener("submit", e => {
   }
 });
 
-// **************
-document.addEventListener("DOMContentLoaded", () => {
-  // 1. FORM Y CAMPOS
-  const form = document.querySelector('#formRegistro');
-  const ids = ["nombreUsuario", "apellidosUsuario", "correoUsuario", "contrasenaUsuario", "confirmarContraUsuario", "telefonoUsuario", "mascota1Usuario", "mascota2Usuario", "mascota3Usuario", "mascota4Usuario"];
-  const campos = ids.map(id => document.getElementById(id)).filter(Boolean);
+// Password Cambio de icono de ojo a slash
+document.getElementById("mostrarPass1").addEventListener("click", function () {
+  const input = document.getElementById("contrasenaUsuario");
+  const icon = document.getElementById("togglePassword1");
 
-  // 2. Validación en tiempo real
-  campos.forEach(campo => {
-    campo.addEventListener("input", () => validarCampo(campo));
-    campo.addEventListener("change", () => validarCampo(campo));
-  });
+  const isPassword = input.type === "password";
 
-  // 3. SUBMIT - SOLO PRIMERA ALERTA
-  form.addEventListener("submit", e => {
-    e.preventDefault();
-    
-    // LIMPIAR TODOS los errores previos
-    campos.forEach(campo => {
-      campo.classList.remove("is-invalid", "is-valid");
-      const contenedor = campo.closest(".form-floating");
-      const error = contenedor?.querySelector(".error-message");
-      if (error) error.remove();
-    });
-    
-    // MOSTRAR SOLO PRIMERA ALERTA
-    for (const campo of campos) {
-      if (!campo.checkValidity() || campo.value.trim() === "") {
-        campo.classList.add("is-invalid");
-        
-        // Crear mensaje error
-        const contenedor = campo.closest(".form-floating");
-        let error = contenedor?.querySelector(".error-message");
-        if (!error) {
-          error = document.createElement("div");
-          error.className = "error-message invalid-feedback d-block";
-          error.textContent = campo.validationMessage || "Este campo es requerido";
-          contenedor.appendChild(error);
-        }
-        
-        campo.focus();
-        campo.scrollIntoView({ behavior: 'smooth' });
-        return; 
-      }
-    }
-    
-    form.submit();
-  });
+  // Cambiar tipo de input
+  input.type = isPassword ? "text" : "password";
+
+  // Cambiar icono 
+  icon.classList.toggle("bi-eye", !isPassword);
+  icon.classList.toggle("bi-eye-slash", isPassword);
 });
 
-// Validación tiempo real
-function validarCampo(campo) {
-  if (campo.checkValidity() && campo.value.trim() !== "") {
-    campo.classList.remove("is-invalid");
-    campo.classList.add("is-valid");
-    const error = campo.closest(".form-floating")?.querySelector(".error-message");
-    if (error) error.remove();
-  } else {
-    campo.classList.remove("is-valid");
-  }
+// Confirmar Password Cambio de icono de ojo a slash
+document.getElementById("mostrarPass2").addEventListener("click", function () {
+  const input = document.getElementById("confirmarContraUsuario");
+  const icon = document.getElementById("togglePassword2");
+
+  const isPassword = input.type === "password";
+
+  // Cambiar tipo de input
+  input.type = isPassword ? "text" : "password";
+
+  // Cambiar icono (ojo ↔ ojo con slash)
+  icon.classList.toggle("bi-eye", !isPassword);
+  icon.classList.toggle("bi-eye-slash", isPassword);
+});
+
+// Función de cambio de icono de ojo password (visible- no visible)
+function togglePassword(input, icon) {
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    }
 }
-
-//+++
-
-document.getElementById('btnRegistro').addEventListener('click', function(e) {
-  e.preventDefault();
-  
-  const form = document.getElementById('formRegistro');
-  const inputs = form.querySelectorAll('.entrada');
-  
-  // LIMPIAR errores previos
-  inputs.forEach(input => {
-    input.classList.remove('is-invalid');
-  });
-  
-  // MOSTRAR SOLO PRIMERA ALERTA
-  for (let input of inputs) {
-    if (!input.value.trim()) {
-      input.classList.add('is-invalid');
-      input.focus();
-      
-      // Scroll suave
-      input.scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
-  }
-});
-
-

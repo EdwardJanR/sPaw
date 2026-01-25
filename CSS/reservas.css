@@ -244,10 +244,12 @@ h3 {
   color: #2ab7ae;
 }
 
+/* Germán */
 .subtitulo1 {
   color: #2ab7ae;
   font-size: 23px;
 }
+/* Germán */
 
 .parrafo,
 p {
@@ -258,6 +260,7 @@ p {
   text-align: center;
 }
 
+/* Germán */
 /* Contenedor del formulario */
 .form-reserva {
     max-width: 400px;
@@ -332,7 +335,6 @@ p {
 
 #formReserva .form-select {
   background-repeat: no-repeat;
-  /* background-size: 1rem, 0.75rem; */
 }
 #formReserva .form-select {
   background-repeat: no-repeat;
@@ -363,7 +365,7 @@ button.pass-toggle-btn:active:focus {
 #formReserva textarea,
 #formReserva select {
   color: #fff !important;
-  caret-color: #fff; /* Color del puntero seleccionador */
+  caret-color: #fff !important; /* Color del puntero seleccionador */
 }
 
 /* Texto blanco de inputs en autofill */
@@ -373,7 +375,7 @@ button.pass-toggle-btn:active:focus {
 #formReserva textarea:-webkit-autofill,
 #formReserva select:-webkit-autofill {
   -webkit-text-fill-color: #fff !important;
-  caret-color: #fff;
+  caret-color: #fff !important;
   box-shadow: 0 0 0 30px #2ab7ae inset !important;
   background-color: #2ab7ae !important;
   transition: background-color 9999s ease-in-out 0s;

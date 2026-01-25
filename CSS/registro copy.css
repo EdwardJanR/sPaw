@@ -1,0 +1,411 @@
+
+/* Ocultar el ojo que trae el navegador */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+input[type="password"]::-webkit-textfield-decoration-container {
+    display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button {
+    display: none;
+}
+
+input[type="password"] {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+}
+
+
+.container-registro{
+    border: 0.5px dotted #9CECE6;
+    box-shadow: 2px 2px 20px rgba(240, 148, 58, 0.3);
+    background-color: #E6FAF9;
+}
+
+
+/* REGISTRO – INPUTS PROPORCIONALES */
+
+
+
+@media (min-width: 768px) {
+    .form-registro .column-form > .d-flex {
+        max-width: 900px;   
+        margin-left: auto;
+        margin-right: auto;
+        /* width: 80%;
+        height: 62px;
+        margin: 0 auto; */
+    }
+    .form-registro .error-message {
+        bottom: -18px;
+    }
+    .form-registro .password-toggle {
+        bottom: 0.55rem;
+    }
+}
+
+@media (max-width: 576px) {
+  .error-message {
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+  }
+}
+
+
+/* Altura  */
+.form-registro .form-floating > .form-control {
+    height: 38px !important;
+    padding-top: 1.1rem !important;
+    padding-bottom: 0.25rem !important;
+}
+
+/*  OCULTAR ICONO ERROR BOOTSTRAP */
+.form-registro .form-control.is-invalid {
+    background-image: none !important;
+}
+
+.form-registro .form-floating {
+    position: relative;
+    height: 72px;
+}
+
+/* INPUT */
+.form-registro .form-floating > .form-control {
+    height: 38px !important;
+    padding-top: 1.1rem !important;
+    padding-bottom: 0.25rem !important;
+    padding-right: 70px !important; 
+}
+
+/*FLOATING ACTIVO */
+.form-registro .form-floating > .form-control:focus,
+.form-registro .form-floating > .form-control:not(:placeholder-shown) {
+    padding-top: 1.35rem !important;
+}
+
+.form-registro .password-toggle {
+    position: absolute;
+    right: 15px;
+    bottom: 0.1rem; 
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 5;
+    color: #FFFFFF;
+    color: #FFF;
+}
+
+/* OJO PASSWORD */
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/* OJO BLANCO */
+.form-registro .form-control ~ .password-toggle {
+    color: #FFF;
+}
+
+/*OJO EN ROJO CUANDO HAY ERROR*/
+.form-registro .form-control.is-invalid ~ .password-toggle {
+    color: #dc3545;
+}
+
+.pass-toggle-btn,
+.pass-toggle-btn:focus,
+.pass-toggle-btn:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.password-toggle {
+   outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important; 
+}
+.pass-toggle-btn:focus-visible {
+  outline: none;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+/* MENSAJE ERROR */
+.form-registro .error-message {
+    position: absolute;
+    left: 0;
+    top: 78%;          
+    margin-top: 6px;    
+    font-size: 0.81rem;
+    color: #dc3545;
+    line-height: 1.2;
+}
+
+/* === ESTILOS PERSONALIZADOS PARA BOTONES === */
+
+/* Botón "Agregar otra mascota" - estilo outline con colores de la paleta */
+.btn-agregar-mascota {
+    background-color: transparent;
+    border: 2px solid #2AB7AE;
+    color: #2AB7AE;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 600;
+    padding: 8px 20px;
+    font-size: 1rem;
+    border-radius: 40px;
+    transition: 0.3s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.btn-agregar-mascota:hover {
+    background-color: #2AB7AE;
+    color: #ffffff;
+    border-color: #2AB7AE;
+}
+
+.btn-agregar-mascota:active,
+.btn-agregar-mascota:focus {
+    background-color: #249d95;
+    border-color: #249d95;
+    color: #ffffff;
+    outline: none;
+}
+
+/* Botón "Eliminar" - estilo con naranja de la paleta */
+.btn-eliminar-mascota {
+    background-color: #f08e3a;
+    border: 2px solid #f08e3a;
+    color: #1e2a2a;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 600;
+    padding: 8px 20px;
+    font-size: 1rem;
+    border-radius: 40px;
+    transition: 0.3s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.btn-eliminar-mascota:hover {
+    background-color: #e97502;
+    border-color: #e97502;
+    color: #ffffff;
+}
+
+.btn-eliminar-mascota:active,
+.btn-eliminar-mascota:focus {
+    background-color: #d06802;
+    border-color: #d06802;
+    color: #ffffff;
+    outline: none;
+}
+
+/* Icono dentro de los botones */
+.btn-agregar-mascota i,
+.btn-eliminar-mascota i {
+    margin-right: 0.4rem;
+    font-size: 1rem;
+}
+/* Password con check y botón de ojo */
+.form-floating input[type="password"].is-valid {
+  background-position: right 2.4rem center;
+  padding-right: 4.5rem; /* espacio para check + ojo */
+}
+
+.form-floating > .form-control:focus {
+  background-position: right 3.25rem center;
+}
+
+.pass-toggle-btn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+
+.pass-toggle-btn i {
+  line-height: 1;
+  font-size: 1.1rem;
+}
+
+.form-floating input[type="password"].is-valid,
+.form-floating input[type="password"].is-invalid {
+  background-image: none !important;
+  padding-right: 3.5rem !important;
+}
+
+.entrada.is-valid,
+.entrada.is-invalid {
+  background-image: none !important;
+  padding-right: 3.5rem !important;
+}
+
+.error-message {
+  margin-top: 0.35rem;
+  line-height: 1.2;
+}
+
+.form-floating {
+  transition: padding 0.2s ease;
+}
+
+/* Alineación vertical: centrar botones con el input de mascota */
+.form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center {
+    align-items: center !important;
+    min-height: 72px;
+    display: flex !important;
+    justify-content: flex-start !important; /* Alinear a la izquierda */
+}
+
+.form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center button {
+    margin-top: -17px; /* Ajuste para centrar con el input */
+}
+
+@media (max-width: 767px) {
+    .form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center {
+        min-height: 62px;
+        justify-content: center !important; /* En móvil centrado */
+    }
+    
+    .form-registro .column-form > div > .w-100.w-md-50.m-3.d-flex.align-items-center button {
+        margin-top: -12px;
+    }
+}
+
+/* Conservar el color de texto y fondo en los campos del formulario */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+
+    -webkit-text-fill-color: #ffffff !important; /* texto blanco */
+    caret-color: #ffffff;
+
+    -webkit-box-shadow: 0 0 0 30px #2ab7ae inset !important;
+    box-shadow: 0 0 0 30px #2ab7ae inset !important;
+
+    background-color: #2ab7ae !important;
+
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+.form-floating {
+    position: relative;
+}
+
+/* Inicio Burbuja de advertencia de contraseña */
+.password-bubble {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: calc(100% + 20px);
+    width: 220px;
+    padding: 14px 16px;
+    background: #ffffff;
+    color: #333;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.18),
+        0 4px 10px rgba(0, 0, 0, 0.08);
+    font-size: 13.5px;
+    line-height: 1.45;
+    display: none;
+    z-index: 1000;
+    animation: bubbleIn 0.25s ease-out;
+}
+
+.password-bubble::before {
+    content: "⚠️ Requisitos de contraseña";
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #f08e3a;
+}
+
+.password-bubble::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    right: -7px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ANIMACIÓN */
+@keyframes bubbleIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+/* Fin Burbuja de advertencia de contraseña */
+
+.form-registro input,
+.form-registro select,
+.form-registro textarea {
+  color: #ffffff !important;
+  caret-color: #ffffff;
+}
+
+.form-registro input:focus,
+.form-registro select:focus,
+.form-registro textarea:focus {
+  color: #ffffff !important;
+}
+
+/* Validación Bootstrap */
+.form-registro .form-control.is-valid,
+.form-registro .form-control.is-invalid,
+.form-registro .form-select.is-valid,
+.form-registro .form-select.is-invalid {
+  color: #fff !important;
+}
