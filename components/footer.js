@@ -16,7 +16,7 @@ class Footer extends HTMLElement {
                                 <i class="bi bi-envelope-fill info-icon"></i>
                                 <div>
                                     <h6 class="info-title">Correo</h6>
-                                    <p class="info-text mb-0">sPaw@gmail.com</p>
+                                    <p class="info-text mb-0">spaw@spaw.com</p>
                                 </div>
                             </div>
                             <!-- Teléfono -->
@@ -34,7 +34,7 @@ class Footer extends HTMLElement {
                                 <i class="bi bi-clock-fill info-icon"></i>
                                 <div>
                                     <h6 class="info-title">Horarios</h6>
-                                    <p class="info-text mb-0">Lun-Dom: 9:30AM - 6:30PM</p>
+                                    <p class="info-text mb-0">Lun-Dom: 8:00AM - 7:00PM</p>
                                 </div>
                             </div>
                             <!-- Dirección -->
