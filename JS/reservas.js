@@ -13,11 +13,16 @@ document.addEventListener('DOMContentLoaded', function () {
         allowInput: false,
         disableMobile: false,
 
-
-        onChange: function (selectedDates, dateStr, instance) {
-
-            document.getElementById('fechaReserva').dispatchEvent(new Event('input'));
-            document.getElementById('fechaReserva').dispatchEvent(new Event('change'));
+        // Check verde al seleccionar fecha
+        onChange: function (selectedDates, dateStr) {
+            const fechaInput = document.getElementById("fechaReserva");
+            if (dateStr) {
+                fechaInput.classList.remove("is-invalid");
+                fechaInput.classList.add("is-valid");
+            } else {
+                fechaInput.classList.remove("is-valid");
+                fechaInput.classList.add("is-invalid");
+            }
         }
     });
 
@@ -32,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     btnReservar.addEventListener('click', function (e) {
         e.preventDefault();
 
-        limpiarVal();
+        limpiarValidaciones();
 
         const selectMascota = document.getElementById('nombreMascota');
         const selectGroomer = document.getElementById('nombreGroomer');
@@ -51,25 +56,25 @@ document.addEventListener('DOMContentLoaded', function () {
         const horaReserva = selectHora.value.trim();
 
         if (nombreMascota === "" || nombreMascota === null) {
-            mostrarVal('nombreMascota', 'Por favor selecciona una mascota');
+            mostrarValidaciones('nombreMascota', 'Por favor selecciona una mascota');
             return false;
         }
 
         if (nombreGroomer === "") {
-            mostrarVal('nombreGroomer', 'Por favor selecciona un groomer');
+            mostrarValidaciones('nombreGroomer', 'Por favor selecciona un groomer');
             return false;
         }
         if (nombreServicio === "") {
-            mostrarVal('nombreServicio', 'Por favor selecciona un servicio');
+            mostrarValidaciones('nombreServicio', 'Por favor selecciona un servicio');
             return false;
         }
         if (fechaReserva === "") {
-            mostrarVal('fechaReserva', 'Por favor selecciona una fecha para la reserva');
+            mostrarValidaciones('fechaReserva', 'Por favor selecciona una fecha para la reserva');
             return false;
         }
 
         if (horaReserva < "08:00" || horaReserva > "18:00" || horaReserva === "") {
-            mostrarVal('horaReserva', 'Debe seleccionar una hora entre 08:00 AM y 06:00 PM');
+            mostrarValidaciones('horaReserva', 'Debe seleccionar una hora entre 08:00 AM y 06:00 PM');
             return false;
         }
 
@@ -234,54 +239,38 @@ document.addEventListener('DOMContentLoaded', function () {
     async function cargarMascotasUsuario() {
         const usuarioId = await obtenerUsuarioId();
         if (!usuarioId) {
+            console.log('Usuario no autenticado');
             return;
         }
 
         const mascotas = await obtenerMascotasUsuario(usuarioId);
 
-        if (mascotas.length === 0) {
+        if (!mascotas || mascotas.length === 0) {
             console.log('No hay mascotas para mostrar');
             return;
         }
 
-        const formFloating = document.querySelector('.form-floating:has(#nombreMascota)');
-        if (!formFloating) {
-            console.log('No se encontró contenedor form-floating');
+        const selectElement = document.getElementById('nombreMascota');
+
+        if (!selectElement) {
+            console.error('No se encontró el select de mascotas');
             return;
         }
 
-        let selectElement = document.getElementById('nombreMascota');
-
-        if (!selectElement || selectElement.tagName !== 'SELECT') {
-
-            const newSelect = document.createElement('select');
-            newSelect.id = 'nombreMascota';
-            newSelect.name = 'nombreMascota';
-            newSelect.className = 'form-select form-select-lg entrada';
-            newSelect.required = true;
-
-            if (selectElement) {
-                selectElement.parentNode.replaceChild(newSelect, selectElement);
-            } else {
-                const label = formFloating.querySelector('label[for="nombreMascota"]');
-                if (label) {
-                    formFloating.insertBefore(newSelect, label);
-                } else {
-                    formFloating.appendChild(newSelect);
-                }
-            }
-
-            selectElement = newSelect;
-        }
-
+        // Limpiar y llenar opciones
         selectElement.innerHTML = '<option value="" disabled selected></option>';
 
-        mascotas.forEach((mascota, index) => {
+        mascotas.forEach(mascota => {
             const option = document.createElement('option');
             option.value = mascota.idMascota;
             option.textContent = mascota.nombreMascota;
             selectElement.appendChild(option);
         });
+
+        // Configurar validación para este campo
+        selectElement.addEventListener('change', () => validarCampo(selectElement));
+
+        console.log(`✅ Cargadas ${mascotas.length} mascotas`);
     }
 
     async function cargarServicios() {
@@ -482,12 +471,23 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const reservasUsuario = await response.json();
-            console.log('📦 USUARIO: Reservas encontradas:', reservasUsuario.length);
 
             const contenedor = document.getElementById("servicio-reservado");
 
             if (!reservasUsuario || reservasUsuario.length === 0) {
-                contenedor.innerHTML = "<p class='text-muted'>No tienes reservas</p>";
+                contenedor.innerHTML = `
+                    <div class="col-12 text-center py-5 w-100">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <i class="bi bi-calendar-x display-1 text-muted mb-3"></i>
+                            <h4 class="text-muted mb-2">No tienes reservas</h4>
+                            <p class="text-muted mb-4">¡Agenda tu primera cita para consentir a             tu mascota!</p>
+                            <button class="boton-login" onclick="nuevaReserva()">Hacer mi primera           reserva</button>
+                        </div>
+                    </div>
+                `;
+
+                const boton = document.getElementById('btnReserva');
+                if (boton) boton.style.display = "none";
                 return;
             }
 
@@ -510,14 +510,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     `${reserva.groomer.nombre || ''} ${reserva.groomer.apellido || ''}`.trim() :
                     'Groomer no disponible';
 
-                // Formatear fecha
                 let fechaFormateada = '';
                 if (reserva.fecha) {
                     const [anio, mes, dia] = reserva.fecha.split('-');
                     fechaFormateada = `${dia}-${mes}-${anio}`;
                 }
 
-                // Formatear hora
                 let horaFormateada = reserva.horaInicio || '';
                 if (horaFormateada.includes(':')) {
                     horaFormateada = horaFormateada.substring(0, 5);
@@ -535,20 +533,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 contenedor.appendChild(card);
             });
 
-            console.log('✅ USUARIO: Total reservas mostradas:', reservasUsuario.length);
+            const boton = document.getElementById('btnReserva');
+            if (boton) {
+                boton.style.display = "block";
+                boton.textContent = "Hacer otra reserva";
+            };
+
 
         } catch (error) {
-            console.error('🚨 Error USUARIO cargando reservas:', error);
+
             const contenedor = document.getElementById("servicio-reservado");
             contenedor.innerHTML = `
             <div class="alert alert-danger">
                 <strong>Error:</strong> No se pudieron cargar tus reservas.
                 <small>${error.message}</small>
             </div>
-        `;
+            `;
         }
     }
-
 
     //eliminar reserva
     document.addEventListener('click', async function (e) {
@@ -598,7 +600,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const cardsRestantes = contenedor.querySelectorAll('reserva-card').length;
 
                     if (cardsRestantes === 0) {
-                        contenedor.innerHTML = '<p class="text-muted">No tienes reservas</p>';
+                        mostrarReservasUsuario();
                     }
                 }, 300);
             }
@@ -611,81 +613,81 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
     //funciones de validacion y alertas
 
-    function mostrarVal(id, mensaje) {
-        const field = document.getElementById(id);
-        const formFloating = field.closest('.form-floating');
-
-        const errorElement = document.createElement('div');
-        errorElement.className = 'error-message text-danger mt-1 small';
-        errorElement.textContent = mensaje;
-
-        formFloating.appendChild(errorElement);
-
-        field.classList.add('is-invalid');
-    }
-
-    function limpiarVal() {
-        document.querySelectorAll('.error-message').forEach(error => error.remove());
-        document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
-    }
-    // Alertas con SweetAlert
-    function mostrarAlerta(tipo, mensaje, opciones = {}) {
-        if (opciones.campoId) {
-            const field = document.getElementById(opciones.campoId);
-            if (!field) return;
+    /*     function mostrarVal(id, mensaje) {
+            const field = document.getElementById(id);
             const formFloating = field.closest('.form-floating');
+    
             const errorElement = document.createElement('div');
             errorElement.className = 'error-message text-danger mt-1 small';
             errorElement.textContent = mensaje;
+    
             formFloating.appendChild(errorElement);
+    
             field.classList.add('is-invalid');
-            return;
-        }
+        } */
 
-        if (tipo === 'confirmar') {
-            return Swal.fire({
-                icon: 'warning',
-                title: '¿Confirmar?',
+    /*     function limpiarVal() {
+            document.querySelectorAll('.error-message').forEach(error => error.remove());
+            document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
+        } */
+    // Alertas con SweetAlert
+    /*     function mostrarAlerta(tipo, mensaje, opciones = {}) {
+            if (opciones.campoId) {
+                const field = document.getElementById(opciones.campoId);
+                if (!field) return;
+                const formFloating = field.closest('.form-floating');
+                const errorElement = document.createElement('div');
+                errorElement.className = 'error-message text-danger mt-1 small';
+                errorElement.textContent = mensaje;
+                formFloating.appendChild(errorElement);
+                field.classList.add('is-invalid');
+                return;
+            }
+    
+            if (tipo === 'confirmar') {
+                return Swal.fire({
+                    icon: 'warning',
+                    title: '¿Confirmar?',
+                    html: mensaje,
+                    showCancelButton: true,
+                    confirmButtonColor: '#e97502',
+                    cancelButtonColor: '#2ab7ae',
+                    confirmButtonText: opciones.botonConfirmar || 'Sí',
+                    cancelButtonText: 'Cancelar'
+                });
+            }
+    
+            const config = {
                 html: mensaje,
-                showCancelButton: true,
-                confirmButtonColor: '#e97502',
-                cancelButtonColor: '#2ab7ae',
-                confirmButtonText: opciones.botonConfirmar || 'Sí',
-                cancelButtonText: 'Cancelar'
-            });
-        }
-
-        const config = {
-            html: mensaje,
-            confirmButtonColor: '#e97502'
-        };
-
-        if (tipo === 'exito') {
-            config.icon = 'success';
-            config.title = '¡Éxito!';
-            config.timer = opciones.duracion || 2000;
-            config.showConfirmButton = false;
-            config.timerProgressBar = true;
-        } else if (tipo === 'error') {
-            config.icon = 'error';
-            config.title = 'Error';
-            config.confirmButtonText = 'Entendido';
-        } else if (tipo === 'info') {
-            config.icon = 'info';
-            config.title = 'Información';
-        }
-
-        if (opciones.titulo) config.title = opciones.titulo;
-
-        Swal.fire(config);
-    }
+                confirmButtonColor: '#e97502'
+            };
+    
+            if (tipo === 'exito') {
+                config.icon = 'success';
+                config.title = '¡Éxito!';
+                config.timer = opciones.duracion || 2000;
+                config.showConfirmButton = false;
+                config.timerProgressBar = true;
+            } else if (tipo === 'error') {
+                config.icon = 'error';
+                config.title = 'Error';
+                config.confirmButtonText = 'Entendido';
+            } else if (tipo === 'info') {
+                config.icon = 'info';
+                config.title = 'Información';
+            }
+    
+            if (opciones.titulo) config.title = opciones.titulo;
+    
+            Swal.fire(config);
+        } */
 
     function limpiarFormulario() {
         document.getElementById("formReserva").reset();
     }
+
 
     cargarMascotasUsuario();
     cargarGroomers();
@@ -700,3 +702,33 @@ function nuevaReserva() {
 
     seccion.scrollIntoView({ behavior: "smooth" });
 }
+
+// Germán
+// Quitar mensaje de advertencia al diligenciar campos de formulario
+/* function validarCampo(campo) {
+    if (campo.checkValidity() && campo.value.trim() !== "") {
+        campo.classList.remove("is-invalid");
+        campo.classList.add("is-valid");
+
+        // elimina mensaje de error si existe
+        const error = campo
+            .closest(".form-floating")
+            ?.querySelector(".error-message");
+
+        if (error) error.remove();
+    }
+} */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const campos = [
+        "nombreMascota",
+        "nombreGroomer",
+        "nombreServicio",
+        "fechaReserva",
+        "horaReserva"
+    ];
+
+    inicializarValidacionCampos(campos);
+
+});

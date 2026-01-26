@@ -196,26 +196,26 @@ async function validaciones() {
     // Validar nombre
     if (nombreUsuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombreUsuario)) {
         mostrarValidaciones('nombreUsuario', 'El nombre debe ser alfabético y mínimo de dos caracteres.');
-        esValido = false;
+        return false;
     }
 
     // Validar apellidos
     if (apellidosUsuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(apellidosUsuario)) {
         mostrarValidaciones('apellidosUsuario', 'Los apellidos deben ser alfabéticos y mínimo de dos caracteres.');
-        esValido = false;
+        return false;
     }
 
     // Validar teléfono
     if (!/^\d{10}$/.test(telefonoUsuario)) {
         mostrarValidaciones('telefonoUsuario', 'El teléfono debe contener 10 dígitos.');
-        esValido = false;
+        return false;
     }
 
     // Validar email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(correoUsuario)) {
         mostrarValidaciones('correoUsuario', 'Por favor ingresa un email válido.');
-        esValido = false;
+        return false;
     }
 
     // Validar contraseña
@@ -225,30 +225,48 @@ async function validaciones() {
             'contrasenaUsuario',
             'La contraseña debe tener mínimo 8 caracteres, incluir mayúscula, minúscula, número y caracter especial.'
         );
-        esValido = false;
+        return false;
     }
 
     // Validar confirmación de contraseña
     if (contrasenaUsuario !== confirmarContraUsuario) {
         mostrarValidaciones('confirmarContraUsuario', 'Las contraseñas no coinciden.');
-        esValido = false;
+        return false;
     }
 
     // Validar mascotas
     const mascota1Usuario = document.getElementById("mascota1Usuario").value.trim();
     if (mascota1Usuario.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(mascota1Usuario)) {
         mostrarValidaciones('mascota1Usuario', 'Debes ingresar al menos el nombre de una mascota (mínimo 2 caracteres alfabéticos).');
-        esValido = false;
+        return false;
+    }
+
+    // Validar tamaño de mascota
+    const tamanoMascota1 = document.getElementById("tamanoMascota1").value;
+    if (!tamanoMascota1 || tamanoMascota1 === "") {
+        mostrarValidaciones('tamanoMascota1', 'Por favor selecciona el tamaño de tu mascota.');
+        return false;
     }
 
     // Validar mascotas adicionales
     for (let i = 2; i <= contadorMascotas; i++) {
         const mascotaInput = document.getElementById(`mascota${i}Usuario`);
-        if (mascotaInput) {
+        const tamanoInput = document.getElementById(`tamanoMascota${i}`);
+
+        if (mascotaInput && mascotaInput.value.trim().length > 0) {
+
             const valorMascota = mascotaInput.value.trim();
-            if (valorMascota.length > 0 && (valorMascota.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(valorMascota))) {
+            const valorTamano = tamanoInput ? tamanoInput.value : '';
+
+            if (valorMascota.length <= 2 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(valorMascota)) {
                 mostrarValidaciones(`mascota${i}Usuario`, 'El nombre debe ser alfabético y mínimo de dos caracteres.');
-                esValido = false;
+                return false;
+            }
+
+            if (!valorTamano || valorTamano === "") {
+                mostrarValidaciones(`tamanoMascota${i}`, 'Por favor selecciona el tamaño de la mascota.');
+
+                return false;
             }
         }
     }
@@ -303,7 +321,7 @@ async function validaciones() {
     return true;
 }
 
-function mostrarAlerta(tipo, mensaje, opciones = {}) {
+/* function mostrarAlerta(tipo, mensaje, opciones = {}) {
     if (opciones.campoId) {
         const field = document.getElementById(opciones.campoId);
         if (!field) return;
@@ -352,7 +370,7 @@ function mostrarAlerta(tipo, mensaje, opciones = {}) {
     if (opciones.titulo) config.title = opciones.titulo;
 
     Swal.fire(config);
-}
+} */
 
 async function registrarUsuarioBackend(datosUsuario) {
     try {
@@ -410,8 +428,6 @@ async function registrarUsuarioBackend(datosUsuario) {
         throw error;
     }
 }
-
-
 
 async function obtenerIdUsuarioPorEmail(email) {
     try {
@@ -518,4 +534,78 @@ document.addEventListener("click", (e) => {
     if (!e.target.classList.contains("size-info-icon")) {
         document.querySelectorAll(".size-bubble").forEach(b => b.style.display = "none");
     }
+});
+
+/* // Quitar mensaje de advertencia al diligenciar campos de formulario
+function validarCampo(campo) {
+  if (campo.checkValidity() && campo.value.trim() !== "") {
+    campo.classList.remove("is-invalid");
+    campo.classList.add("is-valid");
+
+    // elimina mensaje de error si existe
+    const error = campo
+      .closest(".form-floating")
+      ?.querySelector(".error-message");
+
+    if (error) error.remove();
+  }
+} */
+
+/* document.addEventListener("DOMContentLoaded", () => {
+  // 1. FORM Y CAMPOS
+    const form = document.querySelector('#formRegistro');
+    const ids = ["nombreUsuario", "apellidosUsuario", "correoUsuario", "contrasenaUsuario", "confirmarContraUsuario", "telefonoUsuario", "mascota1Usuario", "mascota2Usuario", "mascota3Usuario", "mascota4Usuario"];
+    const campos = ids.map(id => document.getElementById(id)).filter(Boolean);
+
+  // 2. Validación en tiempo real
+    campos.forEach(campo => {
+    campo.addEventListener("input", () => validarCampo(campo));
+    campo.addEventListener("change", () => validarCampo(campo));
+    });
+
+  // 3. SUBMIT - SOLO PRIMERA ALERTA
+    form.addEventListener("submit", e => {
+    e.preventDefault();
+    
+
+    campos.forEach(campo => {
+      campo.classList.remove("is-invalid", "is-valid");
+      const contenedor = campo.closest(".form-floating");
+      const error = contenedor?.querySelector(".error-message");
+      if (error) error.remove();
+    });
+    
+    // MOSTRAR SOLO PRIMERA ALERTA
+    for (const campo of campos) {
+      if (!campo.checkValidity() || campo.value.trim() === "") {
+        campo.classList.add("is-invalid");
+        
+        // Crear mensaje error
+        const contenedor = campo.closest(".form-floating");
+        let error = contenedor?.querySelector(".error-message");
+        if (!error) {
+          error = document.createElement("div");
+          error.className = "error-message invalid-feedback d-block";
+          error.textContent = campo.validationMessage || "Este campo es requerido";
+          contenedor.appendChild(error);
+        }
+        
+        campo.focus();
+        campo.scrollIntoView({ behavior: 'smooth' });
+        return; 
+      }
+    }
+    
+    form.submit();
+    });
+}); */
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const ids = [
+        "nombreUsuario", "apellidosUsuario", "correoUsuario",
+        "contrasenaUsuario", "confirmarContraUsuario", "telefonoUsuario",
+        "mascota1Usuario"
+    ];
+    inicializarValidacionCampos(ids);
 });

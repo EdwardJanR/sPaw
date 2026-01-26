@@ -3,15 +3,17 @@ const SPAWBK_API_URL = 'http://localhost:8080/auth';
 
 document.getElementById("mostrarPass").addEventListener("click", function () {
   const pass = document.getElementById("password");
-  const eyeIcon = document.getElementById("eyeIcon");
+  // const eyeIcon = document.getElementById("eyeIcon");
 
-  // cambia tipa de input
-  const type = pass.getAttribute("type") === "password" ? "text" : "password";
-  pass.setAttribute("type", type);
+  const eyeIcon = this.querySelector("i");
+  const isPassword = pass.type === "password";
+
+  // Cambiar tipo de input
+  pass.type = isPassword ? "text" : "password";
 
   // cambia el icono del ojo
-  eyeIcon.classList.toggle("bi-eye");
-  eyeIcon.classList.toggle("bi-eye-slash");
+  eyeIcon.classList.toggle("bi-eye", !isPassword);
+  eyeIcon.classList.toggle("bi-eye-slash", isPassword);
 });
 
 const formInicioSesion = document.getElementById('formInicioSesion');
@@ -31,9 +33,11 @@ if (formInicioSesion) {
       return;
     }
 
-    if (passwordUsuario.length < 8) {
-      mostrarValidaciones("password", "La contraseña debe tener mínimo 8 caracteres");
-      return;
+    const regexContrasena = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+    if (!regexContrasena.test(passwordUsuario)) {
+        mostrarValidaciones(
+            "password", "La contraseña debe tener mínimo: 8 caracteres, incluir una mayúscula, una minúscula, un número y un caracter especial.");
+        return false;
     }
 
     const submitBtn = this.querySelector('button[type="submit"]');
@@ -76,7 +80,7 @@ if (formInicioSesion) {
         localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivoData));
         localStorage.setItem('jwt', JSON.stringify(data)); 
 
-        mostrarAlerta("<strong>¡Inicio de sesión exitoso!</strong>", "success");
+        mostrarAlerta('exito', '<strong>¡Bienvenido a sPaw!</strong><br>Inicio de sesión exitoso.');
 
         setTimeout(() => {
           window.location.href = '../index.html';
@@ -94,7 +98,7 @@ if (formInicioSesion) {
   });
 }
 
-function mostrarValidaciones(id, mensaje) {
+/* function mostrarValidaciones(id, mensaje) {
   const field = document.getElementById(id);
   const formFloating = field.closest(".form-floating");
 
@@ -105,18 +109,18 @@ function mostrarValidaciones(id, mensaje) {
   formFloating.appendChild(errorElement);
 
   field.classList.add("is-invalid");
-}
+} */
 
-function limpiarValidaciones() {
+/* function limpiarValidaciones() {
   document
     .querySelectorAll(".error-message")
     .forEach((error) => error.remove());
   document
     .querySelectorAll(".is-invalid")
     .forEach((field) => field.classList.remove("is-invalid"));
-}
+} */
 
-function mostrarAlerta(mensaje, tipo) {
+/* function mostrarAlerta(mensaje, tipo) {
   const alertContainer = document.getElementById("alertContainer");
 
   const alerta = document.createElement("div");
@@ -134,8 +138,34 @@ function mostrarAlerta(mensaje, tipo) {
     alerta.classList.remove("show");
     setTimeout(() => alerta.remove(), 150);
   }, 3000);
-}
+} */
 
 function limpiarFormulario() {
   document.getElementById("formInicioSesion").reset();
 }
+
+// Quitar mensaje de advertencia al diligenciar campos de formulario
+/* function validarCampo(campo) {
+  if (campo.checkValidity() && campo.value.trim() !== "") {
+    campo.classList.remove("is-invalid");
+    campo.classList.add("is-valid");
+
+    // elimina mensaje de error si existe
+    const error = campo
+      .closest(".form-floating")
+      ?.querySelector(".error-message");
+
+    if (error) error.remove();
+  }
+} */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const campos = [
+    "email",
+    "password"
+  ];
+
+  inicializarValidacionCampos(campos);
+
+});

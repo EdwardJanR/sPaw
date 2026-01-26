@@ -26,11 +26,10 @@
                     <h2 class="text-center mb-2 section-title titulo" id="Contacto">Reserva ahora</h2>
                 </div>
                 <div class="container d-flex justify-content-around flex-column flex-lg-row">
-                    <div
-                        class="d-flex flex-column w-100 w-md-50 p-md-3 gap-1 order-2 order-md-1 text-center">
-                        <p class="subtitulo2 text-center my-3">Vamos a reservar ahora la cita para tu mascota</p>
+                    <div class="d-flex flex-column w-100 w-md-50 p-md-3 gap-1 order-2 order-md-1 text-center">
+                        <p class="subtitulo1 text-center my-3">Vamos a reservar ahora la cita para tu mascota</p>
 
-                        <form class="form-reserva mx-auto my-3" id="formReserva">
+                        <form class="form-reserva mx-auto my-3" id="formReserva" novalidate>
                             <!-- Nombre mascota -->
                             <div class="form-floating mb-3">
                                 <select class="form-select form-select-lg entrada" id="nombreMascota"
@@ -103,17 +102,23 @@
         ©2025 sPaw. Todos los derechos reservados
     </div>
 
-    <!--componentes-->
-    <script src="../components/reservaCard.js"></script>
-    <script src="../components/header.js"></script>
-    <script src="../components/footer.js"></script>
 
-    <!-- scripts -->
+    <!--Librerias-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+
+    <!--componentes-->
+    <script src="../components/reservaCard.js"></script>
+    <script src="../components/header.js"></script>
+    <script src="../components/footer.js"></script>
+
+
+    <!-- scripts -->
+    <script src="../JS/alertas.js"></script>
     <script src="../JS/reservas.js"></script>
     <script src="../JS/indexSesion.js"></script>
 
