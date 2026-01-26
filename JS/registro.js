@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
     activarTogglePassword("confirmarContraUsuario", "togglePassword2");
 });
 
-
 function activarTogglePassword(inputId, toggleId) {
     const input = document.getElementById(inputId);
     const toggle = document.getElementById(toggleId);
@@ -321,57 +320,6 @@ async function validaciones() {
     return true;
 }
 
-/* function mostrarAlerta(tipo, mensaje, opciones = {}) {
-    if (opciones.campoId) {
-        const field = document.getElementById(opciones.campoId);
-        if (!field) return;
-        const formFloating = field.closest('.form-floating');
-        const errorElement = document.createElement('div');
-        errorElement.className = 'error-message text-danger mt-1 small';
-        errorElement.textContent = mensaje;
-        formFloating.appendChild(errorElement);
-        field.classList.add('is-invalid');
-        return;
-    }
-
-    if (tipo === 'confirmar') {
-        return Swal.fire({
-            icon: 'warning',
-            title: '¿Confirmar?',
-            html: mensaje,
-            showCancelButton: true,
-            confirmButtonColor: '#e97502',
-            cancelButtonColor: '#2ab7ae',
-            confirmButtonText: opciones.botonConfirmar || 'Sí',
-            cancelButtonText: 'Cancelar'
-        });
-    }
-
-    const config = {
-        html: mensaje,
-        confirmButtonColor: '#e97502'
-    };
-
-    if (tipo === 'exito') {
-        config.icon = 'success';
-        config.title = '¡Éxito!';
-        config.timer = opciones.duracion || 2000;
-        config.showConfirmButton = false;
-        config.timerProgressBar = true;
-    } else if (tipo === 'error') {
-        config.icon = 'error';
-        config.title = 'Error';
-        config.confirmButtonText = 'Entendido';
-    } else if (tipo === 'info') {
-        config.icon = 'info';
-        config.title = 'Información';
-    }
-
-    if (opciones.titulo) config.title = opciones.titulo;
-
-    Swal.fire(config);
-} */
-
 async function registrarUsuarioBackend(datosUsuario) {
     try {
 
@@ -535,70 +483,6 @@ document.addEventListener("click", (e) => {
         document.querySelectorAll(".size-bubble").forEach(b => b.style.display = "none");
     }
 });
-
-/* // Quitar mensaje de advertencia al diligenciar campos de formulario
-function validarCampo(campo) {
-  if (campo.checkValidity() && campo.value.trim() !== "") {
-    campo.classList.remove("is-invalid");
-    campo.classList.add("is-valid");
-
-    // elimina mensaje de error si existe
-    const error = campo
-      .closest(".form-floating")
-      ?.querySelector(".error-message");
-
-    if (error) error.remove();
-  }
-} */
-
-/* document.addEventListener("DOMContentLoaded", () => {
-  // 1. FORM Y CAMPOS
-    const form = document.querySelector('#formRegistro');
-    const ids = ["nombreUsuario", "apellidosUsuario", "correoUsuario", "contrasenaUsuario", "confirmarContraUsuario", "telefonoUsuario", "mascota1Usuario", "mascota2Usuario", "mascota3Usuario", "mascota4Usuario"];
-    const campos = ids.map(id => document.getElementById(id)).filter(Boolean);
-
-  // 2. Validación en tiempo real
-    campos.forEach(campo => {
-    campo.addEventListener("input", () => validarCampo(campo));
-    campo.addEventListener("change", () => validarCampo(campo));
-    });
-
-  // 3. SUBMIT - SOLO PRIMERA ALERTA
-    form.addEventListener("submit", e => {
-    e.preventDefault();
-    
-
-    campos.forEach(campo => {
-      campo.classList.remove("is-invalid", "is-valid");
-      const contenedor = campo.closest(".form-floating");
-      const error = contenedor?.querySelector(".error-message");
-      if (error) error.remove();
-    });
-    
-    // MOSTRAR SOLO PRIMERA ALERTA
-    for (const campo of campos) {
-      if (!campo.checkValidity() || campo.value.trim() === "") {
-        campo.classList.add("is-invalid");
-        
-        // Crear mensaje error
-        const contenedor = campo.closest(".form-floating");
-        let error = contenedor?.querySelector(".error-message");
-        if (!error) {
-          error = document.createElement("div");
-          error.className = "error-message invalid-feedback d-block";
-          error.textContent = campo.validationMessage || "Este campo es requerido";
-          contenedor.appendChild(error);
-        }
-        
-        campo.focus();
-        campo.scrollIntoView({ behavior: 'smooth' });
-        return; 
-      }
-    }
-    
-    form.submit();
-    });
-}); */
 
 
 document.addEventListener("DOMContentLoaded", () => {

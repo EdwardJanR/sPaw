@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <a class="dropdown-item" href="../HTML/misReservas.html" id="">
             Mis reservas
           </a>
-        </li>`;
+        </li>
+        `;
 
     btnLogin.outerHTML = `
       <div class="nav-item dropdown">

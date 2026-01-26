@@ -46,65 +46,6 @@ function validaciones() {
     return true;
 }
 
-/* function mostrarVal(f, m) {
-    const field = document.getElementById(f);
-    const formFloating = field.closest('.form-floating');
-    
-    formFloating.classList.add('has-error');
-    
-    const errorElement = document.createElement('div');
-    errorElement.className = 'error-message';
-    errorElement.textContent = m;
-    
-    formFloating.appendChild(errorElement);
-    
-    field.classList.add('is-invalid');
-} */
-/* 
-function limpiarVal() {
-   
-    document.querySelectorAll('.error-message').forEach(error => error.remove());
-    document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
-    document.querySelectorAll('.has-error').forEach(container => container.classList.remove('has-error'));
-} */
-
-/* function mostrarAlerta(tipo, mensaje) {
-    const alertContainer = document.getElementById('alertContainer');
-            
-    const alerta = document.createElement('div');
-    alerta.className = `alert alert-${tipo} alert-dismissible fade show mt-3`;
-    alerta.role = 'alert';
-    alerta.innerHTML = `
-        ${mensaje}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    `;
-            
-    alertContainer.innerHTML = '';
-    alertContainer.appendChild(alerta);
-            
-
-    setTimeout(() => {
-        alerta.classList.remove('show');
-        setTimeout(() => alerta.remove(), 150);
-    }, 5000);
-} */
-
-// Germán
-// Quitar mensaje de advertencia al diligenciar campos de formulario
-/* function validarCampo(campo) {
-  if (campo.checkValidity() && campo.value.trim() !== "") {
-    campo.classList.remove("is-invalid");
-    campo.classList.add("is-valid");
-
-    // elimina mensaje de error si existe
-    const error = campo
-      .closest(".form-floating")
-      ?.querySelector(".error-message");
-
-    if (error) error.remove();
-  }
-} */
-
 document.addEventListener("DOMContentLoaded", () => {
 
     const campos = [

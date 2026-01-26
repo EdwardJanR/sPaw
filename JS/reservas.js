@@ -613,77 +613,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    //funciones de validacion y alertas
-
-    /*     function mostrarVal(id, mensaje) {
-            const field = document.getElementById(id);
-            const formFloating = field.closest('.form-floating');
-    
-            const errorElement = document.createElement('div');
-            errorElement.className = 'error-message text-danger mt-1 small';
-            errorElement.textContent = mensaje;
-    
-            formFloating.appendChild(errorElement);
-    
-            field.classList.add('is-invalid');
-        } */
-
-    /*     function limpiarVal() {
-            document.querySelectorAll('.error-message').forEach(error => error.remove());
-            document.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
-        } */
-    // Alertas con SweetAlert
-    /*     function mostrarAlerta(tipo, mensaje, opciones = {}) {
-            if (opciones.campoId) {
-                const field = document.getElementById(opciones.campoId);
-                if (!field) return;
-                const formFloating = field.closest('.form-floating');
-                const errorElement = document.createElement('div');
-                errorElement.className = 'error-message text-danger mt-1 small';
-                errorElement.textContent = mensaje;
-                formFloating.appendChild(errorElement);
-                field.classList.add('is-invalid');
-                return;
-            }
-    
-            if (tipo === 'confirmar') {
-                return Swal.fire({
-                    icon: 'warning',
-                    title: '¿Confirmar?',
-                    html: mensaje,
-                    showCancelButton: true,
-                    confirmButtonColor: '#e97502',
-                    cancelButtonColor: '#2ab7ae',
-                    confirmButtonText: opciones.botonConfirmar || 'Sí',
-                    cancelButtonText: 'Cancelar'
-                });
-            }
-    
-            const config = {
-                html: mensaje,
-                confirmButtonColor: '#e97502'
-            };
-    
-            if (tipo === 'exito') {
-                config.icon = 'success';
-                config.title = '¡Éxito!';
-                config.timer = opciones.duracion || 2000;
-                config.showConfirmButton = false;
-                config.timerProgressBar = true;
-            } else if (tipo === 'error') {
-                config.icon = 'error';
-                config.title = 'Error';
-                config.confirmButtonText = 'Entendido';
-            } else if (tipo === 'info') {
-                config.icon = 'info';
-                config.title = 'Información';
-            }
-    
-            if (opciones.titulo) config.title = opciones.titulo;
-    
-            Swal.fire(config);
-        } */
-
     function limpiarFormulario() {
         document.getElementById("formReserva").reset();
     }
@@ -702,22 +631,6 @@ function nuevaReserva() {
 
     seccion.scrollIntoView({ behavior: "smooth" });
 }
-
-// Germán
-// Quitar mensaje de advertencia al diligenciar campos de formulario
-/* function validarCampo(campo) {
-    if (campo.checkValidity() && campo.value.trim() !== "") {
-        campo.classList.remove("is-invalid");
-        campo.classList.add("is-valid");
-
-        // elimina mensaje de error si existe
-        const error = campo
-            .closest(".form-floating")
-            ?.querySelector(".error-message");
-
-        if (error) error.remove();
-    }
-} */
 
 document.addEventListener("DOMContentLoaded", () => {
 
