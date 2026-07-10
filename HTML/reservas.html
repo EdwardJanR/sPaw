@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas sPaw</title>
+    <link rel="stylesheet" href="../CSS/navFooter.css">
+    <link rel="stylesheet" href="../CSS/reservas.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg menu">
+            <div class="container-fluid d-flex align-items-center">
+                <a class="navbar-brand d-flex align-items-center" href="../index.html">
+                    <img class="logo" src="../IMG/logo-row-02.png" alt="logo-sPaw">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-4 pe-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./quienesSomos.html">Quienes somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./servicios.html">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./contactenos.html">Contáctanos</a>
+                        </li>
+                    </ul>
+                    <button class="boton-login">Perfil Usuario</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="d-flex flex-column align-items-center justify-content-center flex-grow-1">
+        <section class="reservas container justify-content-center flex-grow-1">
+            <div class="contacto d-flex flex-column align-items-center my-3 p-3 rounded-2">
+                <div class="container">
+                    <h2 class="text-center mb-2 section-title titulo" id="Contacto">Reserva ahora</h2>
+                </div>
+                <div class="container d-flex justify-content-around flex-column flex-md-row">
+                    <div
+                        class="d-flex flex-column w-100 w-md-50 p-md-3 justify-content-around gap-1 order-2 order-md-1">
+                        <h3 class="subtitulo text-center mt-3 mb-3">Vamos a reservar ahora la cita para tu mascota</h3>
+
+                        <form class="form-reserva" id="formReserva">
+                            <!-- Nombre mascota -->
+                            <div class="form-floating mb-2">
+                                <input type="text" class="form-control form-control-lg entrada" id="nombreMascota" name="nombreMascota"
+                                    placeholder=" ">
+                                <label for="nombreMascota">Escribe el nombre de tu mascota</label>
+                            </div>
+                            <!-- Tamaño mascota -->
+                            <div class="form-floating mb-2">
+                                <select class="form-select form-select-lg entrada" id="tamanoMascota"
+                                    name="tamanoMascota" required>
+                                    <option value="" disabled selected></option>
+                                    <option value="pequeño">Perro pequeño</option>
+                                    <option value="mediano">Perro mediano</option>
+                                    <option value="grande">Perro grande</option>
+                                </select>
+                                <label for="tamanoMascota">Selecciona el tamaño de tu mascota</label>
+                            </div>
+                            <!-- Groomer -->
+                            <div class="form-floating mb-2">
+                                <select class="form-select form-select-lg entrada" id="nombreGroomer"
+                                    name="nombreGroomer" required>
+                                    <option value="" disabled selected></option>
+                                    <option value="manuel">Manuel Miranda</option>
+                                    <option value="jorge">Jorge González</option>
+                                    <option value="sergio">Sergio Rincón</option>
+                                    <option value="sandra">Sandra López</option>
+                                    <option value="adriana">Adriana Ramírez</option>
+                                    <option value="diana">Diana Ortega</option>
+                                </select>
+                                <label for="nombreGroomer">Selecciona tu groomer favorito</label>
+                            </div>
+                            <!-- Servicio -->
+                            <div class="form-floating mb-2">
+                                <select class="form-select form-select-lg entrada" id="nombreServicio"
+                                    name="nombreServicio" required>
+                                    <option value="" disabled selected></option>
+                                    <option value="basico">Combo baño básico</option>
+                                    <option value="completo">Combo grooming completo</option>
+                                    <option value="antipulgas">Combo antipulgas total</option>
+                                    <option value="dental">Combo dental y limpieza de oídos</option>
+                                    <option value="deslanado">Combo deslanado básico</option>
+                                    <option value="express">Combo mantenimiento express</option>
+                                    <option value="hidratacion">Combo hidratación básica</option>
+                                    <option value="revision">Combo revisión y limpieza</option>
+                                    <option value="cachorro">Premium Combo cachorro (Primer Spaw)</option>
+                                    <option value="relajacion">Premium Combo Spaw Día de relajación</option>
+                                </select>
+                                <label for="nombreServicio">Selecciona un servicio</label>
+                            </div>
+                            <!-- Fecha -->
+                            <div class="form-floating mb-2">
+                                <input type="text" class="form-control form-control-lg entrada" id="fechaReserva" name="fechaReserva"
+                                placeholder=" "
+                                data-input required>
+                                <label for="fechaReserva">Selecciona una fecha</label>
+                            </div>
+                            <!-- Hora -->
+                            <div class="form-floating mb-2">
+                                <select class="form-select form-select-lg entrada" id="horaReserva" name="horaReserva"
+                                    required>
+                                    <option value="" disabled selected></option>
+                                    <option value="08:00">08:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="14:00">02:00 PM</option>
+                                    <option value="16:00">04:00 PM</option>
+                                    <option value="18:00">06:00 PM</option>
+                                </select>
+                                <label for="horaReserva">Selecciona una hora</label>
+                            </div>
+                            <!-- Botón -->
+                            <div class="form-floating d-flex justify-content-center">
+                                <button type="button" onclick="validarInfoReserva()"
+                                    class="boton-login">Reservar</button>
+                            </div>
+                        </form>
+                        <!-- Contenedor para alertas -->
+                        <div id="alertContainer"></div>
+                    </div>
+                    <div class="imagen-contacto w-100 w-md-50 p-md-3 order-1">
+                        <img class="img-contacto w-100" src="../IMG/spaw18.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="servicio-reservado" class="row-cols-2 text-center">
+        </section>
+    </main>
+    <footer class="footer-custom py-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <!-- Logo -->
+                <div class="col-md-4 d-flex justify-content-center justify-content-md-start mb-4 mb-md-0">
+                    <img src="../IMG/logo-03.png" class="footer-logo" alt="Logo sPaw">
+                </div>
+                <!-- Información  -->
+                <div class="col-md-8">
+                    <div class="row g-4 align-items-start">
+                        <!-- Correo -->
+                        <div class="col-12 col-md-5">
+                            <div class="info-item d-flex gap-3 mb-3">
+                                <i class="bi bi-envelope-fill info-icon"></i>
+                                <div>
+                                    <h6 class="info-title">Correo</h6>
+                                    <p class="info-text mb-0">sPaw@gmail.com</p>
+                                </div>
+                            </div>
+                            <!-- Teléfono -->
+                            <div class="info-item d-flex gap-3">
+                                <i class="bi bi-telephone-fill info-icon"></i>
+                                <div>
+                                    <h6 class="info-title">Teléfono</h6>
+                                    <p class="info-text mb-0">+57 3485784413</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Horarios -->
+                        <div class="col-12 col-md-5">
+                            <div class="info-item d-flex gap-3 mb-3">
+                                <i class="bi bi-clock-fill info-icon"></i>
+                                <div>
+                                    <h6 class="info-title">Horarios</h6>
+                                    <p class="info-text mb-0">Lun-Dom: 9:30AM - 6:30PM</p>
+                                </div>
+                            </div>
+                            <!-- Dirección -->
+                            <div class="info-item d-flex gap-3">
+                                <i class="bi bi-geo-alt-fill info-icon"></i>
+                                <div>
+                                    <h6 class="info-title">Dirección</h6>
+                                    <p class="info-text mb-0">Cra 21 #112 - 36, Bogotá, Colombia</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Redes -->
+                        <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-end">
+                            <div class="social-icons d-flex gap-3">
+                                <i class="bi bi-whatsapp"></i>
+                                <i class="bi bi-instagram"></i>
+                                <i class="bi bi-facebook"></i>
+                                <i class="bi bi-envelope-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-copy text-center py-2">
+        ©2025 sPaw. Todos los derechos reservados
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="../JS/reservas.js"></script>
+</body>
+
+</html>

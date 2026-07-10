@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.btn-servicios {
+  background: #f08e3a;
+  color: #1e2a2a;
+  font-weight: 700;
+  padding: 10px 10px;
+  border-radius: 40px;
+  font-size: 1.1rem;
+  transition: 0.3s;
+  border: none;
+  width: 150px;
+  justify-content: center;
+  text-align: center;
+}
+
+.btn-servicios:hover {
+  color: white;
+}
+
+.Básicos {
+
+  color: #1e2a2a;
+
+}
+
+.Premium {
+  color: #f08e3a;
+}
+
+
+.card-servicio-basico {
+  background-color: #2ab7ae;
+}
+
+.img-básicos {
+  width: 200px;
+}
+
+.card-servicio-premium {
+
+  background-color: #2ab7ae;
+
+}
+
+.lista-valores {
+  list-style: none;
+}
+
+.list-style {
+  width: 15px;
+  height: 15px;
+  padding-bottom: 5px;
+  padding-right: 2px;
+}
